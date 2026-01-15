@@ -7,6 +7,6 @@ function loadPartial(id, file) {
     .catch(err => console.error(`Error cargando ${file}`, err));
 }
 
-loadPartial("header", "partials/header.html");
-loadPartial("menu", "partials/menu.html");
-loadPartial("footer", "partials/footer.html");
+loadPartial("header", "../partials/header.html");
+loadPartial("menu", "../partials/menu.html");
+loadPartial("footer", "../partials/footer.html");
