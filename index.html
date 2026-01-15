@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Poemas</title>
+<link rel="stylesheet" href="style.css">
+
+<link rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+<div id="header"></div>
+
+<div id="menu"></div>
+
+
+<div class="crp">
+
+<h3>Una flor de abril a junio</h3>
+
+<div class="poema">
+Cierta primavera, en un pequeño pueblo,
+los pájaros fueron fieles testigos
+del nacimiento del retoño de una flor 
+que, al ritmo del viento, danzaba entre trigos,
+emanando un néctar de su interior.
+Humedecida por el rocío de primavera,
+se volvería el vínculo entre dos amigos.
+
+Brotó aquel año, por el mes de abril,
+y se guardó entre sus pétalos en junio.
+Dejó que pasara el invierno y su frío hostil,
+y quiso esconderse antes del verano
+y su caluroso infortunio.
+
+De no ser por el viejo molino,
+estaría sola en aquel pastizal.
+Pero, al ser tan bella como inusual,
+fue percibida por los ojos curiosos
+de un joven que huía del dolor
+y halló refugio en su callado hogar.
+Desde entonces, se volvió el cuidador,
+durante los días de abril a junio,
+de aquella tan solitaria flor.
+
+Aun cuando el verano fue más caliente,
+a la flor no le faltó agua para ser regada.
+Echó raíces y pudo obtener todo nutriente;
+el muchacho se encargó de cuidarla
+para que no escaseara de nada.
+
+Incluso la visitó encerrada en su capullo,
+procurándole todo el cuidado y la ternura.
+La flor se embellecía con paciencia y orgullo,
+y cuando él quiso verla florecer otra vez,
+halló a su lado otra tierna figura.
+
+Ya no estaba sola con el molino:
+una chica, con un encanto natural,
+posaba con la flor en un paisaje irreal.
+Belleza irresistible a esos ojos curiosos,
+que, perplejos, reflejaban signos de amor
+al ver que ambas tenían beldad a la par,
+y que ella, dulce, se refugiaba en su olor.
+Durante las vacaciones huyó del frío
+y encontró cobijo junto a la flor.
+
+Él se quiso acercar, ella lo vio a lo lejos;
+supieron los dos que buscaban lo mismo.
+Ella quiso arrancarla de raíz, sin complejos;
+él le enseñó el valor que podía tener
+si la dejaba florecer sin egoísmo.
+
+Desde ese momento, cada primavera,
+juntos iban a verla florecer nuevamente.
+Ella se fue en verano, él esperó que volviera,
+y regresó en abril, cuando la flor abrió.
+La flor aguardaba sutil y paciente. 
+
+Él esperaba por el mes de abril,
+y quería que junio se tardara en llegar,
+porque al ver la flor abrirse en ese lugar,
+era la señal para que esos ojos curiosos
+confirmaran que regresó su linda amistad.
+Y que, después de todas esas primaveras,
+pensó que tendría al fin la oportunidad
+de confesar que, además de la flor,
+allí brotó un amor de verdad.
+
+Esa primavera fue más fría, sin embargo;
+el viento traía consigo un sentimiento amargo,
+y el instante más breve se volvió tan largo,
+cuando tardó años en vez de estaciones.
+Y la espera del chico, ya sin emociones,
+terminó siendo duro letargo.
+
+La última vez que a la chica vio
+fue la última vez que la flor floreció.
+Desde entonces, nunca volvió a abrirse,
+ni con luna llena, un eclipse o interlunio,
+ni siquiera los días que transcurrieron
+entre los meses de abril a junio.
+</div>
+
+
+</div>
+
+<div id="footer"></div>
+
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+<script>
+  let scrollTimeout;
+
+  window.addEventListener("scroll", () => {
+    document.body.classList.add("scrolling");
+
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      document.body.classList.remove("scrolling");
+    }, 200);
+  });
+</script>
+
+<script src="js/loadPartials.js"></script>
+
+
+</body>
+
+</html>
+
