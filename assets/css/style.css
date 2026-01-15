@@ -141,7 +141,7 @@ h1 a {
     position: absolute;
     inset: 0; /* ocupa exactamente el menú */
 
-    background-image: url("menu/menu.png");
+    background-image: url("../img/menu/menu.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
@@ -158,7 +158,7 @@ h1 a {
     top: -35px;      /* sobresale hacia arriba */
     bottom: -35px;   /* sobresale hacia abajo */
 
-    background-image: url("menu/menu.png");
+    background-image: url("../img/menu/menu.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 
