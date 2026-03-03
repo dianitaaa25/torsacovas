@@ -13,10 +13,6 @@ wlan0
 
 
 
-token:
-
-username:
-dianitaaa25
 
 actualizar github:
 git add .
