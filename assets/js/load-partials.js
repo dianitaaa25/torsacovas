@@ -1,4 +1,4 @@
-const BASE_PATH = "/torsacovas/";
+const BASE_PATH = "/";
 
 function fixLinks(container) {
 
