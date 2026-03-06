@@ -20,19 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
 
-        // Reset formulario
         form.reset();
 
-        // Mostrar mensaje
         toast.classList.add("show");
 
-        // 🔊 Reproducir sonido
         if (sound) {
           sound.currentTime = 0;
           sound.play().catch(() => {});
         }
 
-        // Ocultar mensaje después de 3s
         setTimeout(() => {
           toast.classList.remove("show");
         }, 3000);
@@ -42,6 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error enviando formulario", error);
     }
 
-  }, true); // 👈 Capturing activado
+  }, true); 
 
 });

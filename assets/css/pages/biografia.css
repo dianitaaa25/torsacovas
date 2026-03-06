@@ -12,7 +12,6 @@
   clear: both;
 }
 
-/* Contenedor de la foto */
 .bio-foto {
   float: right;
   margin: 0 0 1rem 1.5rem;
@@ -23,7 +22,6 @@
   height: auto;
   border-radius: -6px;
 
-  /* Marco dorado */
   padding: 6px;
   background: linear-gradient(
     135deg,

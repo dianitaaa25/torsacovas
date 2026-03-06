@@ -1,21 +1,19 @@
-/* ===== CONTENEDOR GENERAL ===== */
 .obra {
   padding: 0;
 }
 .crp.obra{
   padding-top: 1rem;
 }
-/* ===== GRID PRINCIPAL ===== */
+
 .obra-contenedor {
   display: grid;
   grid-template-columns: 1.6fr 0.4fr;
   align-items: center;
 }
 
-/* ===== IMAGEN CON MARCO DORADO ===== */
 .obra-imagen {
   position: relative;
-  padding: 12px;              /* marco más grande */
+  padding: 12px;
   border-radius: 0;
   margin: 2.6rem;
   cursor: pointer;
@@ -47,7 +45,6 @@
     0 28px 55px rgba(0,0,0,0.6);
 }
 
-/* la imagen NO tiene efecto */
 .obra-imagen img {
   width: 100%;
   display: block;
@@ -55,9 +52,8 @@
   border-radius: 0;
 }
 
-/* ===== INFO ===== */
 .obra-info {
-  opacity: 1;          /* asegura visibilidad */
+  opacity: 1;
   animation: deslizar 1.8s ease forwards;
   padding-right: 2.4rem;
 }
@@ -127,7 +123,6 @@
   color: #2b2b2b;
 }
 
-/* ===== ANIMACIONES ===== */
 @keyframes aparecer {
   from {
     opacity: 0;
@@ -148,26 +143,21 @@
   }
 }
 
-/* ===== RESPONSIVE ===== */
-
 @media (max-width: 900px) {
 
   .obra-contenedor {
     grid-template-columns: 1fr;
   }
 
-  /* el padding lo maneja el contenedor */
   .crp.obra {
     padding: 2.6rem;
   }
 
-  /* quitar márgenes que rompen el layout */
   .obra-imagen,
   .obra-info {
     margin: 0;
   }
 
-  /* respiración interna */
   .obra-info {
     padding: 2rem 0;
   }
@@ -181,7 +171,7 @@
   }
 }
 
-/* ===== VISOR DE DIBUJO INDIVIDUAL ===== */
+/* ===== VISOR INDIVIDUAL ===== */
 .visor-dibujo {
   position: fixed;
   inset: 0;
@@ -204,7 +194,6 @@
   pointer-events: auto;
 }
 
-/* MARCO DORADO (idéntico al de la galería) */
 .visor-dibujo img {
   max-width: 90%;
   max-height: 85vh;

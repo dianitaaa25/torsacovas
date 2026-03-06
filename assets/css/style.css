@@ -11,7 +11,7 @@ body {
 
 .page-wrap {
   max-width: 700px;
-  margin: 0 auto;   /* 👈 centra todo */
+  margin: 0 auto;   
   padding: 1.5rem;
   padding-top: 0;
 }
@@ -54,7 +54,7 @@ body {
   pointer-events: none;
 }
 
-/* Marco dorado tridimensional */
+/* Marco dorado */
 .enc {
   border: 2px solid #d2a00c;
   box-shadow:
@@ -72,7 +72,7 @@ body {
   margin: 2%;
 }
 
-/* Línea dorada decorativa */
+/* Línea dorada */
 .enc h1::after {
   content: "";
   display: block;
@@ -142,7 +142,7 @@ h1 a {
 .menu::before {
     content: "";
     position: absolute;
-    inset: 0; /* ocupa exactamente el menú */
+    inset: 0;
 
     background-image: url("../img/menu/menu.png");
     background-repeat: no-repeat;
@@ -154,12 +154,10 @@ h1 a {
 .menu::after {
     content: "";
     position: absolute;
-
     left: 0;
     right: -40px;
-
-    top: -35px;      /* sobresale hacia arriba */
-    bottom: -35px;   /* sobresale hacia abajo */
+    top: -35px;      
+    bottom: -35px;   
 
     background-image: url("../img/menu/menu.png");
     background-repeat: no-repeat;
@@ -358,7 +356,7 @@ h1 {
   z-index: 9999;
 }
 
-/* Aparición */
+/* Gracias por mensaje */
 .toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0) scale(1);
@@ -398,7 +396,7 @@ h1 {
 
 .social {
   display: flex;
-  align-items: center; /* centra verticalmente texto + icono */
+  align-items: center; 
   gap: 6px;
 }
 
@@ -407,7 +405,7 @@ h1 {
   height: 14px;
 
   display: inline-block;
-  background-color: currentColor; /* 👈 hereda el color del texto */
+  background-color: currentColor; 
 
   mask-size: contain;
   mask-repeat: no-repeat;
@@ -507,8 +505,8 @@ h1 {
   }
   .pie-contacto input,
   .pie-contacto textarea {
-    background-color: #3a3a3a; /* fondo oscuro */
-    color: #fefda2;            /* texto claro */
+    background-color: #3a3a3a; 
+    color: #fefda2;            
   }
 
   .pie-col a {

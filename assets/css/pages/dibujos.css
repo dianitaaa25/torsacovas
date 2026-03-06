@@ -1,12 +1,11 @@
-/* Galería */
 .crp .poema {
-  margin: -30px;      /* lo centra */
+  margin: -30px;
 }
 
 .galeria {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem; /* espacio uniforme */
+  gap: 2.5rem;
   padding: 2.5rem;
   margin: 0;
 }
@@ -61,11 +60,11 @@
   margin-top: -40px;
 }
 
-/* Animación */
 @keyframes oro-mov {
   0%   { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
+
 .dibujo .titulo-dibujo {
   font-size: 1.2rem;
   margin-top: 0.1rem;
@@ -73,7 +72,6 @@
 
   color: rgba(255, 255, 255, 0.85);
 
-  /* efecto delicado */
   letter-spacing: 0.02em;
   text-shadow: 
     0 0 8px rgba(255,255,255,0.25),
@@ -138,24 +136,22 @@
   cursor: zoom-in;
   touch-action: none;
 }
+
 /* ===== CONTENIDO LIGHTBOX ===== */
 .lightbox-figure {
   position: relative;
   text-align: center;
 }
 
-/* Fade */
 .lightbox img.fade {
   opacity: 0;
 }
 
-/* Zoom extra */
 .lightbox img.zoomed {
   transform: scale(2);
   cursor: zoom-out;
 }
 
-/* Texto inferior */
 .lightbox figcaption {
   margin-top: 0.8rem;
   font-size: 0.85rem;
@@ -228,7 +224,6 @@
   transform: translateY(-50%) scale(0.95);
 }
 
-/* Posición */
 .lightbox .prev {
   left: 26px;
 }
@@ -237,22 +232,18 @@
   right: 26px;
 }
 
-/* Cursor por defecto (fuera de la imagen) */
 .lightbox {
   cursor: default;
 }
 
-/* Imagen sin zoom */
 .lightbox img {
   cursor: zoom-in;
 }
 
-/* Imagen con zoom */
 .lightbox img.zoomed {
   cursor: zoom-out;
 }
 
-/* Mientras se arrastra */
 .lightbox img.dragging {
   cursor: grabbing;
 }

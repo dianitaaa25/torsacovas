@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!visor || !visorImg) return;
 
-  /* ===== CONFIG ===== */
   const ZOOM_SCALE = 2;
 
   let zoomed = false;
@@ -18,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentX = 0;
   let currentY = 0;
 
-  /* ❌ desactivar drag nativo */
   visorImg.setAttribute("draggable", "false");
   visorImg.addEventListener("dragstart", e => e.preventDefault());
 
@@ -101,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   visorImg.addEventListener("touchmove", (e) => {
     if (!isDragging) return;
 
-    e.preventDefault(); // 🔥 bloquea scroll
+    e.preventDefault(); 
 
     const touch = e.touches[0];
 
@@ -120,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
     visorImg.classList.remove("dragging");
   });
 
-  /* ===== CLICK / TAP → ZOOM ===== */
+  /* ===== CLIC / TAP / ZOOM ===== */
 
   visorImg.addEventListener("click", (e) => {
     e.stopPropagation();

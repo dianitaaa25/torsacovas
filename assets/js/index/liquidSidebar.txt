@@ -2,18 +2,16 @@ const canvas = document.getElementById("sidebarCanvas");
 const gl = canvas.getContext("webgl");
 const img = document.getElementById("sidebarImage");
 
-// Ajustar tamaño del canvas al de la sidebar (con retraso para calcular altura correcta con height: auto)
 const setCanvasSize = () => {
-  setTimeout(() => {  // Retraso para esperar que el DOM calcule la altura
+  setTimeout(() => {  
     canvas.width = canvas.offsetWidth;
-    canvas.height = Math.max(canvas.offsetHeight, 500);  // Mínimo 500px si offsetHeight es 0
+    canvas.height = Math.max(canvas.offsetHeight, 500);  
     gl.viewport(0, 0, canvas.width, canvas.height);
-  }, 100);  // 100ms de retraso
+  }, 100);  
 };
 setCanvasSize();
 window.addEventListener("resize", setCanvasSize);
 
-// Shader de vértices (igual que antes)
 const vsSource = `
 attribute vec2 position;
 void main() {
@@ -21,7 +19,6 @@ void main() {
 }
 `;
 
-// Shader de fragmento (adaptado para burbujas flotantes con efecto de lente, optimizado para suavidad)
 const fsSource = `
 precision mediump float;
 
@@ -34,12 +31,11 @@ struct Bubble {
     float radius;
 };
 
-const int NUM_BUBBLES = 7;  // Manteniendo 7 burbujas
+const int NUM_BUBBLES = 7;  
 uniform Bubble bubbles[NUM_BUBBLES];
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
-  // Constantes (iguales a la plantilla, ajustadas para burbujas)
   const float NUM_ZERO = 0.0;
   const float NUM_ONE = 1.0;
   const float NUM_HALF = 0.5;
@@ -55,7 +51,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
   const float MASK_THRESHOLD_1 = 0.95;
   const float MASK_THRESHOLD_2 = 0.9;
   const float MASK_THRESHOLD_3 = 1.5;
-  const float SAMPLE_RANGE = 2.0;  // Reducido a 2.0 para menos parpadeos y suavidad
+  const float SAMPLE_RANGE = 2.0;  
   const float SAMPLE_OFFSET = 0.5;
   const float GRADIENT_RANGE = 0.2;
   const float GRADIENT_OFFSET = 0.1;
@@ -63,20 +59,17 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
   const float LIGHTING_INTENSITY = 0.3;
 
   vec2 uv = fragCoord / iResolution.xy;
-  fragColor = texture2D(iChannel0, uv);  // Default: imagen original
+  fragColor = texture2D(iChannel0, uv);  
 
-  // Loop sobre burbujas
   for(int i = 0; i < NUM_BUBBLES; i++){
-    vec2 bubblePos = bubbles[i].pos / iResolution.xy;  // Posición normalizada
-    float radius = bubbles[i].radius / iResolution.x;  // Radio normalizado
+    vec2 bubblePos = bubbles[i].pos / iResolution.xy;  
+    float radius = bubbles[i].radius / iResolution.x; 
     vec2 m2 = uv - bubblePos;
     float dist = length(m2);
 
-    if(dist < radius){  // Solo aplicar si el pixel está dentro de la burbuja
-      // Calcular "roundedBox" circular basado en distancia (adaptado para lente redondo)
-      float roundedBox = pow(dist * (iResolution.x / bubbles[i].radius) * 2.0, POWER_EXPONENT);  // Ajuste para que el lente encaje en el radio
+    if(dist < radius){  
+      float roundedBox = pow(dist * (iResolution.x / bubbles[i].radius) * 2.0, POWER_EXPONENT);  
 
-      // Calcular máscaras (igual que el original)
       float rb1 = clamp((NUM_ONE - roundedBox * MASK_MULTIPLIER_1) * MASK_STRENGTH_1, NUM_ZERO, NUM_ONE);
       float rb2 = clamp((MASK_THRESHOLD_1 - roundedBox * MASK_MULTIPLIER_2) * MASK_STRENGTH_2, NUM_ZERO, NUM_ONE) -
         clamp(pow(MASK_THRESHOLD_2 - roundedBox * MASK_MULTIPLIER_2, NUM_ONE) * MASK_STRENGTH_2, NUM_ZERO, NUM_ONE);
@@ -86,7 +79,6 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
       float transition = smoothstep(NUM_ZERO, NUM_ONE, rb1 + rb2);
 
       if(transition > NUM_ZERO){
-        // Aplicar lente y sampling (centrada en la burbuja)
         vec2 lens = ((uv - NUM_HALF) * NUM_ONE * (NUM_ONE - roundedBox * LENS_MULTIPLIER) + NUM_HALF);
         vec4 sampledColor = vec4(NUM_ZERO);
         float total = NUM_ZERO;
@@ -99,12 +91,10 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
         }
         sampledColor /= total;
 
-        // Gradiente y lighting
         float gradient = clamp((clamp(m2.y, NUM_ZERO, GRADIENT_RANGE) + GRADIENT_OFFSET) / NUM_TWO, NUM_ZERO, NUM_ONE) +
           clamp((clamp(-m2.y, GRADIENT_EXTREME, GRADIENT_RANGE) * rb3 + GRADIENT_OFFSET) / NUM_TWO, NUM_ZERO, NUM_ONE);
         vec4 lighting = clamp(sampledColor + vec4(rb1) * gradient + vec4(rb2) * LIGHTING_INTENSITY, NUM_ZERO, NUM_ONE);
 
-        // Mezclar con la imagen original usando transición
         fragColor = mix(fragColor, lighting, transition);
       }
     }
@@ -116,7 +106,6 @@ void main() {
 }
 `;
 
-// Crear shader (igual que antes)
 const createShader = (type, source) => {
   const shader = gl.createShader(type);
   gl.shaderSource(shader, source);
@@ -128,7 +117,6 @@ const createShader = (type, source) => {
   return shader;
 };
 
-// Programa WebGL
 const vs = createShader(gl.VERTEX_SHADER, vsSource);
 const fs = createShader(gl.FRAGMENT_SHADER, fsSource);
 const program = gl.createProgram();
@@ -137,7 +125,6 @@ gl.attachShader(program, fs);
 gl.linkProgram(program);
 gl.useProgram(program);
 
-// Buffer para cubrir canvas
 const buffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
 gl.bufferData(
@@ -149,21 +136,19 @@ const position = gl.getAttribLocation(program, "position");
 gl.enableVertexAttribArray(position);
 gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
-// Uniforms (agregué bubbles)
 const uniforms = {
   resolution: gl.getUniformLocation(program, "iResolution"),
   time: gl.getUniformLocation(program, "iTime"),
   texture: gl.getUniformLocation(program, "iChannel0"),
   bubbles: []
 };
-for(let i = 0; i < 7; i++){  // Loop para 7 burbujas
+for(let i = 0; i < 7; i++){ 
   uniforms.bubbles.push({
     pos: gl.getUniformLocation(program, `bubbles[${i}].pos`),
     radius: gl.getUniformLocation(program, `bubbles[${i}].radius`)
   });
 }
 
-// Textura de imagen
 const texture = gl.createTexture();
 const setupTexture = () => {
   gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -175,9 +160,8 @@ const setupTexture = () => {
 if (img.complete) setupTexture();
 else img.onload = setupTexture();
 
-// Burbujas iniciales (7 burbujas con velocidades más bajas para delicadeza)
 let bubblesData = [
-  {x: 80, y: 120, r: 160, vx: 0.2, vy: 0.15},  // Velocidades reducidas para suavidad
+  {x: 80, y: 120, r: 160, vx: 0.2, vy: 0.15},  
   {x: 150, y: 200, r: 120, vx: -0.25, vy: 0.1},
   {x: 50, y: 300, r: 200, vx: 0.15, vy: -0.2},
   {x: 100, y: 400, r: 140, vx: -0.1, vy: 0.2},
@@ -186,40 +170,34 @@ let bubblesData = [
   {x: 60, y: 450, r: 110, vx: -0.2, vy: -0.1}
 ];
 
-// Render loop (con movimientos dinámicos suaves y delicados, rebote pegado al borde)
 const startTime = performance.now();
 const render = () => {
   const t = (performance.now() - startTime) / 1000;
 
-  // Actualizar posición de burbujas (rebotan pegadas al borde, con movimientos dinámicos suaves)
   for(let i = 0; i < bubblesData.length; i++){
     let b = bubblesData[i];
-    // Calcular velocidades dinámicas para movimientos en todas direcciones (muy suaves para delicadeza)
-    let dynamicVx = b.vx + 0.05 * Math.sin(t + i * 0.5);  // Factor reducido a 0.05 para extrema suavidad
-    let dynamicVy = b.vy + 0.05 * Math.cos(t + i * 0.7);  // Factor reducido a 0.05 para extrema suavidad
+    let dynamicVx = b.vx + 0.05 * Math.sin(t + i * 0.5);  
+    let dynamicVy = b.vy + 0.05 * Math.cos(t + i * 0.7);  
     b.x += dynamicVx;
     b.y += dynamicVy;
 
-    // Rebote en izquierda/derecha (pegado al borde)
     if(b.x - b.r < 0){
-      b.x = b.r;  // Pegar al borde izquierdo
+      b.x = b.r;  
       b.vx *= -1;
     } else if(b.x + b.r > canvas.width){
-      b.x = canvas.width - b.r;  // Pegar al borde derecho
+      b.x = canvas.width - b.r;  
       b.vx *= -1;
     }
 
-    // Rebote en arriba/abajo (pegado al borde)
     if(b.y - b.r < 0){
-      b.y = b.r;  // Pegar al borde superior
+      b.y = b.r;  
       b.vy *= -1;
     } else if(b.y + b.r > canvas.height){
-      b.y = canvas.height - b.r;  // Pegar al borde inferior
+      b.y = canvas.height - b.r;  
       b.vy *= -1;
     }
   }
 
-  // Pasar uniforms de burbujas
   for(let i = 0; i < bubblesData.length; i++){
     gl.uniform2f(uniforms.bubbles[i].pos, bubblesData[i].x, bubblesData[i].y);
     gl.uniform1f(uniforms.bubbles[i].radius, bubblesData[i].r);

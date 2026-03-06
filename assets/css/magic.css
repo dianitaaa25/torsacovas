@@ -15,7 +15,7 @@ body {
 
 /* CONTENEDOR GENERAL */
 .site-wrapper {
-  position: relative; /* contexto para cualquier overlay futuro */
+  position: relative; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,9 +44,9 @@ body {
 .magic-container {
   display: flex;
   position: relative;
-  max-width: 622px; /* ancho total del contenedor */
+  max-width: 622px; 
   width: 100%;
-  margin: 0 auto; /* centrado horizontal */
+  margin: 0 auto; 
   background: linear-gradient(135deg, #ffdc60, #ffc908, #d2a00c);
   border: 2px solid #d2a00c;
   box-shadow:
@@ -76,7 +76,7 @@ body {
 }
 
 #sidebarImage {
-  display: none; /* solo la usamos como textura */
+  display: none; 
 }
 
 @keyframes moveBg {
@@ -89,7 +89,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* ajusta según quieras que suba un poco el contenido */
+  justify-content: flex-start; 
   align-items: center;
   position: relative;
   padding: 2rem;
@@ -147,8 +147,6 @@ body {
   margin-bottom: 20px;
 }
 
-
-
 /* ===== FOTO ENCIMA ===== */
 .profile-photo {
   position: absolute;
@@ -173,13 +171,12 @@ body {
   }
 }
 
-
 /* ===== BOTÓN ===== */
 .btn-enter {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px; /* más pequeño */
+  font-size: 14px; 
   font-weight: bolder;
   letter-spacing: 1px;
   padding: 6px 60px;
@@ -207,7 +204,7 @@ body {
     align-items: center;
     min-height: 100dvh;
     margin: 8px;
-    padding: 12px 0; /* pequeño respiro arriba y abajo */
+    padding: 12px 0;
   }
   .site-wrapper {
     padding-top: 60px;
@@ -220,7 +217,7 @@ body {
   .sidebar {
     width: 100%;
     height: 240px;
-    border-bottom: 2px solid #d2a00c; /* misma línea que el contenedor */
+    border-bottom: 2px solid #d2a00c;
     box-shadow:
       inset 0 -2px 0 rgba(255,255,255,0.35),
       inset 0 -6px 12px rgba(255,215,100,0.4);
@@ -246,7 +243,7 @@ body {
   }
 }
 
-/* ===== MODO OSCURO PARA INICIO ===== */
+/* ===== MODO OSCURO ===== */
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #1c1b1b;
@@ -255,14 +252,13 @@ body {
 
   /* Contenedor general */
   .site-wrapper {
-    background-color: #2a2a2a; /* un gris más oscuro para el site-wrapper */
+    background-color: #2a2a2a;
     box-shadow:
       inset 0 0 0 2px rgba(255,255,255,0.1),
       inset 0 0 18px rgba(255,215,100,0.2),
       0 12px 22px rgba(0,0,0,0.4);
   }
 
-  /* Magic container */
   .magic-container {
     background: linear-gradient(135deg, #3a3a3a, #4a4a4a, #2b2b2b);
     border-color: #8f6b09;
@@ -272,23 +268,19 @@ body {
       0 12px 22px rgba(0,0,0,0.4);
   }
 
-  /* Sidebar y canvas */
   .sidebar {
     background: #2b2b2b;
   }
 
-  /* Main content */
   .main-content {
     background: linear-gradient(500deg, #535353, #4a4a4a, #2b2b2b, #000000);
   }
 
-  /* Magic hero */
   .magic-hero h1,
   .magic-title {
     color: #fefda2;
   }
 
-  /* Botón */
   .btn-enter {
     color: #fefda2;
     background-image: linear-gradient(to right, #8f6b09 0%, #d2a00c 51%, #8f6b09 100%);

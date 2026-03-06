@@ -10,9 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!dibujos.length || !lightbox || !imgLB) return;
 
-  /* ================= CONFIG ================= */
   const ZOOM_SCALE = 2;
-  /* ========================================== */
 
   let currentIndex = 0;
   let zoomed = false;
@@ -24,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentX = 0;
   let currentY = 0;
 
-  /* ========= PREVENIR DRAG NATIVO ========= */
+  /* ========= DRAG NATIVO ========= */
   imgLB.setAttribute("draggable", "false");
   imgLB.addEventListener("dragstart", e => e.preventDefault());
 
@@ -148,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
   imgLB.addEventListener("touchmove", (e) => {
     if (!isDragging) return;
 
-    e.preventDefault(); // 🔥 bloquea scroll
+    e.preventDefault(); 
 
     const touch = e.touches[0];
 
@@ -167,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     imgLB.classList.remove("dragging");
   });
 
-  /* ========= CLICK / TAP → ZOOM ========= */
+  /* ========= CLIC / TAP / ZOOM ========= */
 
   imgLB.addEventListener("click", (e) => {
     e.stopPropagation();
