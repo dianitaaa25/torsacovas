@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (siteWrapper) siteWrapper.classList.add("magic-opening");
 
       setTimeout(() => {
-        window.location.href = "pages/biografia.html";
+        window.location.href = "/biografia";
       }, 900);
     });
   }
