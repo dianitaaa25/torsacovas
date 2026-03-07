@@ -234,6 +234,11 @@ h1 {
   text-align: right;
 }
 
+h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* ===== PIE DE PÁGINA ===== */
 .pie {
   background: linear-gradient(to right, #ffdc60, #d2a00c, #8f6b09);
