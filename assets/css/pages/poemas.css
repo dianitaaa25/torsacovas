@@ -1,1 +1,87 @@
-c
+.crp {
+  position: relative;
+}
+.crp .poema {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.crp .poema a {
+  text-decoration: none;
+  color: #2b2b2b;
+  transition: color 0.5s ease, transform 0.4s ease;
+}
+
+.crp .poema a:hover {
+  color: #ffd700;
+  transform: translateX(6px);
+}
+.crp .poema a:visited {
+  color: #967600;
+}
+
+.obra-fecha {
+  position: absolute;
+  top: 2.6rem;   
+  right: 2.6rem; 
+  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.7;
+  margin: 0;
+  text-align: right;
+}
+
+.obra-fecha::after {
+  content: "";
+  display: block;
+  margin-left: auto;
+
+  width: 160px;
+  height: 3px;
+  margin-top: 0.8rem;
+
+  background: linear-gradient(
+    to right,
+    #8f6b09 0%,
+    #e5dc7d 50%,
+    #8f6b09 100%
+  );
+
+  background-size: 200% auto;
+  background-position: left center;
+
+  transition: background-position 0.9s ease;
+}
+
+/* animación al pasar el mouse */
+.crp:hover .obra-fecha::after {
+  background-position: right center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .crp {
+    background: #3a3a3a;
+    color: #fefda2;
+  }
+
+  .crp .poema a {
+    color: #fefda2;
+  }
+
+  .crp .poema a:hover {
+    color: #ffd700;
+  }
+  .crp .poema a:visited {
+  color: #9b7a05;
+  }
+}
+
+@media (max-width: 600px) {
+  .obra-fecha {
+    position: static;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
