@@ -50,6 +50,12 @@ function loadPartial(id, file, callback) {
 
       fixLinks(el);
 
+      if (typeof gtag === "function") {
+        gtag('event', 'page_view', {
+          page_path: window.location.pathname
+        });
+      }
+
       if (callback) callback();
     })
     .catch(err => console.error(err));
