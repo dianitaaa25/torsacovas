@@ -1,15 +1,108 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Página no encontrada</title>
-  <style>
-    body { text-align: center; font-family: sans-serif; padding: 50px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada - Héctor Samil Acosta</title>
+<link href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    background-color: #fefda2;
+    color: #2E2E2E;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .site-wrapper {
+    background: linear-gradient(135deg, #ffdc60, #ffc908, #d2a00c);
+    border: 2px solid #d2a00c;
+    box-shadow:
+      inset 0 0 0 2px rgba(255,255,255,0.35),
+      inset 0 0 18px rgba(255,215,100,0.6),
+      0 12px 22px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 620px;
+    width: 90%;
+  }
+  .site-wrapper h1 {
+    font-family: "Fleur De Leah", cursive;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: #2E2E2E;
+    position: relative;
+  }
+  .site-wrapper h1::after {
+    content: "";
+    display: block;
+    width: 250px;
+    height: 3px;
+    margin: 0.6rem auto 0;
+    background: linear-gradient(to right, #8f6b09 0%, #e5dc7d 50%, #8f6b09 100%);
+    background-size: 200% auto;
+    border-radius: 3px;
+    transition: background-position 0.8s ease;
+  }
+  .site-wrapper h1:hover::after {
+    background-position: right center;
+  }
+  .site-wrapper p {
+    font-size: 1.2rem;
+    margin: 2rem 0 3rem;
+  }
+  .btn-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bolder;
+    padding: 8px 60px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    color: #3f3f3f;
+    background-image: linear-gradient(to right, #ffe28a 0%, #ffc908 51%, #ffe28a 100%);
+    background-size: 200% auto;
+    background-position: left center;
+    transition: background-position 0.5s ease, color 0.4s ease, transform 0.3s ease;
+    text-decoration: none;
+  }
+  .btn-home:hover {
+    background-position: right center;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background-color: #1c1b1b; color: #fefda2; }
+    .site-wrapper {
+      background: linear-gradient(135deg, #3a3a3a, #4a4a4a, #2b2b2b);
+      border-color: #8f6b09;
+      box-shadow:
+        inset 0 0 0 2px rgba(255,255,255,0.1),
+        inset 0 0 18px rgba(255,215,100,0.2),
+        0 12px 22px rgba(0,0,0,0.4);
+    }
+    .site-wrapper h1, .site-wrapper p { color: #fefda2; }
+    .btn-home {
+      color: #fefda2;
+      background-image: linear-gradient(to right, #8f6b09 0%, #d2a00c 51%, #8f6b09 100%);
+    }
+    .btn-home:hover {
+      color: #1c1b1b;
+      background-image: linear-gradient(to right, #ffc908 0%, #ffdc60 51%, #ffc908 100%);
+    }
+  }
+</style>
 </head>
 <body>
-  <h1>Error 404</h1>
-  <p>Ups… la página que buscas no existe.</p>
-  <a href="/">Volver al inicio</a>
+  <div class="site-wrapper">
+    <h1>Error 404</h1>
+    <p>Ups… la página que buscas no existe.</p>
+    <a href="/" class="btn-home">Volver al inicio</a>
+  </div>
 </body>
 </html>
