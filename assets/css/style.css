@@ -275,17 +275,15 @@ h1 a {
   text-decoration: none;
   color: #ffffff;
 }
-
-.pie-col .social {
-  display: flex;
-}
-
+/* ===== AJUSTE ICONOS SOCIAL FOOTER ===== */
 .pie-col .social i {
+  font-size: 0.8rem; /* igual que el tamaño de texto del enlace */
+  line-height: 1;     /* evita que el ícono desplace el texto */
+  vertical-align: middle; /* alinea con el texto */
+  margin-right: 6px;   /* espacio entre icono y texto */
+  color: inherit;      /* hereda el color del enlace, incluyendo modo oscuro */
   display: inline-block;
-  width: 8px;
-  flex-shrink: 0;
 }
-
 .pie-contacto input,
 .pie-contacto textarea {
   width: 100%;
