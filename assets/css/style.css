@@ -185,6 +185,7 @@ h1 a {
   padding: 4px 14px;
   border-radius: 15px;
   border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
 
   background-image: linear-gradient(
     to right,
