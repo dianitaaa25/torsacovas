@@ -279,13 +279,11 @@ h1 a {
 .pie-col .social {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-bottom: 0.2rem;
 }
 
 .pie-col .social i {
   display: inline-block;
-  width: 20px;
+  width: 10px;
   text-align: center;
   flex-shrink: 0;
 }
