@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (siteWrapper) siteWrapper.classList.add("magic-opening");
 
-      const destination = enterBtn.getAttribute("href");
+      const destination = enterBtn.getAttribute("href") || "/";
 
       setTimeout(() => {
         window.location.href = destination;
