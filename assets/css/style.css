@@ -254,6 +254,7 @@ h1 a {
   grid-template-columns: 1fr 1fr 1.6fr;
   gap: 1.5rem;
   margin-bottom: 1.2rem;
+  font-size: 1rem;
 }
 
 .pie-col h4 {
@@ -416,7 +417,7 @@ h1 a {
   height:14px;
   fill:currentColor;
   flex-shrink:0;
-  transform: translateY(6px);
+  transform: translateY(20px);
 }
 
 .enc,
