@@ -417,7 +417,7 @@ h1 a {
   height:14px;
   fill:currentColor;
   flex-shrink:0;
-  transform: translateY(4px);
+  transform: translateY(4.5px);
 }
 
 .enc,
