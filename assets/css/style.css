@@ -408,6 +408,7 @@ h1 a {
 .social{
   display:flex;
   align-items:center;
+  gap:8px;
 }
 
 .social .icon{
@@ -415,7 +416,7 @@ h1 a {
   height:14px;
   fill:currentColor;
   flex-shrink:0;
-  transform: translateY(6px);
+  transform: translateX(-4px) translateY(-6px);
 }
 
 .enc,
