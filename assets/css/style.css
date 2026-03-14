@@ -414,7 +414,7 @@ h1 a {
 .social .icon{
   width:14px;
   height:14px;
-  fill:currentColor;
+  fill:currentColor; 
   flex-shrink:0;
   transform: translateY(4px);
 }
