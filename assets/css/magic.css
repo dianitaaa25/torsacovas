@@ -128,7 +128,6 @@ body {
   display: block;
   filter: drop-shadow(0 6px 8px rgba(215, 159, 6, 0.6));
   margin-bottom: -20px;
-  transform: rotate(-62.5deg);
 }
 
 .magic-title {
