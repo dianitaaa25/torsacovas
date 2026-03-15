@@ -13,7 +13,6 @@ body {
   align-items: center;
 }
 
-/* CONTENEDOR GENERAL */
 .site-wrapper {
   position: relative; 
   display: flex;
@@ -40,7 +39,6 @@ body {
   pointer-events: none;
 }
 
-/* ===== CONTENEDOR PRINCIPAL ===== */
 .magic-container {
   display: flex;
   position: relative;
@@ -57,7 +55,6 @@ body {
   border-radius: 8px;
 }
 
-/* ===== BARRA LATERAL ===== */
 .sidebar {
   position: relative;
   width: 200px;
@@ -84,7 +81,6 @@ body {
   100% { background-position: 200% 200%; }
 }
 
-/* ===== MAIN CONTENT ===== */
 .main-content {
   flex: 1;
   display: flex;
@@ -94,14 +90,12 @@ body {
   position: relative;
   padding: 2rem;
 
-  /* Degradado de fondo */
   /*background: linear-gradient(135deg, #fff7e0, #ffe28a, #ffd166, #ffc908);*/
   background: linear-gradient(500deg, #ffe28a, #ffd166, #ffc908, #8f6b09);
 
   overflow: hidden;
 }
 
-/* ===== LÍNEAS ARTÍSTICAS ===== */
 .main-content::before {
   content: "";
   position: absolute;
@@ -118,9 +112,8 @@ body {
   z-index: 1;
 }
 
-/* ===== MAGIC ===== */
 .magic-hero {
-  max-width: 400px; /* más pequeño para caber junto a la sidebar */
+  max-width: 400px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -129,17 +122,15 @@ body {
   text-align: center;
 }
 
-/* ===== LOGO ===== */
 .magic-logo {
   width: 180px;
   height: auto;
   display: block;
   filter: drop-shadow(0 6px 8px rgba(215, 159, 6, 0.6));
   margin-bottom: -20px;
-  transform: rotate(152.5deg);
+  transform: rotate(-152.5deg);
 }
 
-/* ===== NOMBRE ===== */
 .magic-title {
   margin: 0 0 0.5rem;
   font-family: "Fleur De Leah", cursive;
@@ -148,18 +139,16 @@ body {
   margin-bottom: 20px;
 }
 
-/* ===== FOTO ENCIMA ===== */
 .profile-photo {
   position: absolute;
   top: -6px;       
-  left: 30%;          /* centrado sobre sidebar */
+  left: 30%;         
   transform: translateX(-50%);
   z-index: 20;  
   width: 280px;
   height: auto;
 }
 
-/* ===== ANIMACIÓN HERO ===== */
 .magic-opening {
   animation: openMagic 0.9s ease forwards;
 }
@@ -172,7 +161,6 @@ body {
   }
 }
 
-/* ===== BOTÓN ===== */
 .btn-enter {
   display: inline-flex;
   align-items: center;
@@ -244,14 +232,12 @@ body {
   }
 }
 
-/* ===== MODO OSCURO ===== */
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #1c1b1b;
     color: #fefda2;
   }
 
-  /* Contenedor general */
   .site-wrapper {
     background-color: #2a2a2a;
     box-shadow:
