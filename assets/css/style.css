@@ -77,7 +77,8 @@ body {
 h1 {
   text-align: right;
   margin: 0;
-  width: 100%;
+  width: fit-content;
+  align-self: flex-end;
 }
 
 h1 a {
@@ -98,7 +99,8 @@ h1 a {
 .enc h1::after {
   content: "";
   display: block;
-  width: 55%;
+  width: 70%;
+  min-width: 120px;
   max-width: 100%;
   height: 3px;
   margin-top: 0.6rem;
@@ -245,7 +247,10 @@ h1 a {
   width: 100%;
   max-width: 700px;
   padding: 1.5rem 2rem;
-  font-size: 0.95rem;
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+}
+.pie h4 {
+  font-size: 1.15em;
 }
 
 .pie-top {
@@ -257,7 +262,6 @@ h1 a {
 
 .pie-col h4 {
   margin: 0 0 0.4rem;
-  font-size: 0.9rem;
   font-weight: 600;
 }
 
@@ -265,7 +269,6 @@ h1 a {
   display: block;
   text-decoration: none;
   color: #2E2E2E;
-  font-size: 0.8rem;
   margin-bottom: 0.3rem;
   transition: color 0.7s ease;
 }
@@ -279,7 +282,6 @@ h1 a {
 .pie-contacto textarea {
   width: 100%;
   font-family: inherit;
-  font-size: 0.8rem;
   padding: 6px 8px;
   margin-bottom: 6px;
   border-radius: 6px;
@@ -320,8 +322,8 @@ h1 a {
 
 .pie-bottom {
   text-align: center;
-  font-size: 0.75rem;
-  opacity: 0.85;
+  font-size: 0.8em;
+  opacity: 0.75;
   line-height: 1.4;
 }
 .toast {
