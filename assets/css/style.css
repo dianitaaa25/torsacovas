@@ -18,13 +18,13 @@ body {
 
 /* ===== ENCABEZADO DE PÁGINA ===== */
 .enc {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
   height: auto;
   width: 100%;
   max-width: 700px;
-  position: relative;
   background: linear-gradient(
     135deg,
     #ffdc60,
@@ -74,6 +74,8 @@ body {
 h1 {
   text-align: right;
   margin: 0;
+    justify-content: flex-end;
+
 }
 
 h1 a {
