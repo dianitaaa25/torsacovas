@@ -16,6 +16,14 @@ body {
   padding-top: 0;
 }
 
+@font-face {
+  font-family: "Fleur De Leah";
+  src: url("/assets/fonts/Fleur_De_Leah/FleurDeLeah-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== ENCABEZADO DE PÁGINA ===== */
 .enc {
   position: relative;

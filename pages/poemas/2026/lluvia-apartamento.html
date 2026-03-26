@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <base href="/">
-
 <title>Lluvia en mi apartamento | Poema de Héctor Samil Acosta | Torsacovas</title>
 <meta name="description" content="Lluvia en mi apartamento, poema de Héctor Samil Acosta. Explora la melancolía, la sensación de encierro y la nostalgia, a través de imágenes de humedad, lluvia y recuerdos que inundan un apartamento.">
 
@@ -12,15 +11,6 @@
 <link rel="preload" href="/assets/img/menu/menu.png" as="image" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/pages/poemas.css">
-
-<link rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap" rel="stylesheet">
 
 </head>
 
@@ -65,14 +55,46 @@ he querido rendirme al sentir que diluvia.
 No hay lugar seco, no hay viajes a Marte.
       </div>
 
+<div class="interacciones-box">
+
+  <div class="likes">
+    <button class="like-btn" onclick="darLike('lluvia-apartamento')">
+      ❤
+    </button>
+    <span id="likes-lluvia-apartamento" class="like-count">0</span>
+  </div>
+
+  <div class="comentarios-box">
+
+    <h4 class="comentarios-titulo">Comentarios</h4>
+
+    <div id="lista-comentarios" class="lista-comentarios"></div>
+
+    <textarea id="nuevo-comentario"
+      placeholder="Escribe un comentario..."></textarea>
+
+    <button class="btn-comentar"
+      onclick="comentar('lluvia-apartamento')">
+      Publicar
+    </button>
+
+  </div>
+
+</div>
+
   </div>
 
   <div id="footer"></div>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="assets/js/supabase.js"></script>
 <script src="assets/js/load-partials.js"></script>
 <script src="assets/js/contact-form.js"></script>
+<script>
+  mostrarLikes("lluvia-apartamento");
+</script>
 
 </body>
 

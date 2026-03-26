@@ -13,16 +13,6 @@
 <link rel="stylesheet" href="assets/css/pages/biografia.css">
 <link rel="stylesheet" href="assets/css/carousel-dorado.css">
 
-<link rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'">
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -61,6 +51,9 @@ Tal vez la intención de todo esto sea firmar mi vida y mis obras con una línea
         </div>
 
 
+<button onclick="register()">Registrarse</button>
+<button onclick="login()">Iniciar sesión</button>
+<button onclick="logout()">Cerrar sesión</button>
 
   </div>
 
@@ -73,6 +66,8 @@ Tal vez la intención de todo esto sea firmar mi vida y mis obras con una línea
   <img id="lightbox-img" src="" alt="Foto ampliada">
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="assets/js/supabase.js"></script>
 <script src="assets/js/load-partials.js"></script>
 <script src="assets/js/contact-form.js"></script>
 <script src="assets/js/pages/biografia/biografia.js"></script>
