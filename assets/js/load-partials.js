@@ -7,7 +7,13 @@ const BASE_PATH = window.location.hostname === "dianitaaa25.github.io"
 function fixLinks(container) {
   container.querySelectorAll("a[href]").forEach(link => {
     const href = link.getAttribute("href");
-    if (href && !href.startsWith("http") && !href.startsWith("#") && !href.startsWith("mailto") && !href.startsWith(BASE_PATH)) {
+    if (
+      href &&
+      !href.startsWith("http") &&
+      !href.startsWith("#") &&
+      !href.startsWith("mailto") &&
+      !href.startsWith(BASE_PATH)
+    ) {
       link.setAttribute("href", BASE_PATH + href);
     }
   });
@@ -46,7 +52,6 @@ function loadPartial(id, file, callback) {
 
 loadPartial("header", "header.html", async () => {
   const { supabaseClient } = await import("./api/supabase/client.js");
-  const { logout } = await import("./api/supabase/auth.js");
 
   const authHeader = document.getElementById("authHeader");
   if (!authHeader) return;
@@ -75,7 +80,6 @@ loadPartial("header", "header.html", async () => {
 
       userBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-
         dropdown.classList.toggle("show");
         userBtn.classList.toggle("active");
       });
@@ -94,7 +98,6 @@ loadPartial("header", "header.html", async () => {
         outsideClickListenerAdded = true;
       }
 
-      // 👉 logout
       logoutBtn.addEventListener("click", logout);
 
     } else {
@@ -106,7 +109,7 @@ loadPartial("header", "header.html", async () => {
 
       document.getElementById("loginBtn")
         ?.addEventListener("click", () => {
-          document.getElementById("authModal").style.display = "block";
+          document.getElementById("authModal")?.classList.add("show");
         });
     }
   }
@@ -134,7 +137,7 @@ loadPartial("header", "header.html", async () => {
         if (textarea && action.contenido) {
           textarea.value = action.contenido;
         }
-      
+
         comentar(action.slug);
       }
     }
@@ -154,11 +157,18 @@ loadPartial("modal", "modal.html", () => {
   const enterBtn = document.getElementById("enterBtn");
   const closeAuthModal = document.getElementById("closeAuthModal");
 
-  enterBtn?.addEventListener("click", () => authModal.style.display = "block");
-  closeAuthModal?.addEventListener("click", () => authModal.style.display = "none");
+  enterBtn?.addEventListener("click", () => {
+    authModal?.classList.add("show");
+  });
+
+  closeAuthModal?.addEventListener("click", () => {
+    authModal?.classList.remove("show");
+  });
 
   window.addEventListener("click", e => {
-    if (e.target === authModal) authModal.style.display = "none";
+    if (e.target === authModal) {
+      authModal?.classList.remove("show");
+    }
   });
 
   document.getElementById("btnLogin")?.addEventListener("click", loginFromModal);
