@@ -13,9 +13,11 @@ export async function cargarComentarios(slug) {
     .order("created_at", { ascending: false });
 
   const contenedor = document.getElementById("lista-comentarios");
+  if (!contenedor) return;
+
   contenedor.innerHTML = "";
 
-  data.forEach(c => {
+  data?.forEach(c => {
     const div = document.createElement("div");
     div.className = "comentario";
     div.textContent = c.contenido;
@@ -24,19 +26,26 @@ export async function cargarComentarios(slug) {
 }
 
 export async function comentar(slug) {
+  const textarea = document.getElementById("nuevo-comentario");
+  const contenido = textarea?.value.trim();
+
   const user = await getUser();
 
   if (!user) {
+    localStorage.setItem("pendingAction", JSON.stringify({
+      type: "comment",
+      slug,
+      contenido
+    }));
+
     openAuthModal();
 
     setTimeout(() => {
       showGlobalToast("Debes iniciar sesión para comentar");
     }, 200);
+
     return;
   }
-
-  const textarea = document.getElementById("nuevo-comentario");
-  const contenido = textarea.value.trim();
 
   if (!contenido) return;
 
@@ -54,6 +63,7 @@ export async function comentar(slug) {
     return;
   }
 
-  textarea.value = "";
+  if (textarea) textarea.value = "";
+
   cargarComentarios(slug);
 }

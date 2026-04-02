@@ -44,7 +44,6 @@ function loadPartial(id, file, callback) {
     .catch(err => console.error(err));
 }
 
-// ===== HEADER (AUTH) =====
 loadPartial("header", "header.html", async () => {
   const { supabaseClient } = await import("./api/supabase/client.js");
   const { logout } = await import("./api/supabase/auth.js");
@@ -74,7 +73,6 @@ loadPartial("header", "header.html", async () => {
       const dropdown = document.getElementById("authDropdown");
       const logoutBtn = document.getElementById("logoutBtn");
 
-      // 👉 toggle con clases (animación)
       userBtn.addEventListener("click", (e) => {
         e.stopPropagation();
 
@@ -82,7 +80,6 @@ loadPartial("header", "header.html", async () => {
         userBtn.classList.toggle("active");
       });
 
-      // 👉 cerrar al hacer click fuera (solo una vez)
       if (!outsideClickListenerAdded) {
         document.addEventListener("click", () => {
           const dropdown = document.getElementById("authDropdown");
@@ -116,12 +113,34 @@ loadPartial("header", "header.html", async () => {
 
   renderAuth();
 
-  supabaseClient.auth.onAuthStateChange(() => {
+  supabaseClient.auth.onAuthStateChange(async () => {
     renderAuth();
+
+    const pending = localStorage.getItem("pendingAction");
+
+    if (pending) {
+      const action = JSON.parse(pending);
+      localStorage.removeItem("pendingAction");
+
+      const { darLike } = await import("./api/supabase/likes.js");
+      const { comentar } = await import("./api/supabase/comentarios.js");
+
+      if (action.type === "like") {
+        darLike(action.slug);
+      }
+
+      if (action.type === "comment") {
+        const textarea = document.getElementById("nuevo-comentario");
+        if (textarea && action.contenido) {
+          textarea.value = action.contenido;
+        }
+      
+        comentar(action.slug);
+      }
+    }
   });
 });
 
-// ===== RESTO =====
 loadPartial("menu", "menu.html");
 loadPartial("carousel", "carousel.html");
 
@@ -135,7 +154,6 @@ loadPartial("modal", "modal.html", () => {
   const enterBtn = document.getElementById("enterBtn");
   const closeAuthModal = document.getElementById("closeAuthModal");
 
-  // Abrir/cerrar modal
   enterBtn?.addEventListener("click", () => authModal.style.display = "block");
   closeAuthModal?.addEventListener("click", () => authModal.style.display = "none");
 
@@ -143,8 +161,11 @@ loadPartial("modal", "modal.html", () => {
     if (e.target === authModal) authModal.style.display = "none";
   });
 
-  // Botones del modal
   document.getElementById("btnLogin")?.addEventListener("click", loginFromModal);
   document.getElementById("btnRegister")?.addEventListener("click", registerFromModal);
   document.getElementById("btnGoogle")?.addEventListener("click", loginWithGoogle);
 });
+
+if (window.location.hash) {
+  window.history.replaceState({}, document.title, window.location.pathname);
+}

@@ -41,13 +41,19 @@ export async function loginFromModal() {
 export async function loginWithGoogle() {
   clearAuthMessage();
 
-  const { error } = await supabaseClient.auth.signInWithOAuth({ provider: "google" });
+  const redirectTo = window.location.origin + window.location.pathname;
+
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo
+    }
+  });
 
   if (error) {
     showAuthMessage(traducirError(error.message), "error");
   }
 }
-
 export async function logout() {
   await supabaseClient.auth.signOut();
   alert("Sesión cerrada"); 

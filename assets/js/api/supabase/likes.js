@@ -27,22 +27,24 @@ export async function mostrarLikes(slug) {
 }
 
 export async function darLike(slug) {
-  console.log("Click en like");
-
   const user = await getUser();
-  console.log("Usuario:", user);
 
   if (!user) {
+    localStorage.setItem("pendingAction", JSON.stringify({
+      type: "like",
+      slug
+    }));
+
     openAuthModal();
 
     setTimeout(() => {
       showGlobalToast("Debes iniciar sesión para dar like");
     }, 200);
+
     return;
   }
 
   const post = await obtenerPost(slug);
-  console.log("Post:", post);
 
   const { data: existente } = await supabaseClient
     .from("likes")
@@ -51,10 +53,7 @@ export async function darLike(slug) {
     .eq("user_id", user.id)
     .maybeSingle();
 
-  if (existente) {
-    console.log("Ya diste like");
-    return;
-  }
+  if (existente) return;
 
   const { error } = await supabaseClient
     .from("likes")
@@ -64,16 +63,12 @@ export async function darLike(slug) {
     }]);
 
   if (error) {
-    if (error.code === "23505") {
-      console.log("Like duplicado evitado");
-      return;
-    }
-  
-    console.error("Error insert like:", error);
+    if (error.code === "23505") return;
+
+    console.error(error);
     showGlobalToast("Error al dar like");
     return;
   }
 
-  console.log("Like insertado");
   mostrarLikes(slug);
 }
