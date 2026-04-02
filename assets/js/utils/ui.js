@@ -58,6 +58,6 @@ export function showGlobalToast(message, type = "error", duration = 2500) {
 export function openAuthModal() {
   const modal = document.getElementById("authModal");
   if (modal) {
-    modal.style.display = "block";
+    modal.classList.add("show");
   }
 }

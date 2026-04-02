@@ -18,7 +18,7 @@ export async function registerFromModal() {
     showAuthMessage(traducirError(error.message), "error");
   } else {
     showAuthMessage("Cuenta creada correctamente", "success");
-    document.getElementById("authModal").style.display = "none";
+    document.getElementById("authModal")?.classList.remove("show");
   }
 }
 
@@ -34,7 +34,7 @@ export async function loginFromModal() {
     showAuthMessage(traducirError(error.message), "error");
   } else {
     showAuthMessage("Sesión iniciada correctamente", "success");
-    document.getElementById("authModal").style.display = "none";
+    document.getElementById("authModal")?.classList.remove("show");
   }
 }
 
