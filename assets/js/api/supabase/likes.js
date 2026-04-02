@@ -34,7 +34,10 @@ export async function darLike(slug) {
 
   if (!user) {
     openAuthModal();
-    showGlobalToast("Debes iniciar sesión para dar like");
+
+    setTimeout(() => {
+      showGlobalToast("Debes iniciar sesión para dar like");
+    }, 200);
     return;
   }
 

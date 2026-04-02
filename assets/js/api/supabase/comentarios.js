@@ -28,7 +28,10 @@ export async function comentar(slug) {
 
   if (!user) {
     openAuthModal();
-    showGlobalToast("Debes iniciar sesión para comentar");
+
+    setTimeout(() => {
+      showGlobalToast("Debes iniciar sesión para comentar");
+    }, 200);
     return;
   }
 
