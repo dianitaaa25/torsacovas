@@ -1,39 +1,26 @@
-const BASE_PATH =
-  window.location.hostname === "dianitaaa25.github.io"
-    ? "/torsacovas/"
-    : "/";
+import { registerFromModal, loginFromModal, loginWithGoogle, logout } from "./api/supabase/auth.js";
+
+const BASE_PATH = window.location.hostname === "dianitaaa25.github.io"
+  ? "/torsacovas/"
+  : "/";
 
 function fixLinks(container) {
-
   container.querySelectorAll("a[href]").forEach(link => {
     const href = link.getAttribute("href");
-
-    if (
-      href &&
-      !href.startsWith("http") &&
-      !href.startsWith("#") &&
-      !href.startsWith("mailto") &&
-      !href.startsWith(BASE_PATH)
-    ) {
+    if (href && !href.startsWith("http") && !href.startsWith("#") && !href.startsWith("mailto") && !href.startsWith(BASE_PATH)) {
       link.setAttribute("href", BASE_PATH + href);
     }
   });
 
   container.querySelectorAll("img[src], source[src], audio[src]").forEach(el => {
     const src = el.getAttribute("src");
-
-    if (
-      src &&
-      !src.startsWith("http") &&
-      !src.startsWith(BASE_PATH)
-    ) {
+    if (src && !src.startsWith("http") && !src.startsWith(BASE_PATH)) {
       el.setAttribute("src", BASE_PATH + src);
     }
   });
 }
 
 function loadPartial(id, file, callback) {
-
   const url = BASE_PATH + "partials/" + file;
 
   fetch(url)
@@ -42,18 +29,14 @@ function loadPartial(id, file, callback) {
       return res.text();
     })
     .then(html => {
-
       const el = document.getElementById(id);
       if (!el) return;
 
       el.innerHTML = html;
-
       fixLinks(el);
 
       if (typeof gtag === "function") {
-        gtag('event', 'page_view', {
-          page_path: window.location.pathname
-        });
+        gtag('event', 'page_view', { page_path: window.location.pathname });
       }
 
       if (callback) callback();
@@ -61,11 +44,107 @@ function loadPartial(id, file, callback) {
     .catch(err => console.error(err));
 }
 
-loadPartial("header", "header.html");
+// ===== HEADER (AUTH) =====
+loadPartial("header", "header.html", async () => {
+  const { supabaseClient } = await import("./api/supabase/client.js");
+  const { logout } = await import("./api/supabase/auth.js");
+
+  const authHeader = document.getElementById("authHeader");
+  if (!authHeader) return;
+
+  let outsideClickListenerAdded = false;
+
+  async function renderAuth() {
+    const { data } = await supabaseClient.auth.getUser();
+    const user = data.user;
+
+    if (user) {
+      authHeader.innerHTML = `
+        <div class="auth-header">
+          <div class="auth-user" id="authUserBtn">
+            ${user.email}
+          </div>
+          <div class="auth-dropdown" id="authDropdown">
+            <button id="logoutBtn">Cerrar sesión</button>
+          </div>
+        </div>
+      `;
+
+      const userBtn = document.getElementById("authUserBtn");
+      const dropdown = document.getElementById("authDropdown");
+      const logoutBtn = document.getElementById("logoutBtn");
+
+      // 👉 toggle con clases (animación)
+      userBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        dropdown.classList.toggle("show");
+        userBtn.classList.toggle("active");
+      });
+
+      // 👉 cerrar al hacer click fuera (solo una vez)
+      if (!outsideClickListenerAdded) {
+        document.addEventListener("click", () => {
+          const dropdown = document.getElementById("authDropdown");
+          const userBtn = document.getElementById("authUserBtn");
+
+          if (dropdown && userBtn) {
+            dropdown.classList.remove("show");
+            userBtn.classList.remove("active");
+          }
+        });
+
+        outsideClickListenerAdded = true;
+      }
+
+      // 👉 logout
+      logoutBtn.addEventListener("click", logout);
+
+    } else {
+      authHeader.innerHTML = `
+        <div class="auth-user" id="loginBtn">
+          Iniciar sesión
+        </div>
+      `;
+
+      document.getElementById("loginBtn")
+        ?.addEventListener("click", () => {
+          document.getElementById("authModal").style.display = "block";
+        });
+    }
+  }
+
+  renderAuth();
+
+  supabaseClient.auth.onAuthStateChange(() => {
+    renderAuth();
+  });
+});
+
+// ===== RESTO =====
 loadPartial("menu", "menu.html");
 loadPartial("carousel", "carousel.html");
 
 loadPartial("footer", "footer.html", () => {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
+});
+
+loadPartial("modal", "modal.html", () => {
+  const authModal = document.getElementById("authModal");
+  const enterBtn = document.getElementById("enterBtn");
+  const closeAuthModal = document.getElementById("closeAuthModal");
+
+  // Abrir/cerrar modal
+  enterBtn?.addEventListener("click", () => authModal.style.display = "block");
+  closeAuthModal?.addEventListener("click", () => authModal.style.display = "none");
+
+  window.addEventListener("click", e => {
+    if (e.target === authModal) authModal.style.display = "none";
+  });
+
+  // Botones del modal
+  document.getElementById("btnLogin")?.addEventListener("click", loginFromModal);
+  document.getElementById("btnRegister")?.addEventListener("click", registerFromModal);
+  document.getElementById("btnGoogle")?.addEventListener("click", loginWithGoogle);
 });

@@ -257,8 +257,8 @@
   opacity: 0.85;
 
   transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+    opacity 0.75s ease,
+    transform 0.75s ease;
 }
 
 #visorCerrar:hover {

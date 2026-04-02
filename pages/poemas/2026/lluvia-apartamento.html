@@ -88,12 +88,21 @@ No hay lugar seco, no hay viajes a Marte.
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script src="assets/js/supabase.js"></script>
 <script src="assets/js/load-partials.js"></script>
 <script src="assets/js/contact-form.js"></script>
-<script>
-  mostrarLikes("lluvia-apartamento");
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script type="module">
+  import { mostrarLikes, darLike } from "/assets/js/api/supabase/likes.js";
+  import { cargarComentarios, comentar } from "/assets/js/api/supabase/comentarios.js";
+
+  window.darLike = darLike;
+  window.comentar = comentar;
+
+  const slug = "lluvia-apartamento";
+
+  mostrarLikes(slug);
+  cargarComentarios(slug);
 </script>
 
 </body>
