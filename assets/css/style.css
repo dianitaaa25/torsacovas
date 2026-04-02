@@ -308,6 +308,103 @@ h1 a {
   background: #1e8449;
 }
 
+/* ===== MODAL DE INICIO DE SESIÓN ===== */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 10000; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: linear-gradient(155deg, #fffbea, #fff3b0, #ffe28a); 
+  padding: 2rem;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35), inset 0 0 1px rgba(255,255,255,0.35);
+  position: relative;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.modal h2 {
+  margin-top: 0;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #2e2e2e;
+}
+
+.modal button.close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 2.4rem;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  color: rgba(114, 100, 20, 0.9);
+  text-shadow:
+    0 0 10px rgba(245, 233, 166, 0.35),
+    0 0 24px rgba(0,0,0,0.6);
+  opacity: 0.85;
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s ease;
+}
+.modal button.close:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.modal input[type="email"],
+.modal input[type="password"] {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1rem;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+}
+.modal .modal-options {
+  margin-top: 24px;
+}
+
+.modal .modal-options button {
+  width: 100%;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;  
+  cursor: pointer;
+  background-image: linear-gradient(to right, #ffe28a 0%, #ffc908 51%, #ffe28a 100%);
+  background-size: 200% auto;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: background-position 0.5s ease, color 0.7s ease, transform 0.7s ease, box-shadow 0.2s ease;
+}
+
+.modal .modal-options button:hover {
+  background-position: right center;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
 /* ===== MENÚ DE PÁGINA ===== */
 .menu{
   background: linear-gradient(to right, #ffdc60, #d2a00c, #8f6b09);
@@ -637,101 +734,6 @@ h1 a {
     grid-column: 1 / -1;
     margin-top: 1rem;
   }
-}
-
-/* ===== MODAL DE INICIO DE SESIÓN ===== */
-.modal {
-  display: none; 
-  position: fixed;
-  z-index: 10000; 
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(5px);
-  transition: opacity 0.4s ease;
-}
-
-.modal-content {
-  background: linear-gradient(155deg, #fffbea, #fff3b0, #ffe28a); 
-  margin: 10% auto;
-  padding: 2rem;
-  border-radius: 14px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.35), inset 0 0 1px rgba(255,255,255,0.35);
-  position: relative;
-  font-family: "Times New Roman", Times, serif;
-}
-
-.modal h2 {
-  margin-top: 0;
-  font-size: 1.6rem;
-  text-align: center;
-  color: #2e2e2e;
-}
-
-.modal button.close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 2.4rem;
-  font-weight: 300;
-  line-height: 1;
-  cursor: pointer;
-  color: rgba(114, 100, 20, 0.9);
-  text-shadow:
-    0 0 10px rgba(245, 233, 166, 0.35),
-    0 0 24px rgba(0,0,0,0.6);
-  opacity: 0.85;
-  transition:
-    opacity 0.75s ease,
-    transform 0.75s ease;
-}
-.modal button.close:hover {
-  opacity: 1;
-  transform: scale(1.15);
-}
-
-.modal input[type="email"],
-.modal input[type="password"] {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 1rem;
-  width: 100%;
-  padding: 10px 12px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  border: none;
-  font-size: 1rem;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
-}
-.modal .modal-options {
-  margin-top: 24px;
-}
-
-.modal .modal-options button {
-  width: 100%;
-  padding: 10px 16px;
-  margin-bottom: 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 8px;
-  border: none;  
-  cursor: pointer;
-  background-image: linear-gradient(to right, #ffe28a 0%, #ffc908 51%, #ffe28a 100%);
-  background-size: 200% auto;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  transition: background-position 0.5s ease, color 0.7s ease, transform 0.7s ease, box-shadow 0.2s ease;
-}
-
-.modal .modal-options button:hover {
-  background-position: right center;
-  color: #fff;
-  transform: translateY(-1px);
 }
 
 /* ===== MODO OSCURO ===== */
