@@ -27,8 +27,8 @@ export async function comentar(slug) {
   const user = await getUser();
 
   if (!user) {
-    showGlobalToast("Debes iniciar sesión para comentar");
     openAuthModal();
+    showGlobalToast("Debes iniciar sesión para comentar");
     return;
   }
 

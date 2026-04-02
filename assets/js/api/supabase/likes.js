@@ -33,8 +33,8 @@ export async function darLike(slug) {
   console.log("Usuario:", user);
 
   if (!user) {
-    showGlobalToast("Debes iniciar sesión para dar like");
     openAuthModal();
+    showGlobalToast("Debes iniciar sesión para dar like");
     return;
   }
 
