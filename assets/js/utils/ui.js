@@ -35,6 +35,10 @@ export function traducirError(msg) {
     return "La contraseña debe tener al menos 6 caracteres";
   }
 
+  if (msg.includes("missing email or phone")) {
+    return "Falta correo electrónico o contraseña";
+  }
+
   if (msg.includes("Unable to validate email address")) {
     return "Correo inválido";
   }
