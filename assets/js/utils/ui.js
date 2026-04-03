@@ -61,3 +61,17 @@ export function openAuthModal() {
     modal.classList.add("show");
   }
 }
+
+export function resetAuthModal() {
+  const email = document.getElementById("authEmail");
+  const password = document.getElementById("authPassword");
+  const message = document.getElementById("authMessage");
+
+  if (email) email.value = "";
+  if (password) password.value = "";
+
+  if (message) {
+    message.textContent = "";
+    message.className = "auth-message";
+  }
+}

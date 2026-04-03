@@ -281,9 +281,10 @@ h1 a {
 
 .global-toast {
   position: fixed;
-  bottom: 30px;
+  top: 30px;
+  bottom: auto;
   left: 50%;
-  transform: translateX(-50%) translateY(20px);
+  transform: translateX(-50%) translateY(-20px);
   background: #2e2e2e;
   color: #fff;
   padding: 10px 16px;

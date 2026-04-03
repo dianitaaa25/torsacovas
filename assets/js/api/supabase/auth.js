@@ -1,5 +1,5 @@
 import { supabaseClient } from "./client.js";
-import { showAuthMessage, clearAuthMessage, traducirError } from "../../utils/ui.js";
+import { showAuthMessage, clearAuthMessage, traducirError, resetAuthModal } from "../../utils/ui.js";
 
 export async function getUser() {
   const { data } = await supabaseClient.auth.getUser();
@@ -19,6 +19,7 @@ export async function registerFromModal() {
   } else {
     showAuthMessage("Cuenta creada correctamente", "success");
     document.getElementById("authModal")?.classList.remove("show");
+    resetAuthModal(); // ✅ limpiar
   }
 }
 
@@ -35,6 +36,7 @@ export async function loginFromModal() {
   } else {
     showAuthMessage("Sesión iniciada correctamente", "success");
     document.getElementById("authModal")?.classList.remove("show");
+    resetAuthModal(); // ✅ limpiar
   }
 }
 
@@ -54,7 +56,8 @@ export async function loginWithGoogle() {
     showAuthMessage(traducirError(error.message), "error");
   }
 }
+
 export async function logout() {
   await supabaseClient.auth.signOut();
-  alert("Sesión cerrada"); 
+  alert("Sesión cerrada");
 }

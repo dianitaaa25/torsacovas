@@ -1,4 +1,5 @@
 import { registerFromModal, loginFromModal, loginWithGoogle, logout } from "./api/supabase/auth.js";
+import { resetAuthModal } from "./utils/ui.js";
 
 const BASE_PATH = window.location.hostname === "dianitaaa25.github.io"
   ? "/torsacovas/"
@@ -163,11 +164,13 @@ loadPartial("modal", "modal.html", () => {
 
   closeAuthModal?.addEventListener("click", () => {
     authModal?.classList.remove("show");
+    resetAuthModal();
   });
 
   window.addEventListener("click", e => {
     if (e.target === authModal) {
       authModal?.classList.remove("show");
+      resetAuthModal();
     }
   });
 
