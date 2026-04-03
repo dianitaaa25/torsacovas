@@ -1,4 +1,4 @@
-import { registerFromModal, loginFromModal, loginWithGoogle, logout } from "./api/supabase/auth.js";
+import { registerFromModal, loginFromModal, loginWithGoogle } from "./api/supabase/auth.js";
 import { resetAuthModal } from "./utils/ui.js";
 
 const BASE_PATH = window.location.hostname === "dianitaaa25.github.io"
@@ -95,11 +95,23 @@ loadPartial("header", "header.html", async () => {
             userBtn.classList.remove("active");
           }
         });
-
         outsideClickListenerAdded = true;
       }
 
-      logoutBtn.addEventListener("click", logout);
+      logoutBtn.addEventListener("click", async () => {
+        const { error } = await supabaseClient.auth.signOut();
+        if (!error) {
+          authHeader.innerHTML = `
+            <div class="auth-user" id="loginBtn">
+              Iniciar sesión
+            </div>
+          `;
+          document.getElementById("loginBtn")
+            ?.addEventListener("click", () => {
+              document.getElementById("authModal")?.classList.add("show");
+            });
+        }
+      });
 
     } else {
       authHeader.innerHTML = `
@@ -107,7 +119,6 @@ loadPartial("header", "header.html", async () => {
           Iniciar sesión
         </div>
       `;
-
       document.getElementById("loginBtn")
         ?.addEventListener("click", () => {
           document.getElementById("authModal")?.classList.add("show");
@@ -118,7 +129,6 @@ loadPartial("header", "header.html", async () => {
   await renderAuth();
 
   const { data: sessionData } = await supabaseClient.auth.getSession();
-
   if (sessionData?.session) {
     await renderAuth();
     const modal = document.getElementById("authModal");
@@ -144,16 +154,11 @@ loadPartial("header", "header.html", async () => {
       const { darLike } = await import("./api/supabase/likes.js");
       const { comentar } = await import("./api/supabase/comentarios.js");
 
-      if (action.type === "like") {
-        darLike(action.slug);
-      }
+      if (action.type === "like") darLike(action.slug);
 
       if (action.type === "comment") {
         const textarea = document.getElementById("nuevo-comentario");
-        if (textarea && action.contenido) {
-          textarea.value = action.contenido;
-        }
-
+        if (textarea && action.contenido) textarea.value = action.contenido;
         comentar(action.slug);
       }
     }
@@ -162,7 +167,6 @@ loadPartial("header", "header.html", async () => {
 
 loadPartial("menu", "menu.html");
 loadPartial("carousel", "carousel.html");
-
 loadPartial("footer", "footer.html", () => {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
