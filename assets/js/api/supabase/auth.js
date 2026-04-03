@@ -1,5 +1,4 @@
 import { supabaseClient } from "./client.js";
-import { renderAuth } from "../../load-partials.js";
 import { showAuthMessage, clearAuthMessage, traducirError,resetAuthModal } from "../../utils/ui.js";
 
 export async function getUser() {
@@ -66,8 +65,17 @@ export async function logout() {
 
   showToast("Sesión cerrada correctamente");
 
-  if (typeof renderAuth === "function") {
-    await renderAuth();
+  const authHeader = document.getElementById("authHeader");
+  if (authHeader) {
+    authHeader.innerHTML = `
+      <div class="auth-user" id="loginBtn">
+        Iniciar sesión
+      </div>
+    `;
+
+    document.getElementById("loginBtn")?.addEventListener("click", () => {
+      document.getElementById("authModal")?.classList.add("show");
+    });
   }
 }
 
