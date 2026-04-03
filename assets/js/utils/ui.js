@@ -42,6 +42,9 @@ export function traducirError(msg) {
   if (msg.includes("Unable to validate email address")) {
     return "Correo inválido.";
   }
+  if (msg.includes("Anonymous sign-ins are disabled")) {
+     return "Los inicios de sesión anónimos están deshabilitados.";
+  }
 
   return "Error: " + msg;
 }
