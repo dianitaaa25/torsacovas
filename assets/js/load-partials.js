@@ -115,20 +115,25 @@ loadPartial("header", "header.html", async () => {
     }
   }
 
-  renderAuth();
+  await renderAuth();
 
-  supabaseClient.auth.onAuthStateChange(async () => {
-    renderAuth();
+  const { data: sessionData } = await supabaseClient.auth.getSession();
 
-    const { data: { session } } = await supabaseClient.auth.getSession();
+  if (sessionData?.session) {
+    await renderAuth();
+    const modal = document.getElementById("authModal");
+    modal?.classList.remove("show");
+    resetAuthModal();
+  }
+
+  supabaseClient.auth.onAuthStateChange(async (event, session) => {
+    await renderAuth();
 
     if (!session) return;
 
     const modal = document.getElementById("authModal");
-    if (modal) {
-      modal.classList.remove("show");
-      resetAuthModal();
-    }
+    modal?.classList.remove("show");
+    resetAuthModal();
 
     const pending = localStorage.getItem("pendingAction");
 
@@ -189,6 +194,11 @@ loadPartial("modal", "modal.html", () => {
   document.getElementById("btnGoogle")?.addEventListener("click", loginWithGoogle);
 });
 
-if (window.location.hash) {
-  window.history.replaceState({}, document.title, window.location.pathname);
-}
+window.addEventListener("load", async () => {
+  const { supabaseClient } = await import("./api/supabase/client.js");
+  await supabaseClient.auth.getSession();
+
+  if (window.location.hash) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+});
