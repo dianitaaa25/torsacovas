@@ -1,5 +1,5 @@
 import { supabaseClient } from "./client.js";
-import { showAuthMessage, clearAuthMessage, traducirError,resetAuthModal } from "../../utils/ui.js";
+import { showAuthMessage, clearAuthMessage, traducirError, resetAuthModal } from "../../utils/ui.js";
 
 export async function getUser() {
   const { data } = await supabaseClient.auth.getUser();
@@ -54,43 +54,4 @@ export async function loginWithGoogle() {
   if (error) {
     showAuthMessage(traducirError(error.message), "error");
   }
-}
-
-export async function logout() {
-  const { error } = await supabaseClient.auth.signOut();
-  if (error) {
-    console.error("Error cerrando sesión:", error.message);
-    return;
-  }
-
-  showToast("Sesión cerrada correctamente");
-
-  const authHeader = document.getElementById("authHeader");
-  if (authHeader) {
-    authHeader.innerHTML = `
-      <div class="auth-user" id="loginBtn">
-        Iniciar sesión
-      </div>
-    `;
-
-    document.getElementById("loginBtn")?.addEventListener("click", () => {
-      document.getElementById("authModal")?.classList.add("show");
-    });
-  }
-}
-
-function showToast(message, duration = 3000) {
-  let toast = document.createElement("div");
-  toast.className = "toast-notification";
-  toast.textContent = message;
-  document.body.appendChild(toast);
-
-  setTimeout(() => {
-    toast.classList.add("show");
-  }, 50);
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-    setTimeout(() => toast.remove(), 300);
-  }, duration);
 }

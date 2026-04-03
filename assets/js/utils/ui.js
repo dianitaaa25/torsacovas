@@ -17,30 +17,30 @@ export function clearAuthMessage() {
 }
 
 export function traducirError(msg) {
-  if (!msg) return "Ocurrió un error";
+  if (!msg) return "Ocurrió un error.";
 
   if (msg.includes("Invalid login credentials")) {
-    return "Correo o contraseña incorrectos";
+    return "Correo o contraseña incorrectos.";
   }
 
   if (msg.includes("Email not confirmed")) {
-    return "Debes confirmar tu correo antes de iniciar sesión";
+    return "Debes confirmar tu correo antes de iniciar sesión.";
   }
 
   if (msg.includes("User already registered")) {
-    return "Este correo ya está registrado";
+    return "Este correo ya está registrado.";
   }
 
   if (msg.includes("Password should be at least")) {
-    return "La contraseña debe tener al menos 6 caracteres";
+    return "La contraseña debe tener al menos seis caracteres.";
   }
 
   if (msg.includes("missing email or phone")) {
-    return "Falta correo electrónico o contraseña";
+    return "Falta correo electrónico o contraseña.";
   }
 
   if (msg.includes("Unable to validate email address")) {
-    return "Correo inválido";
+    return "Correo inválido.";
   }
 
   return "Error: " + msg;

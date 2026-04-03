@@ -79,17 +79,18 @@ loadPartial("header", "header.html", async () => {
       const dropdown = document.getElementById("authDropdown");
       const logoutBtn = document.getElementById("logoutBtn");
 
-      userBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        dropdown.classList.toggle("show");
-        userBtn.classList.toggle("active");
-      });
+      if (userBtn && dropdown) {
+        userBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          dropdown.classList.toggle("show");
+          userBtn.classList.toggle("active");
+        });
+      }
 
       if (!outsideClickListenerAdded) {
         document.addEventListener("click", () => {
           const dropdown = document.getElementById("authDropdown");
           const userBtn = document.getElementById("authUserBtn");
-
           if (dropdown && userBtn) {
             dropdown.classList.remove("show");
             userBtn.classList.remove("active");
@@ -98,20 +99,14 @@ loadPartial("header", "header.html", async () => {
         outsideClickListenerAdded = true;
       }
 
-      logoutBtn.addEventListener("click", async () => {
-        const { error } = await supabaseClient.auth.signOut();
-        if (!error) {
-          authHeader.innerHTML = `
-            <div class="auth-user" id="loginBtn">
-              Iniciar sesión
-            </div>
-          `;
-          document.getElementById("loginBtn")
-            ?.addEventListener("click", () => {
-              document.getElementById("authModal")?.classList.add("show");
-            });
-        }
-      });
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          localStorage.removeItem('sb-gqhgmalvclhufiwmleei-auth-token');
+          supabaseClient.auth.signOut();
+          window.location.reload();
+        });
+      }
 
     } else {
       authHeader.innerHTML = `
