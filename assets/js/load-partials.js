@@ -60,8 +60,8 @@ loadPartial("header", "header.html", async () => {
   let outsideClickListenerAdded = false;
 
   async function renderAuth() {
-    const { data } = await supabaseClient.auth.getUser();
-    const user = data.user;
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    const user = session?.user;
 
     if (user) {
       authHeader.innerHTML = `
@@ -119,6 +119,16 @@ loadPartial("header", "header.html", async () => {
 
   supabaseClient.auth.onAuthStateChange(async () => {
     renderAuth();
+
+    const { data: { session } } = await supabaseClient.auth.getSession();
+
+    if (!session) return;
+
+    const modal = document.getElementById("authModal");
+    if (modal) {
+      modal.classList.remove("show");
+      resetAuthModal();
+    }
 
     const pending = localStorage.getItem("pendingAction");
 
