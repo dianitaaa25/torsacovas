@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   if (!form) return;
 
+  const sound = document.getElementById("messageSound");
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -13,15 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = formData.get("email")?.trim();
     const mensaje = formData.get("mensaje")?.trim();
 
-    const sound = document.getElementById("messageSound");
-
-    if (!nombre?.length || !email?.length || !mensaje?.length) {
+    if (!nombre || !email || !mensaje) {
       showGlobalToast("Completa todos los campos antes de enviar.", "info");
       return;
     }
 
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
     if (!emailValido) {
       showGlobalToast("Introduce un correo válido.", "info");
       return;
@@ -29,30 +28,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(form.action, {
-        method: form.method,
+        method: "POST",
         body: formData,
-        headers: {
-          Accept: "application/json"
-        }
+        headers: { "Accept": "application/json" }
       });
+
+      const data = await response.json();
 
       if (response.ok) {
         form.reset();
-
         showGlobalToast("Mensaje enviado correctamente.", "success");
-
         if (sound) {
           sound.currentTime = 0;
           sound.play().catch(() => {});
         }
-
-        return;
+      } else {
+        const errorMsg = data?.errors?.map(err => err?.message).join(", ") || "No se pudo enviar el mensaje.";
+        showGlobalToast(errorMsg, "error");
       }
 
-      showGlobalToast("No se pudo enviar el mensaje. Intenta más tarde.", "error");
-
-    } catch (error) {
-      console.error("Error enviando formulario", error);
+    } catch (err) {
+      console.error("Error enviando formulario:", err);
       showGlobalToast("Error de conexión. Inténtalo nuevamente.", "error");
     }
 
