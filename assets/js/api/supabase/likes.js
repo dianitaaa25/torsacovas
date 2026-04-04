@@ -19,11 +19,45 @@ export async function contarLikes(slug) {
   return count || 0;
 }
 
+export async function usuarioDioLike(slug) {
+  const user = await getUser();
+  if (!user) return false;
+
+  const post = await obtenerPost(slug);
+
+  const { data } = await supabaseClient
+    .from("likes")
+    .select("*")
+    .eq("post_id", post.id)
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  return !!data;
+}
+
 export async function mostrarLikes(slug) {
   const total = await contarLikes(slug);
 
   const el = document.getElementById("likes-" + slug);
-  if (el) el.textContent = total;
+  if (el) el.textContent = `${total}`;
+
+  const btn = document.getElementById("btn-like-" + slug);
+  if (!btn) return;
+
+  const user = await getUser();
+
+  if (!user) {
+    btn.classList.remove("liked");
+    return;
+  }
+
+  const tieneLike = await usuarioDioLike(slug);
+
+  if (tieneLike) {
+    btn.classList.add("liked");
+  } else {
+    btn.classList.remove("liked");
+  }
 }
 
 export async function darLike(slug) {
@@ -53,7 +87,29 @@ export async function darLike(slug) {
     .eq("user_id", user.id)
     .maybeSingle();
 
-  if (existente) return;
+  const btn = document.getElementById("btn-like-" + slug);
+
+  if (existente) {
+    const { error } = await supabaseClient
+      .from("likes")
+      .delete()
+      .eq("post_id", post.id)
+      .eq("user_id", user.id);
+
+    if (error) {
+      console.error(error);
+      showGlobalToast("Error al quitar like");
+      return;
+    }
+
+    if (btn) {
+      btn.classList.add("animate");
+      setTimeout(() => btn.classList.remove("animate"), 300);
+    }
+
+    mostrarLikes(slug);
+    return;
+  }
 
   const { error } = await supabaseClient
     .from("likes")
@@ -68,6 +124,11 @@ export async function darLike(slug) {
     console.error(error);
     showGlobalToast("Error al dar like");
     return;
+  }
+
+  if (btn) {
+    btn.classList.add("animate");
+    setTimeout(() => btn.classList.remove("animate"), 300);
   }
 
   mostrarLikes(slug);
