@@ -385,16 +385,13 @@ h1 a {
 .auth-main-btn,
 .google-btn,
 .auth-dropdown button {
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
+  -webkit-appearance: none !important;
+  -webkit-tap-highlight-color: transparent !important;
   
   outline: none !important;
-  outline-offset: 0 !important;
+  border: none !important;
   
   color: inherit !important;
-  
-  transition: all 0.2s ease !important;
 }
 
 .auth-tabs button:focus,
@@ -402,25 +399,6 @@ h1 a {
 .google-btn:focus,
 .auth-dropdown button:focus {
   outline: none !important;
-  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.4) !important;
-}
-
-@supports (-webkit-appearance: none) {
-  .auth-tabs button,
-  .auth-main-btn,
-  .google-btn,
-  .auth-dropdown button {
-    -webkit-appearance: button;
-    -webkit-appearance: none;
-  }
-}
-
-.auth-tabs button:focus-visible,
-.auth-main-btn:focus-visible,
-.google-btn:focus-visible {
-  box-shadow: 
-    0 0 0 2px #ffc908,
-    0 0 0 4px rgba(255, 215, 0, 0.3);
 }
 
 .global-toast {
