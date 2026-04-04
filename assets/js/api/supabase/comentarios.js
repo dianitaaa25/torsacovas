@@ -1,7 +1,19 @@
 import { supabaseClient } from "./client.js";
 import { obtenerPost } from "./posts.js";
 import { getUser } from "./auth.js";
-import { showGlobalToast, openAuthModal } from "../../utils/ui.js";
+
+function showGlobalToast(message, type = "info") {
+  const toast = document.getElementById("globalToast");
+  if (!toast) return console.log(message);
+  
+  toast.textContent = message;
+  toast.className = `global-toast ${type}`;
+  toast.classList.add("show");
+  
+  setTimeout(() => toast.classList.remove("show"), 4000);
+}
+
+let comentariosListenersIniciados = false;
 
 export async function cargarComentarios(slug) {
   const post = await obtenerPost(slug);
@@ -48,24 +60,31 @@ export async function cargarComentarios(slug) {
     contenedor.appendChild(div);
   });
 
-  contenedor.addEventListener("click", async (e) => {
-    if (e.target.classList.contains("eliminar-btn")) {
-      const id = e.target.dataset.id;
+  if (!comentariosListenersIniciados) {
+    contenedor.addEventListener("click", async (e) => {
+      if (e.target.classList.contains("eliminar-btn")) {
+        const id = e.target.dataset.id;
+        
+        if (!confirm("¿Eliminar este comentario?")) return;
 
-      const { error } = await supabaseClient
-        .from("comentarios")
-        .delete()
-        .eq("id", id);
+        const { error } = await supabaseClient
+          .from("comentarios")
+          .delete()
+          .eq("id", id);
 
-      if (error) {
-        console.error(error);
-        showGlobalToast("Error al eliminar comentario");
-        return;
+        if (error) {
+          console.error(error);
+          showGlobalToast("Error al eliminar comentario", "error");
+          return;
+        }
+
+        showGlobalToast("Comentario eliminado.", "success");
+        cargarComentarios(slug);
       }
-
-      cargarComentarios(slug);
-    }
-  });
+    });
+    
+    comentariosListenersIniciados = true;
+  }
 }
 
 export async function comentar(slug) {
@@ -81,12 +100,7 @@ export async function comentar(slug) {
       contenido
     }));
 
-    openAuthModal();
-
-    setTimeout(() => {
-      showGlobalToast("Debes iniciar sesión para comentar.");
-    }, 200);
-
+    showGlobalToast("Debes iniciar sesión para comentar.", "error");
     return;
   }
 
@@ -96,7 +110,6 @@ export async function comentar(slug) {
   }
 
   const post = await obtenerPost(slug);
-
   const nombre = user.email.split("@")[0];
 
   const { error } = await supabaseClient.from("comentarios").insert([{
@@ -108,11 +121,12 @@ export async function comentar(slug) {
 
   if (error) {
     console.error(error);
-    showGlobalToast("Error al publicar comentario");
+    showGlobalToast("Error al publicar comentario.", "error");
     return;
   }
 
   if (textarea) textarea.value = "";
+  showGlobalToast("Comentario publicado.", "success");
 
   cargarComentarios(slug);
 }
