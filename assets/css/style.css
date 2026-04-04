@@ -274,7 +274,6 @@ h1 a {
 }
 
 /* ===== AUTH MODAL PROFESIONAL ===== */
-
 .auth-modal {
   max-width: 380px;
 }
@@ -355,7 +354,26 @@ h1 a {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+
+  background-image: linear-gradient(
+    to right,
+    #ffe28a 0%,
+    #ffc908 51%,
+    #ffe28a 100%
+  );
+  background-size: 200% auto;
+  transition: background-position 0.4s ease, color 0.3s ease;
+  font-weight: bold;
+  color: #2E2E2E;
+}
+
+.google-btn:hover {
+  background-position: right center;
+  color: #fff;
 }
 
 .google-btn svg {

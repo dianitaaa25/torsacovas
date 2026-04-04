@@ -216,7 +216,7 @@ loadPartial("modal", "modal.html", () => {
     }
   });
 
-  document.getElementById("btnGoogle")?.addEventListener("click", loginWithGoogle);
+  document.querySelector(".google-btn")?.addEventListener("click", loginWithGoogle);
 });
 
 window.addEventListener("load", async () => {
