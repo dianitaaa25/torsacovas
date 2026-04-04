@@ -1,18 +1,36 @@
 <div id="authModal" class="modal">
-  <div class="modal-content">
+  <div class="modal-content auth-modal">
+
     <button class="close" id="closeAuthModal">&times;</button>
-    <h2>Unirse</h2>
 
+    <div class="auth-tabs">
+      <button id="tabLogin" class="active">Iniciar sesión</button>
+      <button id="tabRegister">Registrarse</button>
+    </div>
 
-    <input type="email" id="authEmail" placeholder="Correo">
-    <input type="password" id="authPassword" placeholder="Contraseña">
-    
     <div id="authMessage" class="auth-message"></div>
 
-    <div class="modal-options">
-      <button id="btnLogin">Iniciar sesión</button>
-      <button id="btnRegister">Registrarse</button>
-      <button id="btnGoogle">Continuar con Google</button>
+    <div class="auth-form">
+
+      <input type="email" id="authEmail" placeholder="Correo electrónico">
+      <input type="password" id="authPassword" placeholder="Contraseña">
+
+      <button id="btnSubmit" class="auth-main-btn">
+        Iniciar sesión
+      </button>
+
     </div>
+
+    <div class="auth-divider">
+      <span>o</span>
+    </div>
+
+    <button id="btnGoogle" class="google-btn">
+      <svg viewBox="0 0 24 24">
+        <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.2-1.4 3.6-5.5 3.6-3.3 0-6-2.7-6-6s2.7-6 6-6c1.9 0 3.2.8 3.9 1.5l2.7-2.6C17.1 2.9 14.8 2 12 2 6.9 2 2.8 6.1 2.8 11.2S6.9 20.4 12 20.4c6.9 0 9.2-4.8 9.2-7.3 0-.5-.1-.9-.1-1.3H12z"/>
+      </svg>
+      Continuar con Google
+    </button>
+
   </div>
 </div>

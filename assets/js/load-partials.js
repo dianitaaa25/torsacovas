@@ -172,6 +172,12 @@ loadPartial("modal", "modal.html", () => {
   const enterBtn = document.getElementById("enterBtn");
   const closeAuthModal = document.getElementById("closeAuthModal");
 
+  const tabLogin = document.getElementById("tabLogin");
+  const tabRegister = document.getElementById("tabRegister");
+  const btnSubmit = document.getElementById("btnSubmit");
+
+  let mode = "login";
+
   enterBtn?.addEventListener("click", () => {
     authModal?.classList.add("show");
   });
@@ -188,8 +194,28 @@ loadPartial("modal", "modal.html", () => {
     }
   });
 
-  document.getElementById("btnLogin")?.addEventListener("click", loginFromModal);
-  document.getElementById("btnRegister")?.addEventListener("click", registerFromModal);
+  tabLogin?.addEventListener("click", () => {
+    mode = "login";
+    tabLogin.classList.add("active");
+    tabRegister.classList.remove("active");
+    btnSubmit.textContent = "Iniciar sesión";
+  });
+
+  tabRegister?.addEventListener("click", () => {
+    mode = "register";
+    tabRegister.classList.add("active");
+    tabLogin.classList.remove("active");
+    btnSubmit.textContent = "Registrarse";
+  });
+
+  btnSubmit?.addEventListener("click", () => {
+    if (mode === "login") {
+      loginFromModal();
+    } else {
+      registerFromModal();
+    }
+  });
+
   document.getElementById("btnGoogle")?.addEventListener("click", loginWithGoogle);
 });
 

@@ -2,11 +2,10 @@ import { showGlobalToast } from "./utils/ui.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  document.addEventListener("submit", async (e) => {
-    const form = e.target;
+  const form = document.getElementById("contactForm");
+  if (!form) return;
 
-    if (!form.matches("#contactForm")) return;
-
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form);
@@ -34,8 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData,
         headers: {
           Accept: "application/json"
-        },
-        redirect: "manual"
+        }
       });
 
       if (response.ok) {
@@ -58,6 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       showGlobalToast("Error de conexión. Inténtalo nuevamente.", "error");
     }
 
-  }, true);
+  });
 
 });
