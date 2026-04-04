@@ -976,9 +976,11 @@ h1 a {
     background: linear-gradient(135deg, #202020, #3a3a3a, #616161);
     color: #fefda2;
   }
+
   .modal h2 {
     color: #fefda2;
   }
+
   .modal button.close {
     color: #ffc908;
   }
@@ -988,13 +990,37 @@ h1 a {
     background-color: #3a3a3a;
     color: #fefda2;
   }
-  
-  .modal .modal-options button {
-    color: #000000;
-    background-image: linear-gradient(to right, #8f6b09, #d2a00c, #ffdc60);
+
+  /* BOTONES principales del modal: Google, iniciar sesión, registrar */
+  .modal .auth-main-btn,
+  .modal .google-btn {
+    color: #2E2E2E !important; /* texto oscuro legible */
+    background-image: linear-gradient(
+      to right,
+      #ffe28a 0%,
+      #ffc908 51%,
+      #ffe28a 100%
+    ) !important;
+    background-size: 200% auto;
+    background-position: left center;
   }
-  .modal .modal-options button:hover {
-    color: #fff;
+
+  .modal .auth-main-btn:hover,
+  .modal .google-btn:hover {
+    background-position: right center !important;
+    color: #fff !important;
+  }
+
+  .auth-tabs button {
+    color: #fefda2;
+  }
+
+  .auth-tabs button.active {
+    color: #2E2E2E;
+  }
+
+  .auth-tabs button:not(.active) {
+    color: #ffc908 !important;
   }
 }
 
