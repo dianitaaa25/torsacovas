@@ -65,8 +65,6 @@ export async function cargarComentarios(slug) {
       if (e.target.classList.contains("eliminar-btn")) {
         const id = e.target.dataset.id;
         
-        if (!confirm("¿Eliminar este comentario?")) return;
-
         const { error } = await supabaseClient
           .from("comentarios")
           .delete()
@@ -74,7 +72,7 @@ export async function cargarComentarios(slug) {
 
         if (error) {
           console.error(error);
-          showGlobalToast("Error al eliminar comentario", "error");
+          showGlobalToast("Error al eliminar.", "error");
           return;
         }
 
@@ -100,12 +98,15 @@ export async function comentar(slug) {
       contenido
     }));
 
+    const modal = document.getElementById("authModal");
+    if (modal) modal.classList.add("show");
+    
     showGlobalToast("Debes iniciar sesión para comentar.", "error");
     return;
   }
 
   if (!contenido) {
-    showGlobalToast("Escribe un comentario antes de publicar.", "info");
+    showGlobalToast("Escribe un comentario.", "info");
     return;
   }
 
@@ -121,12 +122,12 @@ export async function comentar(slug) {
 
   if (error) {
     console.error(error);
-    showGlobalToast("Error al publicar comentario.", "error");
+    showGlobalToast("Error al publicar.", "error");
     return;
   }
 
   if (textarea) textarea.value = "";
-  showGlobalToast("Comentario publicado.", "success");
+  showGlobalToast("¡Comentario publicado!", "success");
 
   cargarComentarios(slug);
 }
