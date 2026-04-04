@@ -10,18 +10,20 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = new FormData(form);
-    const nombre = formData.get("name")?.trim();
+    const nombre = formData.get("nombre")?.trim();
     const email = formData.get("email")?.trim();
-    const mensaje = formData.get("message")?.trim();
+    const mensaje = formData.get("mensaje")?.trim();
 
     const sound = document.getElementById("messageSound");
 
-    if (!nombre || !email || !mensaje) {
+    if (!nombre?.length || !email?.length || !mensaje?.length) {
       showGlobalToast("Completa todos los campos antes de enviar.", "info");
       return;
     }
 
-    if (!email.includes("@")) {
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (!emailValido) {
       showGlobalToast("Introduce un correo válido.", "info");
       return;
     }
@@ -30,7 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch(form.action, {
         method: form.method,
         body: formData,
-        headers: { Accept: "application/json" }
+        headers: {
+          Accept: "application/json"
+        },
+        redirect: "manual"
       });
 
       if (response.ok) {
@@ -50,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     } catch (error) {
       console.error("Error enviando formulario", error);
-
       showGlobalToast("Error de conexión. Inténtalo nuevamente.", "error");
     }
 
