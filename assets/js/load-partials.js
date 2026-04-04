@@ -1,9 +1,10 @@
 import { registerFromModal, loginFromModal, loginWithGoogle } from "./api/supabase/auth.js";
-import { resetAuthModal } from "./utils/ui.js";
+import { resetAuthModal, showGlobalToast } from "./utils/ui.js";
+import { initContactForm } from "./contact-form.js";
 
 const BASE_PATH = window.location.hostname === "dianitaaa25.github.io"
   ? "/torsacovas/"
-  : "/";
+  : "";
 
 function fixLinks(container) {
   container.querySelectorAll("a[href]").forEach(link => {
@@ -53,7 +54,6 @@ function loadPartial(id, file, callback) {
 
 loadPartial("header", "header.html", async () => {
   const { supabaseClient } = await import("./api/supabase/client.js");
-
   const authHeader = document.getElementById("authHeader");
   if (!authHeader) return;
 
@@ -123,14 +123,6 @@ loadPartial("header", "header.html", async () => {
 
   await renderAuth();
 
-  const { data: sessionData } = await supabaseClient.auth.getSession();
-  if (sessionData?.session) {
-    await renderAuth();
-    const modal = document.getElementById("authModal");
-    modal?.classList.remove("show");
-    resetAuthModal();
-  }
-
   supabaseClient.auth.onAuthStateChange(async (event, session) => {
     await renderAuth();
 
@@ -141,7 +133,6 @@ loadPartial("header", "header.html", async () => {
     resetAuthModal();
 
     const pending = localStorage.getItem("pendingAction");
-
     if (pending) {
       const action = JSON.parse(pending);
       localStorage.removeItem("pendingAction");
@@ -161,10 +152,14 @@ loadPartial("header", "header.html", async () => {
 });
 
 loadPartial("menu", "menu.html");
+
 loadPartial("carousel", "carousel.html");
+
 loadPartial("footer", "footer.html", () => {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
+
+  initContactForm();
 });
 
 loadPartial("modal", "modal.html", () => {
