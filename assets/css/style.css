@@ -277,9 +277,21 @@ h1 a {
 
 .auth-modal {
   max-width: 380px;
-  padding-top: 2.5rem;
 }
 
+.auth-modal .modal-content {
+  padding-top: 50px; /* ajusta según el tamaño de la X */
+  position: relative;
+}
+button, a.btn {
+  -webkit-tap-highlight-color: transparent; /* elimina el highlight en móviles */
+  outline: none; /* quita el borde azul al enfocar */
+}
+
+button:focus, a.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1); /* opcional: si quieres un focus visible más sutil */
+}
 .auth-tabs {
   display: flex;
   margin-bottom: 16px;
