@@ -1,6 +1,18 @@
 import { supabaseClient } from "./client.js";
 import { showAuthMessage, clearAuthMessage, traducirError, resetAuthModal } from "../../utils/ui.js";
 
+// Función reutilizable para mostrar toast global
+function showGlobalToast(message, type = "info") {
+  const toast = document.getElementById("globalToast");
+  if (!toast) return;
+  
+  toast.textContent = message;
+  toast.className = `global-toast ${type}`;
+  toast.classList.add("show");
+  
+  setTimeout(() => toast.classList.remove("show"), 4000);
+}
+
 export async function getUser() {
   const { data } = await supabaseClient.auth.getUser();
   return data.user;
@@ -19,6 +31,10 @@ export async function registerFromModal() {
   } else {
     showAuthMessage("Cuenta creada correctamente", "success");
     document.getElementById("authModal")?.classList.remove("show");
+    
+    // 🎉 Toast global de éxito
+    showGlobalToast("¡Bienvenido! Cuenta creada correctamente ✅", "success");
+    setTimeout(resetAuthModal, 1500);
   }
 }
 
@@ -35,6 +51,10 @@ export async function loginFromModal() {
   } else {
     showAuthMessage("Sesión iniciada correctamente", "success");
     document.getElementById("authModal")?.classList.remove("show");
+    
+    // 🎉 Toast global de éxito
+    showGlobalToast("¡Sesión iniciada correctamente! 👋", "success");
+    setTimeout(resetAuthModal, 1500);
   }
 }
 

@@ -274,7 +274,6 @@ h1 a {
 }
 
 /* ===== AUTH MODAL PROFESIONAL ===== */
-
 .auth-modal {
   max-width: 380px;
 }
@@ -378,7 +377,7 @@ h1 a {
 
 .auth-message.success {
   background: #eafaf1;
-  color: #1e8449;
+  color: #0bb451;
   border: 1px solid #a9dfbf;
 }
 

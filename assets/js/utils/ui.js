@@ -51,6 +51,10 @@ export function traducirError(msg) {
     return "Debes ingresar una contraseña válida.";
   }
 
+  if (msg.includes("Load failed")) {
+    return "Error al cargar los datos.";
+  }
+
   return "Error: " + msg;
 }
 

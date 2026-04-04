@@ -1,4 +1,3 @@
-// Versión INDEPENDIENTE que funciona con footer dinámico
 (function() {
   'use strict';
 
@@ -13,17 +12,14 @@
     setTimeout(() => toast.classList.remove('show'), 4000);
   }
 
-  // Espera a que el formulario exista (funciona con carga dinámica)
   function initContactForm() {
     const form = document.getElementById('contactForm');
     if (!form || form.dataset.initialized) return;
 
     form.dataset.initialized = 'true';
-    console.log('🎯 Formulario inicializado');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      console.log('🚀 Enviando formulario...');
 
       const formData = new FormData(form);
       const nombre = formData.get('nombre')?.trim();
@@ -49,7 +45,7 @@
 
         if (response.ok) {
           form.reset();
-          showToast('¡Mensaje enviado correctamente! ✅', 'success');
+          showToast('¡Mensaje enviado correctamente!', 'success');
           
           const sound = document.getElementById('messageSound');
           if (sound) {
@@ -69,10 +65,8 @@
     });
   }
 
-  // Inicializa inmediatamente Y observa cambios DOM
   initContactForm();
   
-  // Observer para footer dinámico
   const observer = new MutationObserver(() => {
     initContactForm();
   });
