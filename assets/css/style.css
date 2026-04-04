@@ -279,18 +279,9 @@ h1 a {
   max-width: 380px;
 }
 
-button, a.btn {
-  -webkit-tap-highlight-color: transparent; /* elimina el highlight en móviles */
-  outline: none; /* quita el borde azul al enfocar */
-}
-
-button:focus, a.btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.1); /* opcional: si quieres un focus visible más sutil */
-}
 .auth-tabs {
   display: flex;
-  padding-top: 1rem;
+  margin-top: 25px;
   margin-bottom: 16px;
   border-radius: 8px;
   overflow: hidden;
