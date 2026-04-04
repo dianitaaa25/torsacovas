@@ -76,7 +76,7 @@ export async function cargarComentarios(slug) {
           return;
         }
 
-        showGlobalToast("Comentario eliminado.", "success");
+        showGlobalToast("Comentario eliminado.", "info");
         cargarComentarios(slug);
       }
     });

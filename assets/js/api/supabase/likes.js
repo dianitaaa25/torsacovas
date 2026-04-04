@@ -1,7 +1,17 @@
 import { supabaseClient } from "./client.js";
 import { obtenerPost } from "./posts.js";
 import { getUser } from "./auth.js";
-import { showGlobalToast, openAuthModal } from "../../utils/ui.js";
+
+function showGlobalToast(message, type = "info") {
+  const toast = document.getElementById("globalToast");
+  if (!toast) return console.log(message);
+  
+  toast.textContent = message;
+  toast.className = `global-toast ${type}`;
+  toast.classList.add("show");
+  
+  setTimeout(() => toast.classList.remove("show"), 2000);
+}
 
 export async function contarLikes(slug) {
   const post = await obtenerPost(slug);
@@ -69,67 +79,47 @@ export async function darLike(slug) {
       slug
     }));
 
-    openAuthModal();
-
-    setTimeout(() => {
-      showGlobalToast("Debes iniciar sesión para dar like.");
-    }, 200);
-
+    const modal = document.getElementById("authModal");
+    if (modal) modal.classList.add("show");
+    
+    showGlobalToast("Debes iniciar sesión para dar like.", "error");
     return;
   }
-
-  const post = await obtenerPost(slug);
-
-  const { data: existente } = await supabaseClient
-    .from("likes")
-    .select("*")
-    .eq("post_id", post.id)
-    .eq("user_id", user.id)
-    .maybeSingle();
 
   const btn = document.getElementById("btn-like-" + slug);
+  if (!btn) return;
 
-  if (existente) {
-    const { error } = await supabaseClient
-      .from("likes")
-      .delete()
-      .eq("post_id", post.id)
-      .eq("user_id", user.id);
+  const post = await obtenerPost(slug);
+  const eraLiked = btn.classList.contains("liked");
 
-    if (error) {
-      console.error(error);
-      showGlobalToast("Error al quitar like");
-      return;
+  btn.classList.add("animate");
+  
+  if (eraLiked) {
+    btn.classList.remove("liked");
+  } else {
+    btn.classList.add("liked");
+  }
+
+  setTimeout(() => btn.classList.remove("animate"), 200);
+
+  setTimeout(async () => {
+    try {
+      if (eraLiked) {
+        const { error } = await supabaseClient
+          .from("likes")
+          .delete()
+          .eq("post_id", post.id)
+          .eq("user_id", user.id);
+      } else {
+        const { error } = await supabaseClient
+          .from("likes")
+          .insert([{ post_id: post.id, user_id: user.id }]);
+      }
+
+      mostrarLikes(slug);
+    } catch (err) {
+      console.error(err);
+      btn.classList.toggle("liked", eraLiked);
     }
-
-    if (btn) {
-      btn.classList.add("animate");
-      setTimeout(() => btn.classList.remove("animate"), 300);
-    }
-
-    mostrarLikes(slug);
-    return;
-  }
-
-  const { error } = await supabaseClient
-    .from("likes")
-    .insert([{
-      post_id: post.id,
-      user_id: user.id
-    }]);
-
-  if (error) {
-    if (error.code === "23505") return;
-
-    console.error(error);
-    showGlobalToast("Error al dar like");
-    return;
-  }
-
-  if (btn) {
-    btn.classList.add("animate");
-    setTimeout(() => btn.classList.remove("animate"), 300);
-  }
-
-  mostrarLikes(slug);
+  }, 50);
 }
