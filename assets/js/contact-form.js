@@ -1,77 +1,81 @@
-import { showGlobalToast } from "./utils/ui.js";
+// Versión INDEPENDIENTE que funciona con footer dinámico
+(function() {
+  'use strict';
 
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ contact-form.js cargado");
-
-  document.addEventListener("submit", async (e) => {
-    console.log("🎯 Submit detectado en:", e.target);
+  function showToast(message, type = 'info') {
+    const toast = document.getElementById('globalToast');
+    if (!toast) return;
     
-    const form = e.target;
-    if (!form.matches("#contactForm")) {
-      console.log("❌ No es el formulario contactForm");
-      return;
-    }
-
-    console.log("✅ Es el formulario correcto");
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    const nombre = formData.get("nombre")?.trim();
-    const email = formData.get("email")?.trim();
-    const mensaje = formData.get("mensaje")?.trim();
+    toast.textContent = message;
+    toast.className = `global-toast ${type}`;
+    toast.classList.add('show');
     
-    console.log("📋 Datos del form:", { nombre, email, mensaje });
+    setTimeout(() => toast.classList.remove('show'), 4000);
+  }
 
-    const sound = document.getElementById("messageSound");
-    console.log("🔊 Sonido encontrado:", !!sound);
+  // Espera a que el formulario exista (funciona con carga dinámica)
+  function initContactForm() {
+    const form = document.getElementById('contactForm');
+    if (!form || form.dataset.initialized) return;
 
-    // Validaciones
-    if (!nombre || !email || !mensaje) {
-      console.log("⚠️ Validación campos vacíos");
-      showGlobalToast("Completa todos los campos antes de enviar.", "info");
-      return;
-    }
+    form.dataset.initialized = 'true';
+    console.log('🎯 Formulario inicializado');
 
-    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!emailValido) {
-      console.log("⚠️ Email inválido");
-      showGlobalToast("Introduce un correo válido.", "info");
-      return;
-    }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      console.log('🚀 Enviando formulario...');
 
-    console.log("🚀 Enviando a:", form.action);
+      const formData = new FormData(form);
+      const nombre = formData.get('nombre')?.trim();
+      const email = formData.get('email')?.trim();
+      const mensaje = formData.get('mensaje')?.trim();
 
-    try {
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: formData,
-        headers: { "Accept": "application/json" }
-      });
-
-      console.log("📡 Response status:", response.status);
-      console.log("📡 Response ok:", response.ok);
-
-      if (response.ok) {
-        form.reset();
-        showGlobalToast("Mensaje enviado correctamente.", "success");
-        if (sound) {
-          sound.currentTime = 0;
-          sound.play().catch(() => {});
-        }
-        console.log("✅ Todo OK");
+      if (!nombre || !email || !mensaje) {
+        showToast('Completa todos los campos.', 'info');
         return;
       }
 
-      const data = await response.json().catch(() => ({}));
-      console.log("❌ Error data:", data);
-      
-      const errorMsg = data?.errors?.map(err => err?.message).join(", ") || "No se pudo enviar el mensaje.";
-      showGlobalToast(errorMsg, "error");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showToast('Correo inválido.', 'info');
+        return;
+      }
 
-    } catch (err) {
-      console.error("💥 Error completo:", err);
-      showGlobalToast("Error de conexión. Inténtalo nuevamente.", "error");
-    }
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
 
-  }, true);
-});
+        if (response.ok) {
+          form.reset();
+          showToast('¡Mensaje enviado correctamente! ✅', 'success');
+          
+          const sound = document.getElementById('messageSound');
+          if (sound) {
+            sound.currentTime = 0;
+            sound.play().catch(() => {});
+          }
+          return;
+        }
+
+        const data = await response.json().catch(() => ({}));
+        showToast(data?.errors?.[0]?.message || 'Error al enviar.', 'error');
+
+      } catch (err) {
+        console.error('Error:', err);
+        showToast('Error de conexión.', 'error');
+      }
+    });
+  }
+
+  // Inicializa inmediatamente Y observa cambios DOM
+  initContactForm();
+  
+  // Observer para footer dinámico
+  const observer = new MutationObserver(() => {
+    initContactForm();
+  });
+  
+  observer.observe(document.body, { childList: true, subtree: true });
+})();
