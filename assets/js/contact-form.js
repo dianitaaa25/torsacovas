@@ -1,19 +1,17 @@
 import { showGlobalToast } from "./utils/ui.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("submit", async (e) => {
+    const form = e.target;
+    if (!form.matches("#contactForm")) return;
 
-  const form = document.getElementById("contactForm");
-  if (!form) return;
-
-  const sound = document.getElementById("messageSound");
-
-  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form);
     const nombre = formData.get("nombre")?.trim();
     const email = formData.get("email")?.trim();
     const mensaje = formData.get("mensaje")?.trim();
+    const sound = document.getElementById("messageSound");
 
     if (!nombre || !email || !mensaje) {
       showGlobalToast("Completa todos los campos antes de enviar.", "info");
@@ -28,12 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(form.action, {
-        method: "POST",
+        method: form.method,
         body: formData,
         headers: { "Accept": "application/json" }
       });
-
-      const data = await response.json();
 
       if (response.ok) {
         form.reset();
@@ -42,16 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
           sound.currentTime = 0;
           sound.play().catch(() => {});
         }
-      } else {
-        const errorMsg = data?.errors?.map(err => err?.message).join(", ") || "No se pudo enviar el mensaje.";
-        showGlobalToast(errorMsg, "error");
+        return;
       }
+
+      const data = await response.json().catch(() => ({}));
+      const errorMsg = data?.errors?.map(err => err?.message).join(", ") || "No se pudo enviar el mensaje.";
+      showGlobalToast(errorMsg, "error");
 
     } catch (err) {
       console.error("Error enviando formulario:", err);
       showGlobalToast("Error de conexión. Inténtalo nuevamente.", "error");
     }
 
-  });
-
+  }, true);
 });

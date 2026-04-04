@@ -40,10 +40,15 @@ export function traducirError(msg) {
   }
 
   if (msg.includes("Unable to validate email address")) {
-    return "Correo inválido.";
+    return "Debes ingresar un correo válido.";
   }
+
   if (msg.includes("Anonymous sign-ins are disabled")) {
      return "Los inicios de sesión anónimos están deshabilitados.";
+  }
+
+  if (msg.includes("Signup requires a valid password")) {
+    return "Debes ingresar una contraseña válida.";
   }
 
   return "Error: " + msg;
