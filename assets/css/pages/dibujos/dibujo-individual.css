@@ -270,193 +270,155 @@
   transform: scale(0.92);
 }
 
-/* ===== LIKES Y COMENTARIOS (SOBRESCRITURA PARA DIBUJOS) ===== */
-.interacciones-box,
-.likes,
-.like-btn,
-.comentarios-box,
-.comentario,
-.comentario-header,
-.comentario-nombre,
-.comentario-fecha,
-.comentario-texto,
-.eliminar-btn,
-.like-text,
-.btn-comentar,
-.lista-comentarios,
-#nuevo-comentario,
-#total-comentarios {
-  all: unset !important;
-  box-sizing: border-box !important;
-}
-
-.interacciones-box {
-  margin-top: 2rem;
-}
-
-.likes {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  margin-bottom: 12px !important;
-}
-
-.like-btn {
-  position: relative !important;
-  background: none !important;
-  border: none !important;
-  cursor: pointer !important;
-  width: 30px !important;
-  height: 30px !important;
-  padding: 0 !important;
-}
-
-.like-btn svg {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  transition: all 0.25s ease !important;
-}
-
-.heart-outline {
-  fill: none !important;
-  stroke: #8f6b09 !important;
-  stroke-width: 1.8 !important;
-  opacity: 0.8 !important;
-}
-
-.heart-solid {
-  fill: #ffc908 !important;
-  opacity: 0 !important;
-  transform: scale(0.8) !important;
-}
-
-.like-btn:hover .heart-outline {
-  stroke: #ffc908 !important;
-  opacity: 1 !important;
-}
-
-.like-btn.liked .heart-outline {
-  opacity: 0 !important;
-  transform: scale(1.1) !important;
-}
-
-.like-btn.liked .heart-solid {
-  opacity: 1 !important;
-  transform: scale(1) !important;
-  filter: drop-shadow(0 0 6px rgba(255, 200, 0, 0.6)) !important;
-}
-
-.like-text {
-  font-size: 1.2rem !important;
-  font-weight: bold !important;
-}
-
-.comentarios-box {
-  margin-top: 1rem !important;
-}
-
-.comentarios-box h4 {
-  margin-bottom: 1rem !important;
-  font-size: 1.1rem !important;
-}
-
-.lista-comentarios {
-  max-height: 300px !important;
-  overflow-y: auto !important;
-  margin-bottom: 1rem !important;
-}
-
-#nuevo-comentario {
-  width: 100% !important;
-  min-height: 80px !important;
-  padding: 12px !important;
-  border: 2px solid #e0e0e0 !important;
-  border-radius: 8px !important;
-  font-family: inherit !important;
-  font-size: 1rem !important;
-  resize: vertical !important;
-  margin-bottom: 12px !important;
-}
-
-#nuevo-comentario:focus {
-  outline: none !important;
-  border-color: #ffc908 !important;
-  box-shadow: 0 0 0 3px rgba(255, 201, 8, 0.1) !important;
-}
-
-.btn-comentar {
-  background: linear-gradient(135deg, #ffc908, #ffdc60) !important;
-  color: #2E2E2E !important;
-  border: none !important;
-  padding: 12px 24px !important;
-  border-radius: 8px !important;
-  font-weight: bold !important;
-  font-size: 1rem !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  float: right !important;
-}
-
-.btn-comentar:hover {
-  background: linear-gradient(135deg, #ffdc60, #ffc908) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(255, 201, 8, 0.4) !important;
-}
-
+/* ===== SECCIÓN DE LIKES Y COMENTARIOS ===== */
 .comentario {
-  margin-bottom: 18px !important;
-  padding-bottom: 10px !important;
-  border-bottom: 1px solid rgba(0,0,0,0.15) !important;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
 }
 
 .comentario-header {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
-  gap: 8px !important;
-  margin-bottom: 8px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
 }
 
 .comentario-nombre {
-  font-weight: bold !important;
-  font-size: 0.95rem !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .comentario-fecha {
-  font-size: 0.8rem !important;
-  opacity: 0.7 !important;
-  white-space: nowrap !important;
-  flex-shrink: 0 !important;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .comentario-texto {
-  margin-bottom: 6px !important;
-  line-height: 1.4 !important;
-  font-size: 0.95rem !important;
+  margin-bottom: 6px;
+  line-height: 1.3;
 }
 
 .eliminar-btn {
-  font-size: 0.75rem !important;
-  font-weight: bold !important;
-  background: none !important;
-  border: none !important;
-  cursor: pointer !important;
-  color: #8f6b09 !important;
-  text-decoration: underline !important;
-  padding: 2px 6px !important;
-  border-radius: 4px !important;
-  transition: all 0.2s ease !important;
+  display: block;
+  margin-left: auto;
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.75rem;
+  font-weight: bold;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  color: #8f6b09;
+  text-shadow: 0 0 6px rgba(255, 215, 120, 0.4);
+
+  transition: 
+    color 0.3s ease,
+    transform 0.2s ease,
+    text-shadow 0.3s ease;
 }
 
 .eliminar-btn:hover {
-  color: #ffc908 !important;
-  background: rgba(255, 201, 8, 0.1) !important;
+  color: #ffc908;
+  transform: translateY(-1px);
+  text-shadow: 0 0 10px rgba(255, 215, 120, 0.7);
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.like-btn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+
+.like-btn svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.25s ease;
+}
+
+.heart-outline {
+  fill: none;
+  stroke: #8f6b09;
+  stroke-width: 1.8;
+  opacity: 0.8;
+}
+
+.heart-solid {
+  fill: #ffc908;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.like-btn:hover .heart-outline {
+  stroke: #ffc908;
+  opacity: 1;
+}
+
+.like-btn.liked .heart-outline {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.like-btn.liked .heart-solid {
+  opacity: 1;
+  transform: scale(1);
+  filter: drop-shadow(0 0 6px rgba(255, 200, 0, 0.6));
+}
+
+.like-btn.animate .heart-solid {
+  animation: likePop 0.35s ease;
+}
+
+@keyframes likePop {
+  0%   { transform: scale(0.8); }
+  50%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.like-btn {
+  transition: all 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.like-btn.animate .heart-solid {
+  animation: likePopUltra 0.18s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes likePopUltra {
+  0% { 
+    transform: scale(0.7) rotate(-8deg); 
+    opacity: 0; 
+  }
+  60% { 
+    transform: scale(1.25) rotate(4deg); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: scale(1) rotate(0deg); 
+  }
+}
+
+.like-text {
+  font-size: 1.2rem;
 }
 
 @media (prefers-color-scheme: dark) {
