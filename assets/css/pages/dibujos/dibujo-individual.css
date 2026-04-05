@@ -15,7 +15,8 @@
   position: relative;
   padding: 12px;
   border-radius: 0;
-  margin: 2.6rem;
+  margin-top: 2.6rem;
+  margin-bottom: 2.6rem;
   cursor: pointer;
 
   background: linear-gradient(
