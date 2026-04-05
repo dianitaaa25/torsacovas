@@ -58,8 +58,8 @@
 .obra-info {
   opacity: 1;
   animation: deslizar 1.8s ease forwards;
-  padding-right: 2.4rem;
 }
+
 .obra-info:hover .obra-linea {
   width: 140px;
   background: linear-gradient(
@@ -86,6 +86,7 @@
   opacity: 0.7;
   margin-bottom: 1.5rem;
 }
+
 .obra-fecha::after {
   content: "";
   display: block;
