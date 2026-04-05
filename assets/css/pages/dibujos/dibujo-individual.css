@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: 1.6fr 0.4fr;
   align-items: center;
+  margin: 0px;
 }
 
 .obra-imagen {
