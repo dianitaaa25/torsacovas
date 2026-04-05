@@ -9,15 +9,14 @@
   display: grid;
   grid-template-columns: 1.6fr 0.4fr;
   align-items: center;
-  margin: 0px;
+  gap: 1.5rem;
 }
 
 .obra-imagen {
   position: relative;
   padding: 12px;
   border-radius: 0;
-  margin-top: 2.6rem;
-  margin-bottom: 2.6rem;
+  margin: 0;
   cursor: pointer;
 
   background: linear-gradient(
