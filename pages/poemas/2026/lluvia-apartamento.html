@@ -58,7 +58,7 @@ No hay lugar seco, no hay viajes a Marte.
 <div class="interacciones-box">
 
   <div class="likes">
-    <button id="btn-like-lluvia-apartamento" class="like-btn" onclick="darLike('lluvia-apartamento')">
+    <button id="btn-like-poema-lluvia-apartamento" class="like-btn" onclick="darLike('poema-lluvia-apartamento')">
 
       <svg class="heart-outline" viewBox="0 0 36 36">
         <path d="M18,32.43a1,1,0,0,1-.61-.21C11.83,27.9,8,24.18,5.32,20.51,1.9,15.82,1.12,11.49,3,7.64c1.34-2.75,5.19-5,9.69-3.69A9.87,9.87,0,0,1,18,7.72a9.87,9.87,0,0,1,5.31-3.77c4.49-1.29,8.35.94,9.69,3.69,1.88,3.85,1.1,8.18-2.32,12.87C28,24.18,24.17,27.9,18.61,32.22A1,1,0,0,1,18,32.43Z"/>
@@ -70,7 +70,7 @@ No hay lugar seco, no hay viajes a Marte.
     
     </button>
 
-    <span id="likes-lluvia-apartamento" class="like-text">0</span>
+    <span id="likes-poema-lluvia-apartamento" class="like-text">0</span>
   </div>
 
   <div class="comentarios-box">
@@ -83,7 +83,7 @@ No hay lugar seco, no hay viajes a Marte.
       placeholder="Escribe un comentario..."></textarea>
 
     <button class="btn-comentar"
-      onclick="comentar('lluvia-apartamento')">
+      onclick="comentar('poema-lluvia-apartamento')">
       Publicar
     </button>
 
@@ -109,7 +109,7 @@ No hay lugar seco, no hay viajes a Marte.
   window.darLike = darLike;
   window.comentar = comentar;
 
-  const slug = "lluvia-apartamento";
+  const slug = "poema-lluvia-apartamento";
 
   mostrarLikes(slug);
   cargarComentarios(slug);
