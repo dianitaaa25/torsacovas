@@ -274,6 +274,20 @@
   transform: scale(0.92);
 }
 
+@media (max-width: 900px) {
+  .obra-contenedor {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .obra-info {
+    padding: 0;
+  }
+  .crp.obra {
+    padding: 1.5rem;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .obra-titulo {
     color: #f5e9a6;
