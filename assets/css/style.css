@@ -812,6 +812,10 @@ h1 a {
   padding: clamp(1rem, 3vw, 2rem);
 }
 
+.crp > *:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
 .crp h3 {
   margin: 0;
   font-size: 1.5rem;
