@@ -18,10 +18,6 @@
   margin: 0 0 1.5rem 1.5rem;
 }
 
-.bio-foto + h3 {
-  margin-top: 0;
-}
-
 .bio-foto img {
   width: 160px;
   height: auto;
