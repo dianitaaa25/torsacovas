@@ -1062,6 +1062,9 @@ h1 a {
     color: inherit !important;
     -webkit-text-fill-color: inherit !important;
   }
+  .modal button.close {
+    color: #ffc908 !important;
+  }
   .interacciones-box {
     background: linear-gradient(
       135deg,
