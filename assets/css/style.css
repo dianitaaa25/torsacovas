@@ -1026,23 +1026,21 @@ h1 a {
   .pie-contacto textarea::placeholder {
     color: #fefda2;  
   }
+  
   .modal-content {
     background: linear-gradient(135deg, #202020, #3a3a3a, #616161);
-    color: #fefda2;
   }
-  .modal h2 {
+  .auth-tabs button {
     color: #fefda2;
   }
   .modal button.close {
     color: #ffc908;
   }
-
   .modal input[type="email"],
   .modal input[type="password"] {
     background-color: #3a3a3a;
     color: #fefda2;
   }
-  
   .modal .modal-options button {
     color: #000000;
     background-image: linear-gradient(to right, #8f6b09, #d2a00c, #ffdc60);
