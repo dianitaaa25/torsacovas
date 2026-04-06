@@ -947,7 +947,10 @@ h1 a {
     max-width: 100%;
     width: 100%;
   }
-
+.crp,
+.pie {
+    padding: 2rem 1.5rem;
+  }
 .menu {
   display: flex;      
   justify-content: right;
