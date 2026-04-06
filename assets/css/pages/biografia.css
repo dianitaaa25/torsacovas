@@ -4,6 +4,10 @@
   display: block;
 }
 
+.crp > *:not(:first-child) {
+  margin-top: 0;
+}
+
 .poema p {
   text-align: justify;
   margin: 0 0 0.8rem 0;
