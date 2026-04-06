@@ -3,6 +3,10 @@
   margin-top: 0;
 }
 
+.poema p {
+  text-align: justify;
+}
+
 .bio-wrap {
   position: relative;
 }
