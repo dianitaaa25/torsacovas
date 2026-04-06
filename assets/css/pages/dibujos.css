@@ -1,5 +1,5 @@
 .crp .poema {
-  margin: -30px;
+  margin: 0;
 }
 
 .galeria {
@@ -19,16 +19,13 @@
 
 .dibujo {
   padding: 8px;
-  border-radius: 18px;
   margin: 0;
-
   background: linear-gradient(
     135deg,
     #8f6b09,
     #e5dc7d,
     #8f6b09
   );
-
   background-size: 200% auto;
   background-position: left center;
   border-radius: 6px;
