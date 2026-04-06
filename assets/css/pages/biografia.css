@@ -1,10 +1,12 @@
 .crp .poema {
   text-align: justify !important;
   margin-top: 0;
+  display: block;
 }
 
 .poema p {
   text-align: justify;
+  margin: 0 0 0.8rem 0;
 }
 
 .bio-wrap {
