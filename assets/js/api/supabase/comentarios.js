@@ -87,7 +87,15 @@ export async function cargarComentarios(slug) {
 
 export async function comentar(slug) {
   const textarea = document.getElementById("nuevo-comentario");
-  const contenido = textarea?.value.trim();
+  
+  if (!textarea) return;
+
+  const contenido = textarea.value.trim();
+
+  if (!contenido) {
+    showGlobalToast("Escribe un comentario.", "info");
+    return;
+  }
 
   const user = await getUser();
 
@@ -102,11 +110,6 @@ export async function comentar(slug) {
     if (modal) modal.classList.add("show");
     
     showGlobalToast("Debes iniciar sesión para comentar.", "error");
-    return;
-  }
-
-  if (!contenido) {
-    showGlobalToast("Escribe un comentario.", "info");
     return;
   }
 
@@ -126,7 +129,7 @@ export async function comentar(slug) {
     return;
   }
 
-  if (textarea) textarea.value = "";
+  textarea.value = "";
   showGlobalToast("¡Comentario publicado!", "success");
 
   cargarComentarios(slug);
