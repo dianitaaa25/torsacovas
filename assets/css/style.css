@@ -1091,7 +1091,6 @@ h1 a {
     border-bottom: 1px solid rgba(255,255,255,0.2);
   }
   .comentario {
-    background: rgba(255,255,255,0.05);
     color: #fefda2;
   }
   .comentarios-box textarea {
