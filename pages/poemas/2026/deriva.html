@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="/">
+<title>Deriva de un recuerdo utópico | Poema de Héctor Samil Acosta | Torsacovas</title>
+<meta name="description" content="Deriva de un recuerdo utópico, poema de Héctor Samil Acosta. Un viaje onírico por playas del Caribe, recuerdos idealizados y paisajes simbólicos, donde el amor, la nostalgia y la pérdida se entrelazan en una atmósfera surreal y melancólica.">
+
+<link rel="icon" href="assets/img/logo/torsacovas.ico">
+<link rel="preload" href="/assets/img/menu/menu.png" as="image" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/pages/poemas.css">
+
+</head>
+
+<body>
+
+<div class="page-wrap">
+
+  <div class="layout">
+    <div id="header"></div>
+    <div id="menu"></div>
+  </div>
+
+  <div class="crp">
+
+      <h3>Deriva de un recuerdo utópico</h3>
+      <p class="obra-fecha">26 de abril de 2026</p>
+
+      <div class="poema">
+Vagando en una playa del Caribe,
+construiste con cocos tu indumentaria.
+Encontré en tu oreja la rosa de Bayahíbe
+y en tus labios una melodía imaginaria.
+
+Mi camino se hizo con tus huellas;
+tu mano dictaba el ímpetu de mi razón.
+La hora pintaba el cielo con sus estrellas,
+mientras salían las bestias aturdidas,
+queriendo lamentarse en tus heridas,
+custodiando aquella libertad quimérica,
+bajo la palma de tu delirante ilusión:
+una bicicleta en fuga rompía la tensión.
+
+Coexistir lejos de ese lugar
+fue el regalo ideal de ese transporte
+que pedaleaba su trayecto hacia el mar.
+El manubrio, indócil ante mi esfuerzo vano,
+dirigía su curso a pesar de mi mano,
+hacia las aguas inquietas
+que nos pretendían ahogar.
+Cuando quise extinguir la incertidumbre,
+tus brazos, que me envolvían cual agujetas,
+dejaron en mi pecho, como pesadumbre,
+el vacío de un latido algo familiar.
+
+Mi voluntad, puesta en cesión,
+escuchó cómo tu melodía se desvanecía.
+Una palma inerte se adhería al timón;
+la otra forzaba en mi cuello un giro inútil,
+impidiéndome mirar la estela fútil
+que rompía olas inquietas
+a espaldas del corazón.
+Seguí andando hasta rozar la arena.
+En la costa opuesta, vi nuevos planetas:
+uno de supremacía que desencadena
+debacle al otro planeta en sujeción.
+
+No había otros seres pensantes en la tierra.
+Algún monstruo de dos cabezas volaba,
+con instinto de supervivencia que no mataba,
+y un insólito rastro de paz entre especies.
+Mis ojos, esmerados en que me aprecies,
+lucharon contra el alba que los cierra,
+perdiendo bajo la luz tu recuerdo
+en el anhelo avizor de que reaparezcas.
+      </div>
+
+<div class="interacciones-box">
+
+  <div class="likes">
+    <button id="btn-like-poema-deriva" class="like-btn" onclick="darLike('poema-deriva')">
+
+      <svg class="heart-outline" viewBox="0 0 36 36">
+        <path d="M18,32.43a1,1,0,0,1-.61-.21C11.83,27.9,8,24.18,5.32,20.51,1.9,15.82,1.12,11.49,3,7.64c1.34-2.75,5.19-5,9.69-3.69A9.87,9.87,0,0,1,18,7.72a9.87,9.87,0,0,1,5.31-3.77c4.49-1.29,8.35.94,9.69,3.69,1.88,3.85,1.1,8.18-2.32,12.87C28,24.18,24.17,27.9,18.61,32.22A1,1,0,0,1,18,32.43Z"/>
+      </svg>
+    
+      <svg class="heart-solid" viewBox="0 0 36 36">
+        <path d="M33,7.64c-1.34-2.75-5.2-5-9.69-3.69A9.87,9.87,0,0,0,18,7.72a9.87,9.87,0,0,0-5.31-3.77C8.19,2.66,4.34,4.89,3,7.64c-1.88,3.85-1.1,8.18,2.32,12.87C8,24.18,11.83,27.9,17.39,32.22a1,1,0,0,0,1.23,0c5.55-4.31,9.39-8,12.07-11.71C34.1,15.82,34.88,11.49,33,7.64Z"/>
+      </svg>
+    
+    </button>
+
+    <span id="likes-poema-deriva" class="like-text">0</span>
+  </div>
+
+  <div class="comentarios-box">
+
+    <h4 id="total-comentarios">0 comentarios</h4>
+
+    <div id="lista-comentarios" class="lista-comentarios"></div>
+
+    <textarea id="nuevo-comentario"
+      placeholder="Escribe un comentario..."></textarea>
+
+    <button class="btn-comentar"
+      onclick="comentar('poema-deriva')">
+      Publicar
+    </button>
+
+  </div>
+
+</div>
+
+  </div>
+
+  <div id="footer"></div>
+  <div id="modal"></div>
+
+</div>
+
+<script type="module" src="assets/js/load-partials.js"></script>
+<script src="assets/js/contact-form.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script type="module">
+  import { mostrarLikes, darLike } from "/assets/js/api/supabase/likes.js";
+  import { cargarComentarios, comentar } from "/assets/js/api/supabase/comentarios.js";
+
+  window.darLike = darLike;
+  window.comentar = comentar;
+
+  const slug = "poema-deriva";
+
+  mostrarLikes(slug);
+  cargarComentarios(slug);
+</script>
+
+</body>
+
+</html>
