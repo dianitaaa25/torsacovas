@@ -48,10 +48,10 @@ export async function usuarioDioLike(slug) {
 export async function mostrarLikes(slug) {
   const total = await contarLikes(slug);
 
-  const el = document.getElementById("likes-" + slug);
+  const el = document.getElementById("likes-count");
   if (el) el.textContent = `${total}`;
 
-  const btn = document.getElementById("btn-like-" + slug);
+  const btn = document.getElementById("btn-like");
   if (!btn) return;
 
   const user = await getUser();
@@ -86,7 +86,7 @@ export async function darLike(slug) {
     return;
   }
 
-  const btn = document.getElementById("btn-like-" + slug);
+  const btn = document.getElementById("btn-like");
   if (!btn) return;
 
   const post = await obtenerPost(slug);

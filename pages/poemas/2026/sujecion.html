@@ -88,7 +88,7 @@ y sume en la alienación a un ser infausto.
 <div class="interacciones-box">
 
   <div class="likes">
-    <button id="btn-like-poema-sujecion" class="like-btn" onclick="darLike('poema-sujecion')">
+    <button id="btn-like" class="like-btn">
 
       <svg class="heart-outline" viewBox="0 0 36 36">
         <path d="M18,32.43a1,1,0,0,1-.61-.21C11.83,27.9,8,24.18,5.32,20.51,1.9,15.82,1.12,11.49,3,7.64c1.34-2.75,5.19-5,9.69-3.69A9.87,9.87,0,0,1,18,7.72a9.87,9.87,0,0,1,5.31-3.77c4.49-1.29,8.35.94,9.69,3.69,1.88,3.85,1.1,8.18-2.32,12.87C28,24.18,24.17,27.9,18.61,32.22A1,1,0,0,1,18,32.43Z"/>
@@ -100,7 +100,7 @@ y sume en la alienación a un ser infausto.
     
     </button>
 
-    <span id="likes-poema-sujecion" class="like-text">0</span>
+    <span id="likes-count" class="like-text">0</span>
   </div>
 
   <div class="comentarios-box">
@@ -112,8 +112,7 @@ y sume en la alienación a un ser infausto.
     <textarea id="nuevo-comentario"
       placeholder="Escribe un comentario..."></textarea>
 
-    <button class="btn-comentar"
-      onclick="comentar('poema-sujecion')">
+    <button id="btn-comentar" class="btn-comentar">
       Publicar
     </button>
 
@@ -133,16 +132,37 @@ y sume en la alienación a un ser infausto.
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script type="module">
-  import { mostrarLikes, darLike } from "/assets/js/api/supabase/likes.js";
-  import { cargarComentarios, comentar } from "/assets/js/api/supabase/comentarios.js";
 
-  window.darLike = darLike;
-  window.comentar = comentar;
+import {
+  mostrarLikes,
+  darLike
+} from "/assets/js/api/supabase/likes.js";
 
-  const slug = "poema-sujecion";
+import {
+  cargarComentarios,
+  comentar
+} from "/assets/js/api/supabase/comentarios.js";
 
-  mostrarLikes(slug);
-  cargarComentarios(slug);
+const slug = window.location.pathname
+  .split("/")
+  .pop()
+  .replace(".html", "");
+
+mostrarLikes(slug);
+cargarComentarios(slug);
+
+document
+  .getElementById("btn-like")
+  .addEventListener("click", () => {
+    darLike(slug);
+  });
+
+document
+  .getElementById("btn-comentar")
+  .addEventListener("click", () => {
+    comentar(slug);
+  });
+
 </script>
 
 </body>

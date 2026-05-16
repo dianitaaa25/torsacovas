@@ -1,0 +1,77 @@
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    let path = url.pathname;
+
+    const routes = {
+      // Index
+      "/": "/index.html",
+      "/index": "/index.html",
+
+      // Biografía
+      "/biografia": "/pages/biografia.html",
+
+      // Dibujos individuales
+      "/dibujos": "/pages/dibujos.html",
+      "/dibujos/bruno": "/pages/dibujos/bruno.html",
+      "/dibujos/corazon-desahuciado": "/pages/dibujos/corazon-desahuciado.html",
+      "/dibujos/costa-virgen": "/pages/dibujos/costa-virgen.html",
+      "/dibujos/desilusion-acongojada": "/pages/dibujos/desilusion-acongojada.html",
+      "/dibujos/extasis-soledad": "/pages/dibujos/extasis-soledad.html",
+      "/dibujos/jose": "/pages/dibujos/jose.html",
+      "/dibujos/lucidez-seductora": "/pages/dibujos/lucidez-seductora.html",
+      "/dibujos/nefelibata-aturdido": "/pages/dibujos/nefelibata-aturdido.html",
+      "/dibujos/san-francisco": "/pages/dibujos/san-francisco.html",
+      "/dibujos/soledad-entre-estrellas": "/pages/dibujos/soledad-entre-estrellas.html",
+      "/dibujos/tiara": "/pages/dibujos/tiara.html",
+
+      // Poemas 2023
+      "/poemas": "/pages/poemas.html",
+      "/poemas/adios-amor": "/pages/poemas/2023/adios-amor.html",
+      "/poemas/corazon-timido": "/pages/poemas/2023/corazon-timido.html",
+      "/poemas/eres-mi-sueno": "/pages/poemas/2023/eres-mi-sueno.html",
+      "/poemas/esencial": "/pages/poemas/2023/esencial.html",
+      "/poemas/luna-roja": "/pages/poemas/2023/luna-roja.html",
+      "/poemas/mentiroso": "/pages/poemas/2023/mentiroso.html",
+      "/poemas/victima": "/pages/poemas/2023/victima.html",
+
+      // Poemas 2024
+      "/poemas/cada-verso": "/pages/poemas/2024/cada-verso.html",
+      "/poemas/me-quiero-enamorar": "/pages/poemas/2024/me-quiero-enamorar.html",
+      "/poemas/mi-amor": "/pages/poemas/2024/mi-amor.html",
+      "/poemas/panchita": "/pages/poemas/2024/panchita.html",
+      "/poemas/solo-queria-verte": "/pages/poemas/2024/solo-queria-verte.html",
+      "/poemas/versos-desesperanza": "/pages/poemas/2024/versos-desesperanza.html",
+
+      // Poemas 2025
+      "/poemas/estrellas-azules": "/pages/poemas/2025/estrellas-azules.html",
+      "/poemas/hasta-la-muerte": "/pages/poemas/2025/hasta-la-muerte.html",
+      "/poemas/nefelibata-aturdido": "/pages/poemas/2025/nefelibata-aturdido.html",
+      "/poemas/elegia": "/pages/poemas/2025/elegia.html",
+      "/poemas/una-flor": "/pages/poemas/2025/una-flor.html",
+      "/poemas/un-ser": "/pages/poemas/2025/un-ser.html",
+
+      // Poemas 2026
+      "/poemas/apologia": "/pages/poemas/2026/apologia.html",
+      "/poemas/lluvia-apartamento": "/pages/poemas/2026/lluvia-apartamento.html",
+      "/poemas/paraguas-para-huracan": "/pages/poemas/2026/paraguas-para-huracan.html",
+      "/poemas/sujecion": "/pages/poemas/2026/sujecion.html",
+      "/poemas/deriva": "/pages/poemas/2026/deriva.html",
+      
+      // Otras páginas
+      "/obras": "/pages/obras.html"
+    };
+
+    // Si la URL solicitada está en el map, reemplaza el path
+    if (routes[path]) {
+      path = routes[path];
+    }
+
+    // Reconstruye la URL hacia el origen
+    const originUrl = new URL(path, "https://torsacovas.com");
+
+    // Fetch hacia la URL real
+    const response = await fetch(originUrl, request);
+    return response;
+  }
+};
