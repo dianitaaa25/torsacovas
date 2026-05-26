@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="/">
+<title>Alhelí | Poema de Héctor Samil Acosta | Torsacovas</title>
+<meta name="description" content="Alhelí, poema de Héctor Samil Acosta. Una evocación melancólica sobre la ausencia, los recuerdos y el amor perdido, donde el alhelí se convierte en símbolo de nostalgia y soledad.">
+
+<link rel="icon" href="assets/img/logo/torsacovas.ico">
+<link rel="preload" href="/assets/img/menu/menu.png" as="image" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/pages/poemas.css">
+
+</head>
+
+<body>
+
+<div class="page-wrap">
+
+  <div class="layout">
+    <div id="header"></div>
+    <div id="menu"></div>
+  </div>
+
+  <div class="crp">
+
+      <h3>Alhelí</h3>
+      <p class="obra-fecha">25 de mayo de 2026</p>
+
+      <div class="poema">
+Otra tarde de lunes,
+mis memorias, al sosiego inmunes,
+pretendían claudicar
+ante el asedio de una ausencia
+que se consolidó en mi pesar
+y les sumió en su dolencia.
+
+Ante la escasez de lucidez,
+la pregunta surgió en mi aislamiento:
+“¿Por qué soy víctima del cuarto,
+si aquí me asfixia el viento?”.
+
+Un pétalo de alhelí
+esbozó su respuesta en la ventana,
+ofreciendo el augurio inminente
+de una noche sin mañana.
+
+Una respuesta distante
+fue el susurro quimérico de aquella voz,
+para pedir que me quedara ayer,
+perdiendo un presente feroz.
+
+Otro lunes me pierdo,
+escuchando voces de tu recuerdo
+que me pretende ahogar
+con esa humedad que provoca,
+en mis luceros tristes, un mar
+por extrañar tu boca.
+
+La gente de alrededor,
+cuyos rostros no alcanzo a enfocar,
+se presentan como fantasmas,
+atormentando nuestro hogar.
+
+Aquel frasco de cristal
+que guardaba tu fragancia de alhelí,
+aunque no reproduce más tu olor,
+no me deja sacarte de allí.
+
+Te busco aquí dentro,
+en la calle, en la gente, en una canción,
+y sin remedio solo te encuentro
+en lo recóndito de mi corazón.
+
+Lunes, hay otro más
+donde el silencio me grita que no estás,
+donde me congelo solo.
+A pesar de las personas de aquí,
+soy una pieza inerte en el polo,
+soy de hielo un maniquí.
+
+En el recoveco de mi soledad,
+se marchitó la esperanza desde que salí
+a entregar el amor que no recibiste,
+adornado con flores de alhelí.
+      </div>
+
+<div class="interacciones-box">
+
+  <div class="likes">
+    <button id="btn-like" class="like-btn">
+
+      <svg class="heart-outline" viewBox="0 0 36 36">
+        <path d="M18,32.43a1,1,0,0,1-.61-.21C11.83,27.9,8,24.18,5.32,20.51,1.9,15.82,1.12,11.49,3,7.64c1.34-2.75,5.19-5,9.69-3.69A9.87,9.87,0,0,1,18,7.72a9.87,9.87,0,0,1,5.31-3.77c4.49-1.29,8.35.94,9.69,3.69,1.88,3.85,1.1,8.18-2.32,12.87C28,24.18,24.17,27.9,18.61,32.22A1,1,0,0,1,18,32.43Z"/>
+      </svg>
+    
+      <svg class="heart-solid" viewBox="0 0 36 36">
+        <path d="M33,7.64c-1.34-2.75-5.2-5-9.69-3.69A9.87,9.87,0,0,0,18,7.72a9.87,9.87,0,0,0-5.31-3.77C8.19,2.66,4.34,4.89,3,7.64c-1.88,3.85-1.1,8.18,2.32,12.87C8,24.18,11.83,27.9,17.39,32.22a1,1,0,0,0,1.23,0c5.55-4.31,9.39-8,12.07-11.71C34.1,15.82,34.88,11.49,33,7.64Z"/>
+      </svg>
+    
+    </button>
+
+    <span id="likes-count" class="like-text">0</span>
+  </div>
+
+  <div class="comentarios-box">
+
+    <h4 id="total-comentarios">0 comentarios</h4>
+
+    <div id="lista-comentarios" class="lista-comentarios"></div>
+
+    <textarea id="nuevo-comentario"
+      placeholder="Escribe un comentario..."></textarea>
+
+    <button id="btn-comentar" class="btn-comentar">
+      Publicar
+    </button>
+
+  </div>
+
+</div>
+
+  </div>
+
+  <div id="footer"></div>
+  <div id="modal"></div>
+
+</div>
+
+<script type="module" src="assets/js/load-partials.js"></script>
+<script src="assets/js/contact-form.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script type="module">
+
+import {
+  mostrarLikes,
+  darLike
+} from "/assets/js/api/supabase/likes.js";
+
+import {
+  cargarComentarios,
+  comentar
+} from "/assets/js/api/supabase/comentarios.js";
+
+const slug = window.location.pathname
+  .split("/")
+  .pop()
+  .replace(".html", "");
+
+mostrarLikes(slug);
+cargarComentarios(slug);
+
+document
+  .getElementById("btn-like")
+  .addEventListener("click", () => {
+    darLike(slug);
+  });
+
+document
+  .getElementById("btn-comentar")
+  .addEventListener("click", () => {
+    comentar(slug);
+  });
+
+</script>
+
+</body>
+
+</html>
