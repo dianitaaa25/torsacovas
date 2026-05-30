@@ -306,11 +306,12 @@ const messages = [
     "Extraño hablar contigo.",
     "Perdóname.",
     "Sigues siendo importante para mí.",
-    "Te quiero.",
+    "Te amooo.",
     "¿Podemos empezar de nuevo?"
 ];
 
 let current = 0;
+let bounceCount = 0;
 
 const box = document.getElementById("message");
 
@@ -329,12 +330,18 @@ function showMessage(){
     current++;
 }
 
-/* primer impacto */
-setTimeout(showMessage, 2200);
+setInterval(() => {
 
-/* siguientes impactos */
-setInterval(showMessage, 2200);
+    bounceCount++;
+
+    if(bounceCount % 3 === 0){
+        showMessage();
+    }
+
+}, 2200);
 
 </script>
+
+
 </body>
 </html>
