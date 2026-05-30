@@ -313,7 +313,7 @@ body{
     }
 }
 
-/* DESTELLO FINAL */
+/* DESTELLO DE AMOR */
 
 .star-love{
     animation: loveGlow 3.5s ease forwards !important;
@@ -397,6 +397,46 @@ body{
 .menu-btn.visible{
     opacity: 1;
     pointer-events: auto;
+}
+
+/* GALERÍA DE FOTOS */
+
+#gallery{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: scale(0.5);
+    display: none;
+}
+
+#gallery.visible{
+    display: block;
+    pointer-events: auto;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.photo{
+    position: absolute;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    box-shadow:
+        0 0 8px rgba(255,255,255,.9),
+        0 0 20px rgba(255,255,255,.6),
+        0 0 40px rgba(255,255,255,.3);
+    cursor: pointer;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.photo:hover{
+    box-shadow:
+        0 0 12px rgba(255,255,255,1),
+        0 0 30px rgba(255,255,255,.8),
+        0 0 60px rgba(255,255,255,.5);
 }
 </style>
 </head>
@@ -527,6 +567,7 @@ let intervalId = setInterval(() => {
         const ballWrap = document.querySelector('.ball-wrap');
         ballWrap.classList.add('ball-wrap-stopped');
 
+        // CREAR BOTONES
         const btn1 = document.createElement('div');
         btn1.className = 'menu-btn';
         btn1.id = 'btn-carta';
@@ -545,6 +586,11 @@ let intervalId = setInterval(() => {
         setTimeout(() => {
             btn2.classList.add('visible');
         }, 1200);
+        
+        // ASIGNAR EVENTO AL BOTÓN DE FOTOS
+        btn2.onclick = function(){
+            toggleGallery();
+        };
     }
 
 }, 2200);
@@ -574,6 +620,101 @@ for(let i = 0; i < 120; i++){
     stars.appendChild(star);
 }
 
+// ==================== GALERÍA ====================
+
+// Tus fotos (cambia las URLs)
+const photos = [
+    'https://picsum.photos/200/200?random=1',
+    'https://picsum.photos/200/200?random=2',
+    'https://picsum.photos/200/200?random=3',
+    'https://picsum.photos/200/200?random=4',
+    'https://picsum.photos/200/200?random=5',
+    'https://picsum.photos/200/200?random=6'
+];
+
+let galleryOpen = false;
+const ball = document.querySelector('.ball');
+const ballWrap = document.querySelector('.ball-wrap');
+const glow = document.querySelector('.glow');
+
+function toggleGallery() {
+    const gallery = document.getElementById('gallery');
+    
+    if(!galleryOpen){
+        // ABRIR: Pelota se achica y desaparece
+        ball.style.transition = 'transform 0.8s ease, opacity 0.8s ease';
+        ball.style.transform = 'scale(0)';
+        ball.style.opacity = '0';
+        
+        setTimeout(() => {
+            ballWrap.style.display = 'none';
+            glow.style.opacity = '0';
+        }, 800);
+        
+        // Crear galería si no existe
+        if(!gallery){
+            createGallery();
+        }
+        
+        // Mostrar galería con efecto zoom
+        setTimeout(() => {
+            gallery.classList.add('active');
+        }, 500);
+        
+        galleryOpen = true;
+    } else {
+        gallery.classList.remove('active');
+        
+        setTimeout(() => {
+            // Pelota vuelve
+            ballWrap.style.display = 'block';
+            ball.style.transition = 'none';
+            ball.style.transform = 'scale(1)';
+            ball.style.opacity = '1';
+            
+            setTimeout(() => {
+                ball.style.transition = 'transform 12s linear infinite';
+            }, 100);
+            
+            glow.style.opacity = '0.7';
+        }, 1000);
+        
+        galleryOpen = false;
+    }
+}
+
+function createGallery(){
+    const gallery = document.createElement('div');
+    gallery.id = 'gallery';
+    
+    photos.forEach((url) => {
+        const photo = document.createElement('div');
+        photo.classList.add('photo');
+        photo.style.backgroundImage = `url(${url})`;
+        
+        // Tamaño aleatorio (entre 60px y 100px)
+        const size = Math.random() * 40 + 60;
+        photo.style.width = size + 'px';
+        photo.style.height = size + 'px';
+        
+        // Posición aleatoria (evitando el centro)
+        let top, left;
+        do {
+            top = Math.random() * 80 + 10;
+            left = Math.random() * 80 + 10;
+        } while (top > 20 && top < 80 && left > 20 && left < 80);
+        
+        photo.style.top = top + '%';
+        photo.style.left = left + '%';
+        
+        // Cerrar galería al hacer clic en foto
+        photo.onclick = toggleGallery;
+        
+        gallery.appendChild(photo);
+    });
+    
+    document.body.appendChild(gallery);
+}
 </script>
 
 
