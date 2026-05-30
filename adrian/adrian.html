@@ -379,9 +379,9 @@ body{
         0 0 10px rgba(255,255,255,.6),
         0 0 20px rgba(255,255,255,.4);
     opacity: 0;
-    pointer-events: none;
+    pointer-events: auto;
     transition: opacity 1.5s ease;
-    z-index: 100;
+    z-index: 200;
 }
 
 #btn-carta{
@@ -476,7 +476,7 @@ body{
 
 /* ZOOM DE PANTALLA COMPLETA */
 body.gallery-anim{
-    animation: screenBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    animation: screenBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 @keyframes screenBounce{
