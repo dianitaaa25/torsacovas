@@ -438,6 +438,29 @@ body{
         0 0 30px rgba(255,255,255,.8),
         0 0 60px rgba(255,255,255,.5);
 }
+
+/* ZOOM DE REBOTE */
+@keyframes galleryZoomIn{
+    0%{
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    60%{
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#gallery.visible{
+    display: block;
+    pointer-events: auto;
+    opacity: 1;
+    animation: galleryZoomIn 0.8s ease forwards;
+}
 </style>
 </head>
 
@@ -619,17 +642,30 @@ for(let i = 0; i < 120; i++){
 
     stars.appendChild(star);
 }
-
 // ==================== GALERÍA ====================
 
-// Tus fotos (cambia las URLs)
+// Tus fotos (20 fotos)
 const photos = [
-    'img/gallery/imagen1.jpg',
-    'img/gallery/imagen2.jpg',
-    'img/gallery/imagen3.jpg',
-    'img/gallery/imagen4.jpg',
-    'img/gallery/imagen5.jpg',
-    'img/gallery/imagen6.jpg'
+    'adrian/img/gallery/image1.jpg',
+    'adrian/img/gallery/image2.jpg',
+    'adrian/img/gallery/image3.jpg',
+    'adrian/img/gallery/image4.jpg',
+    'adrian/img/gallery/image5.jpg',
+    'adrian/img/gallery/image6.jpg',
+    'adrian/img/gallery/image1.jpg',
+    'adrian/img/gallery/image2.jpg',
+    'adrian/img/gallery/image3.jpg',
+    'adrian/img/gallery/image4.jpg',
+    'adrian/img/gallery/image5.jpg',
+    'adrian/img/gallery/image6.jpg',
+    'adrian/img/gallery/image1.jpg',
+    'adrian/img/gallery/image2.jpg',
+    'adrian/img/gallery/image3.jpg',
+    'adrian/img/gallery/image4.jpg',
+    'adrian/img/gallery/image5.jpg',
+    'adrian/img/gallery/image6.jpg',
+    'adrian/img/gallery/image1.jpg',
+    'adrian/img/gallery/image2.jpg'
 ];
 
 let galleryOpen = false;
@@ -658,7 +694,7 @@ function toggleGallery() {
         
         // Mostrar galería
         setTimeout(() => {
-            gallery.classList.add('visible');  // <-- CAMBIADO A visible
+            gallery.classList.add('visible');
         }, 500);
         
         galleryOpen = true;
@@ -692,20 +728,21 @@ function createGallery(){
         photo.classList.add('photo');
         photo.style.backgroundImage = `url(${url})`;
         
-        // Tamaño aleatorio (entre 60px y 100px)
-        const size = Math.random() * 40 + 60;
+        // Tamaño más pequeño (entre 30px y 55px)
+        const size = Math.random() * 25 + 30;
         photo.style.width = size + 'px';
         photo.style.height = size + 'px';
         
-        // Posición aleatoria (evitando el centro)
-        let top, left;
-        do {
-            top = Math.random() * 80 + 10;
-            left = Math.random() * 80 + 10;
-        } while (top > 20 && top < 80 && left > 20 && left < 80);
+        // Posición completamente aleatoria (esparcidas por todo el screen)
+        const top = Math.random() * 90 + 5;
+        const left = Math.random() * 90 + 5;
         
         photo.style.top = top + '%';
         photo.style.left = left + '%';
+        
+        // Agregar一个小animación de entrada aleatoria
+        photo.style.animation = 'galleryZoomIn 0.5s ease forwards';
+        photo.style.animationDelay = (Math.random() * 0.5) + 's';
         
         photo.onclick = toggleGallery;
         
