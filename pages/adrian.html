@@ -308,42 +308,46 @@ body{
 
 /* DESTELLO FINAL */
 
+
+/* DESTELLO FINAL (Efecto modificado) */
+
 .star-love{
-    animation:
-        twinkle linear infinite,
-        starLove 3.5s ease;
+    /* Sobreescribimos la animación por defecto para quebrille constante */
+    animation: loveGlow 3.5s ease forwards !important;
 }
 
-@keyframes starLove{
+@keyframes loveGlow{
 
     0%{
-
         box-shadow:
             0 0 4px rgba(255,255,255,.8),
             0 0 10px rgba(255,255,255,.6),
             0 0 20px rgba(255,255,255,.4);
-
+        transform: scale(1);
+        opacity: 0.5;
     }
 
     35%{
-
+        /* Pico de intensidad: Cielo iluminado azul/blanco suave */
         box-shadow:
-            0 0 10px rgba(255,255,255,1),
-            0 0 25px rgba(255,255,255,.95),
-            0 0 50px rgba(255,255,255,.85),
-            0 0 90px rgba(255,255,255,.55);
-
+            0 0 6px rgba(255,255,255, 1),
+            0 0 15px rgba(200, 220, 255, 0.9),
+            0 0 35px rgba(200, 220, 255, 0.6);
+        
+        transform: scale(1.6);
+        opacity: 1;
     }
 
     100%{
-
         box-shadow:
             0 0 4px rgba(255,255,255,.8),
             0 0 10px rgba(255,255,255,.6),
             0 0 20px rgba(255,255,255,.4);
-
+        transform: scale(1);
+        opacity: 0.5;
     }
 }
+
 
 
 </style>
