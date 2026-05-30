@@ -297,6 +297,32 @@ body{
     }
 }
 
+/* DESTELLO FINAL */
+
+.star-love{
+
+    animation:
+        starLove 2.5s ease forwards !important;
+}
+
+@keyframes starLove{
+
+    0%{
+        opacity:1;
+        transform:scale(1);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(3);
+        filter:brightness(4);
+    }
+
+    100%{
+        opacity:.4;
+        transform:scale(1.5);
+    }
+}
 </style>
 </head>
 
@@ -360,6 +386,10 @@ function showMessage(){
 
     box.textContent = messages[current];
 
+    if(messages[current] === "Te amo"){
+        loveExplosion();
+    }
+
     box.classList.remove("show-message");
 
     void box.offsetWidth;
@@ -367,6 +397,17 @@ function showMessage(){
     box.classList.add("show-message");
 
     current++;
+}
+
+function loveExplosion(){
+
+    document
+        .querySelectorAll(".star")
+        .forEach(star => {
+
+            star.classList.add("star-love");
+
+        });
 }
 
 setInterval(() => {
