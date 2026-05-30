@@ -310,45 +310,83 @@ body{
 
 .star-love{
     animation:
-        starLove 3s ease !important;
+        starLove 3s ease forwards !important;
 }
 
 @keyframes starLove{
 
     0%{
-        opacity:.3;
-        transform:scale(1);
+        opacity:.2;
     }
 
-    50%{
+    35%{
 
         opacity:1;
 
-        transform:scale(1.5);
-
         box-shadow:
-            0 0 15px #fff,
-            0 0 40px #fff,
-            0 0 80px rgba(255,255,255,.9);
+            0 0 8px #fff,
+            0 0 20px #fff,
+            0 0 40px rgba(255,255,255,.8);
     }
 
     100%{
 
-        opacity:0;
-
-        transform:scale(1);
+        opacity:.2;
 
         box-shadow:
-            0 0 30px rgba(255,255,255,.5),
-            0 0 80px rgba(255,255,255,.2);
+            0 0 4px rgba(255,255,255,.8),
+            0 0 10px rgba(255,255,255,.6),
+            0 0 20px rgba(255,255,255,.4);
     }
 }
 
+#love-halo{
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+    z-index:1;
+
+    opacity:0;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.35) 0%,
+            rgba(255,255,255,.15) 35%,
+            rgba(255,255,255,.05) 60%,
+            transparent 100%
+        );
+}
+
+.love-halo-active{
+    animation:loveHalo 3s ease forwards;
+}
+
+@keyframes loveHalo{
+
+    0%{
+        opacity:0;
+        transform:scale(.3);
+    }
+
+    35%{
+        opacity:1;
+        transform:scale(2);
+    }
+
+    100%{
+        opacity:0;
+        transform:scale(3);
+    }
+}
 </style>
 </head>
 
 <body>
+
 <div id="stars"></div>
+<div id="love-halo"></div>
 
 <div class="scene">
 
@@ -422,16 +460,20 @@ function showMessage(){
 
 function loveExplosion(){
 
-    const stars =
-        document.querySelectorAll(".star");
-
-    stars.forEach((star,index)=>{
-
-        if(index % 4 === 0){
+    document
+        .querySelectorAll(".star")
+        .forEach(star => {
             star.classList.add("star-love");
-        }
+        });
 
-    });
+    const halo =
+        document.getElementById("love-halo");
+
+    halo.classList.remove("love-halo-active");
+
+    void halo.offsetWidth;
+
+    halo.classList.add("love-halo-active");
 }
 
 setInterval(() => {
