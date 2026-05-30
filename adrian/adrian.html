@@ -379,9 +379,9 @@ body{
         0 0 10px rgba(255,255,255,.6),
         0 0 20px rgba(255,255,255,.4);
     opacity: 0;
-    pointer-events: auto;
+    pointer-events: none;
     transition: opacity 1.5s ease;
-    z-index: 200;
+    z-index: 100;
 }
 
 #btn-carta{
@@ -476,7 +476,7 @@ body{
 
 /* ZOOM DE PANTALLA COMPLETA */
 body.gallery-anim{
-    animation: screenBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: screenBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
 @keyframes screenBounce{
@@ -755,7 +755,11 @@ function openGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // Ocultar pelota + halo antes del zoom
+    // EFECTO DE ZOOM EN PANTALLA COMPLETA
+    document.body.classList.remove('gallery-closed');
+    document.body.classList.add('gallery-open');
+    
+    // Ocultar pelota + halo + scene
     ball.style.transition = 'all 0.3s ease';
     ball.style.transform = 'scale(0)';
     ball.style.opacity = '0';
@@ -765,21 +769,14 @@ function openGallery() {
     
     scene.classList.add('hidden');
     
-    // CREAR GALERÍA primero (oculta)
+    // CREAR Y MOSTRAR GALERÍA
     createGallery();
     
-    const gallery = document.getElementById('gallery');
-    gallery.style.display = 'block';
-    
-    // APLICAR ZOOM A BODY - Al llegar a 40% del zoom aparecen las fotos
     setTimeout(() => {
-        document.body.classList.add('gallery-anim');
-        
-        // Mostrar fotos cuando la pantalla vuelva a tamaño
-        setTimeout(() => {
-            gallery.classList.add('visible');
-        }, 500);
-    }, 300);
+        const gallery = document.getElementById('gallery');
+        gallery.style.display = 'block';
+        gallery.classList.add('visible');
+    }, 400);
 }
 
 function closeGallery() {
@@ -789,11 +786,12 @@ function closeGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // Ocultar galería
+    // OCULTAR GALERÍA
     gallery.classList.remove('visible');
     
-    // QUITAR ANIMACIÓN
-    document.body.classList.remove('gallery-anim');
+    // QUITAR ZOOM
+    document.body.classList.remove('gallery-open');
+    document.body.classList.add('gallery-closed');
     
     setTimeout(() => {
         gallery.style.display = 'none';
@@ -810,17 +808,8 @@ function closeGallery() {
         setTimeout(() => {
             ball.style.transition = 'transform 12s linear infinite';
         }, 100);
-    }, 300);
+    }, 600);
 }
-
-
-
-
-
-
-
-
-
 
 
 </script>
