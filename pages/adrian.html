@@ -51,7 +51,7 @@ body{
 }
 
 .show-message{
-    animation:messageFade 2.2s ease;
+    animation:messageFade 3.5s ease;
 }
 
 @keyframes messageFade{
@@ -64,7 +64,15 @@ body{
             scale(.8);
     }
 
-    20%{
+    15%{
+        opacity:1;
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(1);
+    }
+
+    75%{
         opacity:1;
         transform:
             translateX(-50%)
@@ -80,6 +88,7 @@ body{
             scale(1.05);
     }
 }
+
 /* HALO */
 
 .glow{
