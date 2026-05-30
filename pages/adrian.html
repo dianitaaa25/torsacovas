@@ -344,11 +344,52 @@ body{
     }
 }
 
+#love-flash{
+    position:fixed;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.95) 0%,
+            rgba(255,255,255,.65) 35%,
+            rgba(255,255,255,.25) 70%,
+            transparent 100%
+        );
+
+    opacity:0;
+    pointer-events:none;
+    z-index:1;
+}
+
+.flash-love{
+    animation:flashLove 3s ease forwards;
+}
+
+@keyframes flashLove{
+
+    0%{
+        opacity:0;
+    }
+
+    25%{
+        opacity:.95;
+    }
+
+    60%{
+        opacity:.75;
+    }
+
+    100%{
+        opacity:0;
+    }
+}
 </style>
 </head>
 
 <body>
 <div id="stars"></div>
+<div id="love-flash"></div>
 
 <div class="scene">
 
@@ -429,6 +470,10 @@ function loveExplosion(){
             star.classList.add("star-love");
 
         });
+
+    document
+        .getElementById("love-flash")
+        .classList.add("flash-love");
 }
 
 setInterval(() => {
