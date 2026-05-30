@@ -334,7 +334,14 @@ setInterval(() => {
 
     bounceCount++;
 
-    if(bounceCount % 3 === 0){
+    /* primer rebote */
+    if(bounceCount === 1){
+        showMessage();
+        return;
+    }
+
+    /* luego cada 3 rebotes */
+    if((bounceCount - 1) % 3 === 0){
         showMessage();
     }
 
