@@ -29,6 +29,56 @@ body{
     height:500px;
 }
 
+#message{
+    position:absolute;
+    left:50%;
+    top:180px;
+
+    transform:translateX(-50%);
+
+    color:white;
+    font-size:32px;
+    font-family:Georgia, serif;
+    text-align:center;
+
+    opacity:0;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.4);
+
+    pointer-events:none;
+}
+
+.show-message{
+    animation:messageFade 2.2s ease;
+}
+
+@keyframes messageFade{
+
+    0%{
+        opacity:0;
+        transform:
+            translateX(-50%)
+            translateY(40px)
+            scale(.8);
+    }
+
+    20%{
+        opacity:1;
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(1);
+    }
+
+    100%{
+        opacity:0;
+        transform:
+            translateX(-50%)
+            translateY(-40px)
+            scale(1.05);
+    }
+}
 /* HALO */
 
 .glow{
@@ -215,6 +265,8 @@ body{
 
 <div class="scene">
 
+    <div id="message"></div>
+
     <div class="glow"></div>
 
     <div class="ball-wrap">
@@ -247,5 +299,42 @@ body{
 
 </div>
 
+<script>
+
+const messages = [
+    "¿Te acuerdas?",
+    "Extraño hablar contigo.",
+    "Perdóname.",
+    "Sigues siendo importante para mí.",
+    "Te quiero.",
+    "¿Podemos empezar de nuevo?"
+];
+
+let current = 0;
+
+const box = document.getElementById("message");
+
+function showMessage(){
+
+    if(current >= messages.length) return;
+
+    box.textContent = messages[current];
+
+    box.classList.remove("show-message");
+
+    void box.offsetWidth;
+
+    box.classList.add("show-message");
+
+    current++;
+}
+
+/* primer impacto */
+setTimeout(showMessage, 2200);
+
+/* siguientes impactos */
+setInterval(showMessage, 2200);
+
+</script>
 </body>
 </html>
