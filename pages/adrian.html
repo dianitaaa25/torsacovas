@@ -309,87 +309,53 @@ body{
 /* DESTELLO FINAL */
 
 .star-love{
-
     animation:
         starLove 3s ease forwards !important;
+    z-index:999;
 }
 
 @keyframes starLove{
 
     0%{
         opacity:1;
-        width:4px;
-        height:4px;
         transform:scale(1);
     }
 
     50%{
+
         opacity:1;
-        width:12px;
-        height:12px;
-        transform:scale(6);
+
+        transform:scale(4);
 
         box-shadow:
             0 0 20px #fff,
             0 0 50px #fff,
             0 0 100px #fff,
-            0 0 200px #fff;
+            0 0 200px #fff,
+            0 0 400px #fff,
+            0 0 800px rgba(255,255,255,.9);
     }
 
     100%{
-        opacity:.7;
-        width:8px;
-        height:8px;
-        transform:scale(3);
+
+        opacity:1;
+
+        transform:scale(2);
+
+        box-shadow:
+            0 0 10px #fff,
+            0 0 30px #fff,
+            0 0 60px #fff;
     }
 }
 
-#love-flash{
-    position:fixed;
-    inset:0;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.95) 0%,
-            rgba(255,255,255,.65) 35%,
-            rgba(255,255,255,.25) 70%,
-            transparent 100%
-        );
 
-    opacity:0;
-    pointer-events:none;
-    z-index:1;
-}
-
-.flash-love{
-    animation:flashLove 3s ease forwards;
-}
-
-@keyframes flashLove{
-
-    0%{
-        opacity:0;
-    }
-
-    25%{
-        opacity:.95;
-    }
-
-    60%{
-        opacity:.75;
-    }
-
-    100%{
-        opacity:0;
-    }
-}
 </style>
 </head>
 
 <body>
 <div id="stars"></div>
-<div id="love-flash"></div>
 
 <div class="scene">
 
@@ -463,17 +429,13 @@ function showMessage(){
 
 function loveExplosion(){
 
+    document.getElementById("stars").style.zIndex = 999;
+
     document
         .querySelectorAll(".star")
         .forEach(star => {
-
             star.classList.add("star-love");
-
         });
-
-    document
-        .getElementById("love-flash")
-        .classList.add("flash-love");
 }
 
 setInterval(() => {
