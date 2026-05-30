@@ -303,11 +303,11 @@ body{
 
 const messages = [
     "¿Te acuerdas?",
-    "Extraño hablar contigo.",
-    "Perdóname.",
+    "Extraño como era antes.",
+    "Extraño el tiempo contigo.",
+    "Perdón.",
     "Sigues siendo importante para mí.",
-    "Te amooo.",
-    "¿Podemos empezar de nuevo?"
+    "Te amo."
 ];
 
 let current = 0;
@@ -341,7 +341,7 @@ setInterval(() => {
     }
 
     /* luego cada 3 rebotes */
-    if((bounceCount - 1) % 3 === 0){
+    if((bounceCount - 1) % 2 === 0){
         showMessage();
     }
 
