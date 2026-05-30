@@ -475,31 +475,21 @@ body{
 }
 
 /* ZOOM DE PANTALLA COMPLETA */
-body.gallery-open{
-    animation: screenZoomOut 0.6s ease forwards;
+body.gallery-anim{
+    animation: screenBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
-body.gallery-closed{
-    animation: screenZoomIn 0.6s ease forwards;
-}
-
-@keyframes screenZoomOut{
+@keyframes screenBounce{
     0%{
         transform: scale(1);
     }
-    50%{
-        transform: scale(0.5);
-        opacity: 0.3;
+    40%{
+        transform: scale(0.4);
+        opacity: 0.5;
     }
-    100%{
-        transform: scale(1.2);
+    70%{
+        transform: scale(1.05);
         opacity: 1;
-    }
-}
-
-@keyframes screenZoomIn{
-    0%{
-        transform: scale(1.2);
     }
     100%{
         transform: scale(1);
@@ -765,11 +755,7 @@ function openGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // EFECTO DE ZOOM EN PANTALLA COMPLETA
-    document.body.classList.remove('gallery-closed');
-    document.body.classList.add('gallery-open');
-    
-    // Ocultar pelota + halo + scene
+    // Ocultar pelota + halo antes del zoom
     ball.style.transition = 'all 0.3s ease';
     ball.style.transform = 'scale(0)';
     ball.style.opacity = '0';
@@ -779,14 +765,21 @@ function openGallery() {
     
     scene.classList.add('hidden');
     
-    // CREAR Y MOSTRAR GALERÍA
+    // CREAR GALERÍA primero (oculta)
     createGallery();
     
+    const gallery = document.getElementById('gallery');
+    gallery.style.display = 'block';
+    
+    // APLICAR ZOOM A BODY - Al llegar a 40% del zoom aparecen las fotos
     setTimeout(() => {
-        const gallery = document.getElementById('gallery');
-        gallery.style.display = 'block';
-        gallery.classList.add('visible');
-    }, 400);
+        document.body.classList.add('gallery-anim');
+        
+        // Mostrar fotos cuando la pantalla vuelva a tamaño
+        setTimeout(() => {
+            gallery.classList.add('visible');
+        }, 500);
+    }, 300);
 }
 
 function closeGallery() {
@@ -796,12 +789,11 @@ function closeGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // OCULTAR GALERÍA
+    // Ocultar galería
     gallery.classList.remove('visible');
     
-    // QUITAR ZOOM
-    document.body.classList.remove('gallery-open');
-    document.body.classList.add('gallery-closed');
+    // QUITAR ANIMACIÓN
+    document.body.classList.remove('gallery-anim');
     
     setTimeout(() => {
         gallery.style.display = 'none';
@@ -818,8 +810,17 @@ function closeGallery() {
         setTimeout(() => {
             ball.style.transition = 'transform 12s linear infinite';
         }, 100);
-    }, 600);
+    }, 300);
 }
+
+
+
+
+
+
+
+
+
 
 
 </script>
