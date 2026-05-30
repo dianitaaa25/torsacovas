@@ -348,7 +348,22 @@ body{
     }
 }
 
+/* Detener giro */
+.ball-stopped{
+    animation: none !important;
+}
 
+/* Detener halo */
+.glow-stopped{
+    animation: none !important;
+    opacity: 0 !important;
+}
+
+/* Detener rebote - FORMA CIRCULAR */
+.ball-wrap-stopped{
+    animation: none !important;
+    transform: translateX(-50%) translateY(0) scaleX(1) scaleY(1) !important;
+}
 
 </style>
 </head>
@@ -466,13 +481,21 @@ let intervalId = setInterval(() => {
         showMessage();
     }
 
+    // Después del último mensaje, esperar 5 rebotes más
     if(bounceCount === 22){
         
         clearInterval(intervalId);
         
-        const ballWrap = document.querySelector('.ball-wrap');
+        // Detener pelota (giro)
+        const ball = document.querySelector('.ball');
+        ball.classList.add('ball-stopped');
         
-        ballWrap.style.transform = 'translateX(-50%) translateY(0) scaleX(1.12) scaleY(.85)';
+        // Detener halo
+        const glow = document.querySelector('.glow');
+        glow.classList.add('glow-stopped');
+        
+        // Detener rebote y формыcircular
+        const ballWrap = document.querySelector('.ball-wrap');
         ballWrap.classList.add('ball-wrap-stopped');
     }
 
