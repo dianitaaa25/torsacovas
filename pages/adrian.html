@@ -275,7 +275,7 @@ body{
     inset:0;
     overflow:hidden;
     pointer-events:none;
-    z-index:999;
+    z-index:0;
 }
 
 .star{
@@ -413,7 +413,7 @@ function showMessage(){
 
     box.textContent = messages[current];
 
-    if(messages[current] === "Te amo"){
+    if(messages[current] === "Te amo."){
         loveExplosion();
     }
 
