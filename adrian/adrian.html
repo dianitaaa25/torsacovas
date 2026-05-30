@@ -400,23 +400,17 @@ body{
 }
 
 /* GALERÍA DE FOTOS */
-
 #gallery{
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 50;
-    opacity: 0;
-    transition: opacity 1s ease, transform 1s ease;
-    transform: scale(0.5);
     display: none;
 }
 
 #gallery.visible{
     display: block;
     pointer-events: auto;
-    opacity: 1;
-    transform: scale(1);
 }
 
 .photo{
@@ -429,7 +423,8 @@ body{
         0 0 20px rgba(255,255,255,.6),
         0 0 40px rgba(255,255,255,.3);
     cursor: pointer;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 51;
 }
 
 .photo:hover{
@@ -437,6 +432,30 @@ body{
         0 0 12px rgba(255,255,255,1),
         0 0 30px rgba(255,255,255,.8),
         0 0 60px rgba(255,255,255,.5);
+    z-index: 60;
+}
+
+/* FOTO ACTIVA (estilo PREZI) */
+.photo.active{
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    width: 80vmin !important;
+    height: 80vmin !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+    border-radius: 5%;
+    box-shadow:
+        0 0 30px rgba(255,255,255,1),
+        0 0 60px rgba(255,255,255,.8),
+        0 0 100px rgba(255,255,255,.5) !important;
+    z-index: 100;
+}
+
+/* Animación de entrada */
+@keyframes galleryZoomIn{
+    0%{ transform: scale(0); opacity: 0; }
+    70%{ transform: scale(1.1); opacity: 1; }
+    100%{ transform: scale(1); opacity: 1; }
 }
 
 /* ZOOM DE REBOTE */
@@ -455,12 +474,6 @@ body{
     }
 }
 
-#gallery.visible{
-    display: block;
-    pointer-events: auto;
-    opacity: 1;
-    animation: galleryZoomIn 0.8s ease forwards;
-}
 </style>
 </head>
 
@@ -644,7 +657,6 @@ for(let i = 0; i < 120; i++){
 }
 // ==================== GALERÍA ====================
 
-// Tus fotos (20 fotos)
 const photos = [
     'adrian/img/gallery/image1.jpg',
     'adrian/img/gallery/image2.jpg',
@@ -669,6 +681,7 @@ const photos = [
 ];
 
 let galleryOpen = false;
+let activePhoto = null;
 
 function toggleGallery() {
     const gallery = document.getElementById('gallery');
@@ -677,77 +690,133 @@ function toggleGallery() {
     const glow = document.querySelector('.glow');
     
     if(!galleryOpen){
-        // ABRIR: Pelota se achica y desaparece
-        ball.style.transition = 'transform 0.8s ease, opacity 0.8s ease';
+        // ABRIR: Pelota + halo desaparecen JUNTOS
+        ball.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
         ball.style.transform = 'scale(0)';
         ball.style.opacity = '0';
         
-        setTimeout(() => {
-            ballWrap.style.display = 'none';
-            glow.style.opacity = '0';
-        }, 800);
+        // Ocultar pelota y halo al mismo tiempo
+        ballWrap.style.display = 'none';
+        glow.style.opacity = '0';
         
-        // Crear galería si no existe
+        // Crear galería
         if(!gallery){
             createGallery();
         }
         
-        // Mostrar galería
-        setTimeout(() => {
-            gallery.classList.add('visible');
-        }, 500);
+        // Mostrar galería INMEDIATAMENTE
+        gallery.style.display = 'block';
+        gallery.classList.add('visible');
         
         galleryOpen = true;
     } else {
+        // Cerrar galería
+        if(activePhoto){
+            activePhoto.classList.remove('active');
+            activePhoto = null;
+        }
+        
         gallery.classList.remove('visible');
         
         setTimeout(() => {
-            // Pelota vuelve
-            ballWrap.style.display = 'block';
-            ball.style.transition = 'none';
-            ball.style.transform = 'scale(1)';
-            ball.style.opacity = '1';
-            
-            setTimeout(() => {
-                ball.style.transition = 'transform 12s linear infinite';
-            }, 100);
-            
-            glow.style.opacity = '0.7';
-        }, 1000);
+            gallery.style.display = 'none';
+        }, 500);
+        
+        // Pelota vuelve
+        ballWrap.style.display = 'block';
+        ball.style.transition = 'none';
+        ball.style.transform = 'scale(1)';
+        ball.style.opacity = '1';
+        
+        setTimeout(() => {
+            ball.style.transition = 'transform 12s linear infinite';
+        }, 100);
+        
+        glow.style.opacity = '0.7';
         
         galleryOpen = false;
     }
 }
 
 function createGallery(){
+    // Eliminar galería anterior si existe
+    const oldGallery = document.getElementById('gallery');
+    if(oldGallery) oldGallery.remove();
+    
     const gallery = document.createElement('div');
     gallery.id = 'gallery';
+    
+    const positions = [];
     
     photos.forEach((url) => {
         const photo = document.createElement('div');
         photo.classList.add('photo');
         photo.style.backgroundImage = `url(${url})`;
         
-        // Tamaño más pequeño (entre 30px y 55px)
-        const size = Math.random() * 25 + 30;
+        // Tamaño pequeño (entre 25px y 45px)
+        const size = Math.random() * 20 + 25;
         photo.style.width = size + 'px';
         photo.style.height = size + 'px';
         
-        // Posición completamente aleatoria (esparcidas por todo el screen)
-        const top = Math.random() * 90 + 5;
-        const left = Math.random() * 90 + 5;
+        // Posición aleatoria SIN COLISIÓN
+        let top, left, overlaps;
+        let attempts = 0;
+        
+        do {
+            top = Math.random() * 85 + 5;
+            left = Math.random() * 85 + 5;
+            overlaps = false;
+            
+            // Verificar colisión con otras fotos
+            for(const pos of positions){
+                const distance = Math.sqrt(
+                    Math.pow(top - pos.top, 2) + Math.pow(left - pos.left, 2)
+                );
+                const minDistance = (size + pos.size) / 2 + 15; // 15px de margen
+                if(distance < minDistance){
+                    overlaps = true;
+                    break;
+                }
+            }
+            attempts++;
+        } while(overlaps && attempts < 100);
+        
+        positions.push({top, left, size});
         
         photo.style.top = top + '%';
         photo.style.left = left + '%';
+        photo.style.animation = `galleryZoomIn 0.6s ease forwards`;
+        photo.style.animationDelay = (Math.random() * 0.3) + 's';
         
-        // Agregar一个小animación de entrada aleatoria
-        photo.style.animation = 'galleryZoomIn 0.5s ease forwards';
-        photo.style.animationDelay = (Math.random() * 0.5) + 's';
-        
-        photo.onclick = toggleGallery;
+        // Efecto PREZI al hacer clic
+        photo.onclick = function(e){
+            e.stopPropagation();
+            
+            if(activePhoto === photo){
+                // Ya está activa - cerrarla
+                photo.classList.remove('active');
+                activePhoto = null;
+            } else {
+                // Cerrar cualquier otra foto activa
+                if(activePhoto){
+                    activePhoto.classList.remove('active');
+                }
+                // Activar esta foto
+                photo.classList.add('active');
+                activePhoto = photo;
+            }
+        };
         
         gallery.appendChild(photo);
     });
+    
+    // Cerrar galería al hacer clic en el fondo
+    gallery.onclick = function(e){
+        if(e.target === gallery && activePhoto){
+            activePhoto.classList.remove('active');
+            activePhoto = null;
+        }
+    };
     
     document.body.appendChild(gallery);
 }
