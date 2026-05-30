@@ -474,6 +474,49 @@ body{
     }
 }
 
+/* ZOOM DE PANTALLA COMPLETA */
+body.gallery-open{
+    animation: screenZoomOut 0.6s ease forwards;
+}
+
+body.gallery-closed{
+    animation: screenZoomIn 0.6s ease forwards;
+}
+
+@keyframes screenZoomOut{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(0.5);
+        opacity: 0.3;
+    }
+    100%{
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+@keyframes screenZoomIn{
+    0%{
+        transform: scale(1.2);
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Ocultar scene durante galería */
+.scene{
+    transition: all 0.4s ease;
+}
+
+.scene.hidden{
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+}
 </style>
 </head>
 
@@ -625,7 +668,7 @@ let intervalId = setInterval(() => {
         
         // ASIGNAR EVENTO AL BOTÓN DE FOTOS
         btn2.onclick = function(){
-            toggleGallery();
+            openGallery();
         };
     }
 
@@ -655,6 +698,11 @@ for(let i = 0; i < 120; i++){
 
     stars.appendChild(star);
 }
+
+
+
+
+
 // ==================== GALERÍA ====================
 
 const photos = [
@@ -680,146 +728,99 @@ const photos = [
     'adrian/img/gallery/image2.jpg'
 ];
 
-let galleryOpen = false;
-let activePhoto = null;
-
-function toggleGallery() {
-    const gallery = document.getElementById('gallery');
-    const ball = document.querySelector('.ball');
-    const ballWrap = document.querySelector('.ball-wrap');
-    const glow = document.querySelector('.glow');
-    
-    if(!galleryOpen){
-        // ABRIR: Pelota + halo desaparecen JUNTOS
-        ball.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-        ball.style.transform = 'scale(0)';
-        ball.style.opacity = '0';
-        
-        // Ocultar pelota y halo al mismo tiempo
-        ballWrap.style.display = 'none';
-        glow.style.opacity = '0';
-        
-        // Crear galería
-        if(!gallery){
-            createGallery();
-        }
-        
-        // Mostrar galería INMEDIATAMENTE
-        gallery.style.display = 'block';
-        gallery.classList.add('visible');
-        
-        galleryOpen = true;
-    } else {
-        // Cerrar galería
-        if(activePhoto){
-            activePhoto.classList.remove('active');
-            activePhoto = null;
-        }
-        
-        gallery.classList.remove('visible');
-        
-        setTimeout(() => {
-            gallery.style.display = 'none';
-        }, 500);
-        
-        // Pelota vuelve
-        ballWrap.style.display = 'block';
-        ball.style.transition = 'none';
-        ball.style.transform = 'scale(1)';
-        ball.style.opacity = '1';
-        
-        setTimeout(() => {
-            ball.style.transition = 'transform 12s linear infinite';
-        }, 100);
-        
-        glow.style.opacity = '0.7';
-        
-        galleryOpen = false;
-    }
-}
-
 function createGallery(){
-    // Eliminar galería anterior si existe
-    const oldGallery = document.getElementById('gallery');
-    if(oldGallery) oldGallery.remove();
+    const existing = document.getElementById('gallery');
+    if(existing) existing.remove();
     
     const gallery = document.createElement('div');
     gallery.id = 'gallery';
-    
-    const positions = [];
+    gallery.style.display = 'none';
     
     photos.forEach((url) => {
         const photo = document.createElement('div');
         photo.classList.add('photo');
         photo.style.backgroundImage = `url(${url})`;
         
-        // Tamaño pequeño (entre 25px y 45px)
         const size = Math.random() * 20 + 25;
         photo.style.width = size + 'px';
         photo.style.height = size + 'px';
         
-        // Posición aleatoria SIN COLISIÓN
-        let top, left, overlaps;
-        let attempts = 0;
+        photo.style.top = (Math.random() * 85 + 5) + '%';
+        photo.style.left = (Math.random() * 85 + 5) + '%';
         
-        do {
-            top = Math.random() * 85 + 5;
-            left = Math.random() * 85 + 5;
-            overlaps = false;
-            
-            // Verificar colisión con otras fotos
-            for(const pos of positions){
-                const distance = Math.sqrt(
-                    Math.pow(top - pos.top, 2) + Math.pow(left - pos.left, 2)
-                );
-                const minDistance = (size + pos.size) / 2 + 15; // 15px de margen
-                if(distance < minDistance){
-                    overlaps = true;
-                    break;
-                }
-            }
-            attempts++;
-        } while(overlaps && attempts < 100);
-        
-        positions.push({top, left, size});
-        
-        photo.style.top = top + '%';
-        photo.style.left = left + '%';
-        photo.style.animation = `galleryZoomIn 0.6s ease forwards`;
-        photo.style.animationDelay = (Math.random() * 0.3) + 's';
-        
-        // Efecto PREZI al hacer clic
         photo.onclick = function(e){
             e.stopPropagation();
-            
-            if(activePhoto === photo){
-                // Ya está activa - cerrarla
-                photo.classList.remove('active');
-                activePhoto = null;
-            } else {
-                // Cerrar cualquier otra foto activa
-                if(activePhoto){
-                    activePhoto.classList.remove('active');
-                }
-                // Activar esta foto
-                photo.classList.add('active');
-                activePhoto = photo;
-            }
+            closeGallery();
         };
         
         gallery.appendChild(photo);
     });
     
-    // Cerrar galería al hacer clic en el fondo
-    gallery.onclick = function(e){
-        if(e.target === gallery && activePhoto){
-            activePhoto.classList.remove('active');
-            activePhoto = null;
-        }
-    };
-    
     document.body.appendChild(gallery);
 }
+
+function openGallery() {
+    const ball = document.querySelector('.ball');
+    const ballWrap = document.querySelector('.ball-wrap');
+    const glow = document.querySelector('.glow');
+    const scene = document.querySelector('.scene');
+    
+    // EFECTO DE ZOOM EN PANTALLA COMPLETA
+    document.body.classList.remove('gallery-closed');
+    document.body.classList.add('gallery-open');
+    
+    // Ocultar pelota + halo + scene
+    ball.style.transition = 'all 0.3s ease';
+    ball.style.transform = 'scale(0)';
+    ball.style.opacity = '0';
+    
+    glow.style.transition = 'all 0.3s ease';
+    glow.style.opacity = '0';
+    
+    scene.classList.add('hidden');
+    
+    // CREAR Y MOSTRAR GALERÍA
+    createGallery();
+    
+    setTimeout(() => {
+        const gallery = document.getElementById('gallery');
+        gallery.style.display = 'block';
+        gallery.classList.add('visible');
+    }, 400);
+}
+
+function closeGallery() {
+    const gallery = document.getElementById('gallery');
+    const ball = document.querySelector('.ball');
+    const ballWrap = document.querySelector('.ball-wrap');
+    const glow = document.querySelector('.glow');
+    const scene = document.querySelector('.scene');
+    
+    // OCULTAR GALERÍA
+    gallery.classList.remove('visible');
+    
+    // QUITAR ZOOM
+    document.body.classList.remove('gallery-open');
+    document.body.classList.add('gallery-closed');
+    
+    setTimeout(() => {
+        gallery.style.display = 'none';
+        
+        // MOSTRAR PELOTA + HALO + SCENE
+        scene.classList.remove('hidden');
+        
+        ball.style.transition = 'none';
+        ball.style.transform = 'scale(1)';
+        ball.style.opacity = '1';
+        
+        glow.style.opacity = '0.7';
+        
+        setTimeout(() => {
+            ball.style.transition = 'transform 12s linear infinite';
+        }, 100);
+    }, 600);
+}
+
 
 </script>
 
