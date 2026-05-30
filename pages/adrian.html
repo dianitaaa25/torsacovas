@@ -349,10 +349,10 @@ body{
 }
 
 /* Detener giro */
+/* Detener giro (mantiene posición actual) */
 .ball-stopped{
-    animation: none !important;
+    animation-play-state: paused !important;
 }
-
 /* Detener halo (queda visible) */
 .glow-stopped{
     animation: none !important;
@@ -488,8 +488,9 @@ let intervalId = setInterval(() => {
         clearInterval(intervalId);
         
         // Detener pelota (giro)
+        // Detener pelota (giro) - mantiene rotación actual
         const ball = document.querySelector('.ball');
-        ball.classList.add('ball-stopped');
+        ball.style.animationPlayState = 'paused';
         
         // Detener halo
         const glow = document.querySelector('.glow');
