@@ -364,12 +364,11 @@ body{
 }
 
 /* BOTONES OCULTOS */
-
 .menu-btn{
     position: fixed;
-    right: 40px;
-    width: 6px;
-    height: 6px;
+    right: 30px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: white;
     box-shadow:
@@ -382,12 +381,14 @@ body{
     z-index: 100;
 }
 
-.menu-btn:nth-child(1){
-    top: 60px;
+/* Primer botón (arriba) */
+#btn-reiniciar{
+    top: 50px;
 }
 
-.menu-btn:nth-child(2){
-    top: 85px;
+/* Segundo botón (abajo) */
+#btn-salir{
+    top: 75px;
 }
 
 .menu-btn.visible{
@@ -523,27 +524,28 @@ let intervalId = setInterval(() => {
         const ballWrap = document.querySelector('.ball-wrap');
         ballWrap.classList.add('ball-wrap-stopped');
 
-        // Crear botones del menú
-        const btn1 = document.createElement('div');
-        btn1.classList.add('menu-btn');
-        btn1.id = 'btn-reiniciar';
-            
-        const btn2 = document.createElement('div');
-        btn2.classList.add('menu-btn');
-        btn2.id = 'btn-salir';
-            
-        document.body.appendChild(btn1);
-        document.body.appendChild(btn2);
-            
-        // Hacerlos visibles gradualmente
-        setTimeout(() => {
-            btn1.classList.add('visible');
-        }, 500);
+        /// Crear botones del menú
+const btn1 = document.createElement('div');
+btn1.className = 'menu-btn';
+btn1.id = 'btn-reiniciar';
         
-        setTimeout(() => {
-            btn2.classList.add('visible');
-        }, 1200);
+const btn2 = document.createElement('div');
+btn2.className = 'menu-btn';
+btn2.id = 'btn-salir';
         
+document.body.appendChild(btn1);
+document.body.appendChild(btn2);
+        
+// Hacerlos visibles gradualmente
+setTimeout(() => {
+    btn1.classList.add('visible');
+}, 500);
+
+setTimeout(() => {
+    btn2.classList.add('visible');
+}, 1200);
+
+
     }
 
 }, 2200);
