@@ -27,6 +27,7 @@ body{
     position:relative;
     width:500px;
     height:500px;
+    z-index:2;
 }
 
 #message{
@@ -260,82 +261,51 @@ body{
 
 /* ESTRELLAS */
 
-.stars{
-    position:absolute;
+#stars{
+    position:fixed;
     inset:0;
+    overflow:hidden;
     pointer-events:none;
+    z-index:0;
 }
 
-.stars span{
+.star{
     position:absolute;
-    width:3px;
-    height:3px;
 
     border-radius:50%;
 
     background:white;
 
-    opacity:.25;
+    box-shadow:
+        0 0 4px rgba(255,255,255,.8),
+        0 0 10px rgba(255,255,255,.6),
+        0 0 20px rgba(255,255,255,.4);
 
-    animation:twinkle 6s ease-in-out infinite;
+    animation:twinkle linear infinite;
 }
-
-.stars span:nth-child(1){top:8%; left:12%;}
-.stars span:nth-child(2){top:18%; left:75%;}
-.stars span:nth-child(3){top:30%; left:22%;}
-.stars span:nth-child(4){top:12%; left:55%;}
-.stars span:nth-child(5){top:42%; left:88%;}
-.stars span:nth-child(6){top:55%; left:10%;}
-.stars span:nth-child(7){top:68%; left:80%;}
-.stars span:nth-child(8){top:78%; left:25%;}
-.stars span:nth-child(9){top:85%; left:60%;}
-.stars span:nth-child(10){top:22%; left:92%;}
 
 @keyframes twinkle{
 
     0%,100%{
         opacity:.15;
-        transform:scale(1);
+        transform:scale(.8);
     }
 
     50%{
-        opacity:.7;
-        transform:scale(1.8);
+        opacity:1;
+        transform:scale(1.4);
     }
 }
-
-.stars span:nth-child(1){animation-delay:0s;}
-.stars span:nth-child(2){animation-delay:.8s;}
-.stars span:nth-child(3){animation-delay:1.4s;}
-.stars span:nth-child(4){animation-delay:2.1s;}
-.stars span:nth-child(5){animation-delay:3s;}
-.stars span:nth-child(6){animation-delay:3.8s;}
-.stars span:nth-child(7){animation-delay:4.5s;}
-.stars span:nth-child(8){animation-delay:5.2s;}
-.stars span:nth-child(9){animation-delay:1.9s;}
-.stars span:nth-child(10){animation-delay:2.7s;}
 
 </style>
 </head>
 
 <body>
+<div id="stars"></div>
 
 <div class="scene">
 
     <div id="message"></div>
-
-    <div class="stars">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
 
     <div class="glow"></div>
 
@@ -343,7 +313,6 @@ body{
 
         <div class="ball">
 
-            <!-- PEGA AQUÍ TU SVG COMPLETO -->
              <svg
                version="1.1"
                id="svg228"
@@ -420,6 +389,31 @@ setInterval(() => {
     }
 
 }, 2200);
+
+const stars = document.getElementById("stars");
+
+for(let i = 0; i < 120; i++){
+
+    const star = document.createElement("div");
+
+    star.classList.add("star");
+
+    const size = Math.random() * 3 + 1;
+
+    star.style.width = size + "px";
+    star.style.height = size + "px";
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+
+    star.style.animationDuration =
+        (Math.random() * 5 + 4) + "s";
+
+    star.style.animationDelay =
+        (Math.random() * 5) + "s";
+
+    stars.appendChild(star);
+}
 
 </script>
 
