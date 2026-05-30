@@ -348,24 +348,52 @@ body{
     }
 }
 
-/* Detener giro */
-/* Detener giro (mantiene posición actual) */
 .ball-stopped{
     animation-play-state: paused !important;
 }
-/* Detener halo (queda visible) */
+
 .glow-stopped{
     animation: none !important;
     transform: translateX(-50%) scaleX(1.1) scaleY(.55) !important;
     opacity: 0.7 !important;
 }
 
-/* Detener rebote - FORMA CIRCULAR */
 .ball-wrap-stopped{
     animation: none !important;
     transform: translateX(-50%) translateY(0) scaleX(1) scaleY(1) !important;
 }
 
+/* BOTONES OCULTOS */
+
+.menu-btn{
+    position: fixed;
+    right: 40px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: white;
+    box-shadow:
+        0 0 4px rgba(255,255,255,.8),
+        0 0 10px rgba(255,255,255,.6),
+        0 0 20px rgba(255,255,255,.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s ease;
+    z-index: 100;
+}
+
+.menu-btn:nth-child(1){
+    top: 60px;
+}
+
+.menu-btn:nth-child(2){
+    top: 85px;
+}
+
+.menu-btn.visible{
+    opacity: 1;
+    pointer-events: auto;
+}
 </style>
 </head>
 
@@ -482,23 +510,40 @@ let intervalId = setInterval(() => {
         showMessage();
     }
 
-    // Después del último mensaje, esperar 5 rebotes más
     if(bounceCount === 22){
         
         clearInterval(intervalId);
         
-        // Detener pelota (giro)
-        // Detener pelota (giro) - mantiene rotación actual
         const ball = document.querySelector('.ball');
         ball.style.animationPlayState = 'paused';
         
-        // Detener halo
         const glow = document.querySelector('.glow');
         glow.classList.add('glow-stopped');
         
-        // Detener rebote y формыcircular
         const ballWrap = document.querySelector('.ball-wrap');
         ballWrap.classList.add('ball-wrap-stopped');
+
+        // Crear botones del menú
+        const btn1 = document.createElement('div');
+        btn1.classList.add('menu-btn');
+        btn1.id = 'btn-reiniciar';
+            
+        const btn2 = document.createElement('div');
+        btn2.classList.add('menu-btn');
+        btn2.id = 'btn-salir';
+            
+        document.body.appendChild(btn1);
+        document.body.appendChild(btn2);
+            
+        // Hacerlos visibles gradualmente
+        setTimeout(() => {
+            btn1.classList.add('visible');
+        }, 500);
+        
+        setTimeout(() => {
+            btn2.classList.add('visible');
+        }, 1200);
+        
     }
 
 }, 2200);
