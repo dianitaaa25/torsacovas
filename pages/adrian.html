@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Basketball Bounce</title>
+<title>Pelota de Fútbol</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -13,9 +14,9 @@
 }
 
 body{
-    background:#000;
-    overflow:hidden;
     height:100vh;
+    overflow:hidden;
+    background:#000;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -23,99 +24,115 @@ body{
 
 .scene{
     position:relative;
-    width:400px;
-    height:400px;
+    width:500px;
+    height:500px;
 }
 
-/* CONTENEDOR ANIMADO */
-.ball-wrap{
-    position:absolute;
-    left:50%;
-    bottom:120px;
-    transform:translateX(-50%);
-    animation:bounce 1.45s ease-in-out infinite;
-}
+/* HALO */
 
-/* PELOTA */
-.ball{
-    width:140px;
-    height:140px;
-    border-radius:50%;
-    overflow:hidden;
-    filter:
-        drop-shadow(0 0 2px rgba(255,170,0,.5))
-        drop-shadow(0 0 8px rgba(255,120,0,.2));
-}
-
-/* RESPLANDOR */
 .glow{
     position:absolute;
     left:50%;
-    bottom:30px;
+    bottom:40px;
 
-    width:220px;
-    height:220px;
+    width:260px;
+    height:260px;
 
     transform:translateX(-50%);
 
     background:
-        radial-gradient(
-            circle,
-            rgba(180,190,255,.55) 0%,
-            rgba(110,120,255,.35) 22%,
-            rgba(60,70,180,.18) 45%,
-            rgba(20,20,80,.08) 70%,
-            transparent 100%
-        );
+    radial-gradient(
+        circle,
+        rgba(180,190,255,.55) 0%,
+        rgba(120,130,255,.35) 25%,
+        rgba(70,80,180,.18) 55%,
+        rgba(20,20,80,.08) 80%,
+        transparent 100%
+    );
 
-    filter:blur(22px);
-    animation:glowPulse 1.45s ease-in-out infinite;
+    filter:blur(25px);
+
+    animation:glowPulse 1.5s ease-in-out infinite;
+}
+
+/* CONTENEDOR DEL REBOTE */
+
+.ball-wrapper{
+    position:absolute;
+    left:50%;
+    bottom:130px;
+
+    transform:translateX(-50%);
+
+    animation:bounce 1.5s ease-in-out infinite;
+}
+
+/* PELOTA */
+
+.ball{
+    width:170px;
+    height:170px;
+
+    animation:spin 10s linear infinite;
 }
 
 /* REBOTE */
+
 @keyframes bounce{
 
     0%,100%{
         transform:
             translateX(-50%)
             translateY(0)
-            scaleX(1.12)
+            scaleX(1.14)
             scaleY(.84);
     }
 
-    10%{
+    12%{
         transform:
             translateX(-50%)
             translateY(-8px)
-            scaleX(1)
-            scaleY(1);
+            scale(1);
     }
 
     50%{
         transform:
             translateX(-50%)
-            translateY(-180px)
+            translateY(-220px)
             scale(1);
     }
 
-    90%{
+    88%{
         transform:
             translateX(-50%)
             translateY(-8px)
-            scaleX(1)
-            scaleY(1);
+            scale(1);
     }
 }
 
-/* SOMBRA DINÁMICA */
+/* ROTACIÓN */
+
+@keyframes spin{
+
+    from{
+        transform:rotate(-18deg);
+    }
+
+    to{
+        transform:rotate(342deg);
+    }
+}
+
+/* HALO DINÁMICO */
+
 @keyframes glowPulse{
 
     0%,100%{
         transform:
             translateX(-50%)
-            scale(1.35);
+            scale(1.4);
 
-        opacity:.9;
+        opacity:.95;
     }
 
     50%{
@@ -126,6 +143,7 @@ body{
         opacity:.25;
     }
 }
+
 </style>
 </head>
 
@@ -135,116 +153,120 @@ body{
 
     <div class="glow"></div>
 
-    <div class="ball-wrap">
+    <div class="ball-wrapper">
 
-        <div class="ball">
+        <svg class="ball"
+             viewBox="0 0 200 200"
+             xmlns="http://www.w3.org/2000/svg">
 
-            <svg
-                viewBox="0 0 200 200"
-                width="100%"
-                height="100%"
-                xmlns="http://www.w3.org/2000/svg">
+            <defs>
 
-                <defs>
+                <radialGradient id="sphere"
+                                cx="28%"
+                                cy="18%"
+                                r="85%">
 
-                    <radialGradient id="basketGradient"
-                        cx="28%"
-                        cy="18%"
-                        r="85%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="50%" stop-color="#f6f6f6"/>
+                    <stop offset="100%" stop-color="#bcbcbc"/>
 
-                        <stop offset="0%"
-                              stop-color="#ffe3aa"/>
+                </radialGradient>
 
-                        <stop offset="22%"
-                              stop-color="#ffbb42"/>
+                <clipPath id="clipBall">
+                    <circle cx="100" cy="100" r="98"/>
+                </clipPath>
 
-                        <stop offset="60%"
-                              stop-color="#f7a100"/>
+            </defs>
 
-                        <stop offset="100%"
-                              stop-color="#b96d00"/>
-                    </radialGradient>
+            <!-- esfera -->
 
-                </defs>
+            <circle
+                cx="100"
+                cy="100"
+                r="98"
+                fill="url(#sphere)"
+            />
 
-                <!-- esfera -->
-                <circle
-                    cx="100"
-                    cy="100"
-                    r="98"
-                    fill="url(#basketGradient)"
-                />
+            <!-- brillo -->
 
-                <!-- brillo -->
-                <ellipse
-                    cx="58"
-                    cy="42"
-                    rx="40"
-                    ry="26"
-                    fill="white"
-                    opacity=".16"
-                />
+            <ellipse
+                cx="62"
+                cy="48"
+                rx="40"
+                ry="24"
+                fill="white"
+                opacity=".25"
+            />
+
+            <!-- textura inclinada -->
+
+            <g clip-path="url(#clipBall)"
+               transform="rotate(-20 100 100)">
+
+                <!-- pentágono central -->
+
+                <polygon
+                    points="
+                    100,65
+                    125,82
+                    116,112
+                    84,112
+                    75,82"
+                    fill="#111"/>
+
+                <!-- paneles alrededor -->
+
+                <polygon
+                    points="54,55 76,67 70,93 42,95 30,72"
+                    fill="#111"/>
+
+                <polygon
+                    points="145,48 170,62 164,88 136,95 124,68"
+                    fill="#111"/>
+
+                <polygon
+                    points="34,122 62,112 80,132 68,162 38,156"
+                    fill="#111"/>
+
+                <polygon
+                    points="134,132 156,114 184,126 176,156 146,164"
+                    fill="#111"/>
 
                 <!-- líneas -->
+
                 <g
                     fill="none"
-                    stroke="#2d1b08"
-                    stroke-width="4.5"
-                    stroke-linecap="round">
+                    stroke="#111"
+                    stroke-width="4">
 
-                    <!-- vertical central -->
-                    <path d="
-                        M100 0
-                        C100 40 100 160 100 200
-                    "/>
+                    <path d="M76 67 L100 65"/>
+                    <path d="M125 82 L145 48"/>
+                    <path d="M116 112 L134 132"/>
+                    <path d="M84 112 L62 112"/>
+                    <path d="M75 82 L54 55"/>
 
-                    <!-- curva izquierda -->
-                    <path d="
-                        M25 0
-                        C70 40
-                        90 80
-                        55 200
-                    "/>
+                    <path d="M125 82 L170 62"/>
+                    <path d="M116 112 L156 114"/>
 
-                    <!-- curva derecha -->
-                    <path d="
-                        M175 0
-                        C130 40
-                        110 80
-                        145 200
-                    "/>
-
-                    <!-- arco superior -->
-                    <path d="
-                        M0 72
-                        C60 90
-                        140 90
-                        200 72
-                    "/>
-
-                    <!-- arco inferior -->
-                    <path d="
-                        M0 128
-                        C60 110
-                        140 110
-                        200 128
-                    "/>
+                    <path d="M84 112 L34 122"/>
+                    <path d="M75 82 L42 95"/>
 
                 </g>
 
-                <!-- borde suave -->
-                <circle
-                    cx="100"
-                    cy="100"
-                    r="98"
-                    fill="none"
-                    stroke="rgba(0,0,0,.25)"
-                    stroke-width="3"
-                />
+            </g>
 
-            </svg>
+            <!-- sombra de borde -->
 
-        </div>
+            <circle
+                cx="100"
+                cy="100"
+                r="98"
+                fill="none"
+                stroke="rgba(0,0,0,.25)"
+                stroke-width="3"
+            />
+
+        </svg>
 
     </div>
 
