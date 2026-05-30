@@ -633,12 +633,12 @@ const photos = [
 ];
 
 let galleryOpen = false;
-const ball = document.querySelector('.ball');
-const ballWrap = document.querySelector('.ball-wrap');
-const glow = document.querySelector('.glow');
 
 function toggleGallery() {
     const gallery = document.getElementById('gallery');
+    const ball = document.querySelector('.ball');
+    const ballWrap = document.querySelector('.ball-wrap');
+    const glow = document.querySelector('.glow');
     
     if(!galleryOpen){
         // ABRIR: Pelota se achica y desaparece
@@ -656,14 +656,14 @@ function toggleGallery() {
             createGallery();
         }
         
-        // Mostrar galería con efecto zoom
+        // Mostrar galería
         setTimeout(() => {
-            gallery.classList.add('active');
+            gallery.classList.add('visible');  // <-- CAMBIADO A visible
         }, 500);
         
         galleryOpen = true;
     } else {
-        gallery.classList.remove('active');
+        gallery.classList.remove('visible');
         
         setTimeout(() => {
             // Pelota vuelve
@@ -707,7 +707,6 @@ function createGallery(){
         photo.style.top = top + '%';
         photo.style.left = left + '%';
         
-        // Cerrar galería al hacer clic en foto
         photo.onclick = toggleGallery;
         
         gallery.appendChild(photo);
@@ -715,6 +714,7 @@ function createGallery(){
     
     document.body.appendChild(gallery);
 }
+
 </script>
 
 
