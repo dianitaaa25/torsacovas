@@ -34,10 +34,10 @@ body{
 .glow{
     position:absolute;
     left:50%;
-    bottom:40px;
+    bottom:15px;
 
-    width:240px;
-    height:240px;
+    width:260px;
+    height:120px;
 
     transform:translateX(-35%);
 
@@ -188,19 +188,23 @@ body{
 @keyframes glowPulse{
 
     0%,100%{
+
         transform:
-            translateX(-50%)
-            scale(.50);
+            translateX(-35%)
+            scaleX(.90)
+            scaleY(.45);
 
         opacity:.95;
     }
 
     50%{
+
         transform:
             translateX(-50%)
-            scale(1.8);
+            scaleX(2)
+            scaleY(1);
 
-        opacity:.45;
+        opacity:.35;
     }
 }
 
