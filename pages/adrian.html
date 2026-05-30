@@ -364,11 +364,12 @@ body{
 }
 
 /* BOTONES OCULTOS */
+
 .menu-btn{
     position: fixed;
-    right: 30px;
-    width: 5px;
-    height: 5px;
+    right: 40px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: white;
     box-shadow:
@@ -381,13 +382,13 @@ body{
     z-index: 100;
 }
 
-#btn-reiniciar{
+#btn-carta{
     top: 50px;
     cursor: pointer;
 }
 
-#btn-salir{
-    top: 75px;
+#btn-fotos{
+    top: 90px;
     cursor: pointer;
 }
 
@@ -526,11 +527,11 @@ let intervalId = setInterval(() => {
 
         const btn1 = document.createElement('div');
         btn1.className = 'menu-btn';
-        btn1.id = 'btn-reiniciar';
+        btn1.id = 'btn-carta';
 
         const btn2 = document.createElement('div');
         btn2.className = 'menu-btn';
-        btn2.id = 'btn-salir';
+        btn2.id = 'btn-fotos';
 
         document.body.appendChild(btn1);
         document.body.appendChild(btn2);
