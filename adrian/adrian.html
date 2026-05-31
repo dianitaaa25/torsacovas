@@ -761,17 +761,60 @@ function createGallery(){
     gallery.id = 'gallery';
     gallery.style.display = 'none';
     
+    // Configuración
+    const minDist = 15; // Separación mínima (%)
+    const positions = [];
+    const maxAttempts = 100;
+    
     photos.forEach((url) => {
         const photo = document.createElement('div');
         photo.classList.add('photo');
         photo.style.backgroundImage = `url(${url})`;
         
-        const size = Math.random() * 20 + 25;
+        // Tamaño variable natural (35-55px)
+        const size = 35 + Math.random() * 20;
         photo.style.width = size + 'px';
         photo.style.height = size + 'px';
         
-        photo.style.top = (Math.random() * 85 + 5) + '%';
-        photo.style.left = (Math.random() * 85 + 5) + '%';
+        // Buscar posición válida
+        let attempts = 0;
+        let pos;
+        
+        do {
+            // Usar distribución más natural con preferenia por extremos
+            const sideBias = Math.random();
+            let baseTop, baseLeft;
+            
+            if(sideBias < 0.3) {
+                // 30% zonas laterales
+                baseTop = 10 + Math.random() * 80;
+                baseLeft = Math.random() < 0.5 ? 3 + Math.random() * 15 : 82 + Math.random() * 15;
+            } else if(sideBias < 0.6) {
+                // 30% zonas superiores/inferiores
+                baseTop = Math.random() < 0.5 ? 5 + Math.random() * 12 : 83 + Math.random() * 12;
+                baseLeft = 15 + Math.random() * 70;
+            } else {
+                // 40% zona central dispersa
+                baseTop = 15 + Math.random() * 70;
+                baseLeft = 15 + Math.random() * 70;
+            }
+            
+            pos = { top: baseTop, left: baseLeft };
+            attempts++;
+            
+        } while (attempts < maxAttempts && positions.some(p => 
+            Math.abs(p.top - pos.top) < minDist && Math.abs(p.left - pos.left) < minDist
+        ));
+        
+        positions.push(pos);
+        
+        // Aplicar posición
+        photo.style.top = pos.top + '%';
+        photo.style.left = pos.left + '%';
+        
+        // Animación natural con delay
+        photo.style.animation = `galleryZoomIn 0.4s ease ${Math.random() * 0.4}s forwards`;
+        photo.style.opacity = '0';
         
         photo.onclick = function(e){
             e.stopPropagation();
