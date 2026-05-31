@@ -475,6 +475,19 @@ body{
     }
 }
 
+/* ZOOM WRAPPER - Contenedor que recibe el zoom y ocupa toda la pantalla */
+#zoom-wrapper{
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center center;
+    z-index: 1;
+}
+
 /* ZOOM DE CONTENEDOR WRAPPER (estrellas + scene) */
 #zoom-wrapper.gallery-open{
     animation: screenZoomOut 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
@@ -568,7 +581,7 @@ body{
 
 const messages = [
     "¿Te acuerdas?",
-    "Extraño como era antes.",
+    "Extraño como éramos antes.",
     "Extraño el tiempo contigo.",
     "Perdón.",
     "Sigues siendo importante para mí.",
