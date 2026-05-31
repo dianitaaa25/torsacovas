@@ -437,7 +437,7 @@ body{
     z-index: 60;
 }
 
-/* FOTO ACTIVA */
+/* FOTO HOVER */
 
 .photo.active{
     position: fixed;
@@ -452,6 +452,67 @@ body{
         0 0 60px rgba(255,255,255,.8),
         0 0 100px rgba(255,255,255,.5) !important;
     z-index: 100;
+}
+
+/* FOTO EXPANDIDA */
+.photo.expanded{
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 85vmin !important;
+    height: 85vmin !important;
+    border-radius: 3% !important;
+    box-shadow:
+        0 0 50px rgba(255,255,255,1),
+        0 0 80px rgba(255,255,255,.8),
+        0 0 120px rgba(255,255,255,.5) !important;
+    z-index: 200 !important;
+    cursor: pointer !important;
+    animation: photoExpand 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+}
+
+.photo.collapsing{
+    animation: photoCollapse 0.5s ease forwards !important;
+}
+
+@keyframes photoExpand{
+    0%{
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    60%{
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+    100%{
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes photoCollapse{
+    0%{
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100%{
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+}
+
+#gallery-overlay{
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    z-index: 150;
+    display: none;
+    cursor: pointer;
+}
+
+#gallery-overlay.visible{
+    display: block;
 }
 
 @keyframes galleryZoomIn{
@@ -754,6 +815,9 @@ const photos = [
     'img/gallery/image2.jpg'
 ];
 
+let expandedPhoto = null;
+let originalPositions = {};
+
 function createGallery(){
     const existing = document.getElementById('gallery');
     if(existing) existing.remove();
@@ -810,9 +874,16 @@ function createGallery(){
         photo.style.animation = `galleryZoomIn 0.5s ease ${index * 0.08}s forwards`;
         photo.style.opacity = '0';
         
+        originalPositions[index] = {
+            top: pos.top + '%',
+            left: pos.left + '%',
+            width: pos.size + 'px',
+            height: pos.size + 'px'
+        };
+
         photo.onclick = function(e){
             e.stopPropagation();
-            closeGallery();
+            expandPhoto(this, index);
         };
         
         gallery.appendChild(photo);
@@ -883,6 +954,61 @@ function closeGallery() {
     }, 100);
 
     galleryOpen = false;
+}
+
+// ========== EXPANSIÓN DE FOTO (Efecto Prezi) ==========
+
+function expandPhoto(photoElement, index){
+    if(expandedPhoto) return; // Ya hay una expandida
+    
+    // Crear overlay si no existe
+    let overlay = document.getElementById('gallery-overlay');
+    if(!overlay){
+        overlay = document.createElement('div');
+        overlay.id = 'gallery-overlay';
+        overlay.onclick = collapseCurrentPhoto;
+        document.body.appendChild(overlay);
+    }
+    
+    expandedPhoto = {
+        element: photoElement,
+        index: index,
+        originalTop: photoElement.style.top,
+        originalLeft: photoElement.style.left,
+        originalWidth: photoElement.style.width,
+        originalHeight: photoElement.style.height
+    };
+    
+    // Mostrar overlay
+    overlay.classList.add('visible');
+    
+    // Expandir foto
+    photoElement.classList.add('expanded');
+    photoElement.style.top = '50%';
+    photoElement.style.left = '50%';
+}
+
+function collapseCurrentPhoto(){
+    if(!expandedPhoto) return;
+    
+    const overlay = document.getElementById('gallery-overlay');
+    if(overlay) overlay.classList.remove('visible');
+    
+    const photo = expandedPhoto;
+    
+    // Aplicar animación de cierre
+    expandedPhoto.element.classList.remove('expanded');
+    expandedPhoto.element.classList.add('collapsing');
+    
+    // Restaurar después de la animación
+    setTimeout(() => {
+        expandedPhoto.element.classList.remove('collapsing');
+        expandedPhoto.element.style.top = expandedPhoto.originalTop;
+        expandedPhoto.element.style.left = expandedPhoto.originalLeft;
+        expandedPhoto.element.style.width = expandedPhoto.originalWidth;
+        expandedPhoto.element.style.height = expandedPhoto.originalHeight;
+        expandedPhoto = null;
+    }, 500);
 }
 
 </script>
