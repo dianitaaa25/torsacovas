@@ -481,19 +481,15 @@ body.gallery-open{
 }
 
 body.gallery-closed{
-    animation: screenZoomIn 0.6s ease forwards;
+    animation: screenZoomIn 0.6s ease;
 }
 
 @keyframes screenZoomOut{
     0%{
-        transform: scale(1);
-    }
-    50%{
-        transform: scale(0.5);
-        opacity: 0.3;
+        transform: scale(1.2);
     }
     100%{
-        transform: scale(1.2);
+        transform: scale(1);
         opacity: 1;
     }
 }
