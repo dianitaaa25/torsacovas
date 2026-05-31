@@ -460,18 +460,22 @@ body{
 }
 
 /* ZOOM DE REBOTE */
+/* Animación de entrada弹起 natural */
 @keyframes galleryZoomIn{
     0%{
         transform: scale(0);
         opacity: 0;
+        filter: blur(10px);
     }
-    70%{
-        transform: scale(1.15);
+    60%{
+        transform: scale(1.1);
         opacity: 1;
+        filter: blur(0);
     }
     100%{
         transform: scale(1);
         opacity: 1;
+        filter: blur(0);
     }
 }
 
@@ -761,17 +765,56 @@ function createGallery(){
     gallery.id = 'gallery';
     gallery.style.display = 'none';
     
-    photos.forEach((url) => {
+    // Posiciones exactas del patrón (%) - convertidas de 1920x1080
+    const positions = [
+        // Grandes
+        {top: 18.5, left: 21.9, size: 58},
+        {top: 32.4, left: 38.0, size: 55},
+        {top: 57.0, left: 22.9, size: 61},
+        {top: 77.8, left: 22.9, size: 55},
+        {top: 61.6, left: 42.2, size: 51},
+        {top: 71.3, left: 56.3, size: 49},
+        {top: 63.9, left: 78.9, size: 55},
+        {top: 17.1, left: 80.2, size: 53},
+        {top: 76.9, left: 91.1, size: 61},
+        // Medianos
+        {top: 51.4, left: 12.0, size: 30},
+        {top: 10.6, left: 46.9, size: 28},
+        {top: 44.4, left: 68.2, size: 28},
+        {top: 44.9, left: 85.2, size: 32},
+        {top: 79.2, left: 72.7, size: 28},
+        {top: 84.3, left: 14.3, size: 25},
+        {top: 80.6, left: 33.9, size: 25},
+        // Pequeños
+        {top: 48.6, left: 7.0, size: 15},
+        {top: 68.5, left: 10.9, size: 15},
+        {top: 33.8, left: 27.9, size: 15},
+        {top: 50.0, left: 43.5, size: 15},
+        {top: 13.7, left: 64.3, size: 15},
+        {top: 21.1, left: 74.5, size: 15},
+        {top: 29.2, left: 91.7, size: 15},
+        {top: 57.0, left: 94.5, size: 13},
+        {top: 84.7, left: 86.5, size: 15},
+        {top: 84.7, left: 59.9, size: 15}
+    ];
+    
+    // Barajar las fotos para que no siempre aparezcan en mismo orden
+    const shuffled = [...photos].sort(() => Math.random() - 0.5);
+    
+    positions.forEach((pos, index) => {
         const photo = document.createElement('div');
         photo.classList.add('photo');
-        photo.style.backgroundImage = `url(${url})`;
+        photo.style.backgroundImage = `url(${shuffled[index]})`;
         
-        const size = Math.random() * 20 + 25;
-        photo.style.width = size + 'px';
-        photo.style.height = size + 'px';
+        photo.style.width = pos.size + 'px';
+        photo.style.height = pos.size + 'px';
         
-        photo.style.top = (Math.random() * 85 + 5) + '%';
-        photo.style.left = (Math.random() * 85 + 5) + '%';
+        photo.style.top = pos.top + '%';
+        photo.style.left = pos.left + '%';
+        
+        // Animación con delay escalonado
+        photo.style.animation = `galleryZoomIn 0.5s ease ${index * 0.08}s forwards`;
+        photo.style.opacity = '0';
         
         photo.onclick = function(e){
             e.stopPropagation();
