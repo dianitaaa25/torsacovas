@@ -773,11 +773,9 @@ function openGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // EFECTO DE ZOOM EN PANTALLA COMPLETA
     document.body.classList.remove('gallery-closed');
     document.body.classList.add('gallery-open');
     
-    // Ocultar pelota + halo + scene
     ball.style.transition = 'all 0.3s ease';
     ball.style.transform = 'scale(0)';
     ball.style.opacity = '0';
@@ -787,14 +785,18 @@ function openGallery() {
     
     scene.classList.add('hidden');
     
-    // CREAR Y MOSTRAR GALERÍA
-    createGallery();
+    // Si la galería no existe, crearla
+    if(!document.getElementById('gallery')){
+        createGallery();
+    }
     
     setTimeout(() => {
         const gallery = document.getElementById('gallery');
         gallery.style.display = 'block';
         gallery.classList.add('visible');
     }, 400);
+    
+    galleryOpen = true;  // <-- AGREGAR ESTA LÍNEA
 }
 
 function closeGallery() {
