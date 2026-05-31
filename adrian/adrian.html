@@ -802,20 +802,19 @@ function closeGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // OCULTAR GALERÍA
     gallery.classList.remove('visible');
     
-    // QUITAR ZOOM
+    // Mismo efecto que openGallery
     document.body.classList.remove('gallery-open');
     document.body.classList.add('gallery-closed');
     
     setTimeout(() => {
         gallery.style.display = 'none';
         
-        // MOSTRAR PELOTA + HALO + SCENE
         scene.classList.remove('hidden');
         
-        ball.style.transition = 'none';
+        // Mismo efecto que al abrir
+        ball.style.transition = 'all 0.3s ease';
         ball.style.transform = 'scale(1)';
         ball.style.opacity = '1';
         
