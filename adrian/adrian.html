@@ -455,6 +455,7 @@ body{
 }
 
 /* FOTO EXPANDIDA */
+
 .photo.expanded{
     position: fixed !important;
     top: 50% !important;
@@ -462,7 +463,7 @@ body{
     transform: translate(-50%, -50%) !important;
     width: 85vmin !important;
     height: 85vmin !important;
-    border-radius: 3% !important;
+    border-radius: 50% !important;
     box-shadow:
         0 0 50px rgba(255,255,255,1),
         0 0 80px rgba(255,255,255,.8),
@@ -956,12 +957,9 @@ function closeGallery() {
     galleryOpen = false;
 }
 
-// ========== EXPANSIÓN DE FOTO (Efecto Prezi) ==========
-
 function expandPhoto(photoElement, index){
-    if(expandedPhoto) return; // Ya hay una expandida
+    if(expandedPhoto) return;
     
-    // Crear overlay si no existe
     let overlay = document.getElementById('gallery-overlay');
     if(!overlay){
         overlay = document.createElement('div');
@@ -979,10 +977,8 @@ function expandPhoto(photoElement, index){
         originalHeight: photoElement.style.height
     };
     
-    // Mostrar overlay
     overlay.classList.add('visible');
     
-    // Expandir foto
     photoElement.classList.add('expanded');
     photoElement.style.top = '50%';
     photoElement.style.left = '50%';
@@ -996,11 +992,9 @@ function collapseCurrentPhoto(){
     
     const photo = expandedPhoto;
     
-    // Aplicar animación de cierre
     expandedPhoto.element.classList.remove('expanded');
     expandedPhoto.element.classList.add('collapsing');
     
-    // Restaurar después de la animación
     setTimeout(() => {
         expandedPhoto.element.classList.remove('collapsing');
         expandedPhoto.element.style.top = expandedPhoto.originalTop;
