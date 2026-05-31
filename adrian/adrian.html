@@ -761,17 +761,39 @@ function createGallery(){
     gallery.id = 'gallery';
     gallery.style.display = 'none';
     
-    photos.forEach((url) => {
+    // Configuración de distribución uniforme
+    const cols = 4; // 4 columnas
+    const rows = 5; // 5 filas
+    const cellWidth = 100 / cols; // Ancho de cada celda
+    const cellHeight = 100 / rows; // Alto de cada celda
+    
+    photos.forEach((url, index) => {
         const photo = document.createElement('div');
         photo.classList.add('photo');
         photo.style.backgroundImage = `url(${url})`;
         
-        const size = Math.random() * 20 + 25;
+        const size = 40 + Math.random() * 15; // Tamaño entre 40-55px
         photo.style.width = size + 'px';
         photo.style.height = size + 'px';
         
-        photo.style.top = (Math.random() * 85 + 5) + '%';
-        photo.style.left = (Math.random() * 85 + 5) + '%';
+        // Calcular posición en cuadrícula
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+        
+        // Posición base en la celda + variación aleatoria pequeña (±15% de la celda)
+        const baseTop = row * cellHeight + (cellHeight - (size/6)); // Centrar verticalmente en la celda
+        const baseLeft = col * cellWidth + (cellWidth - (size/4)); // Centrar horizontalmente
+        
+        // Variación aleatoria pequeña para efecto natural (solo ±12%)
+        const randomOffsetY = (Math.random() - 0.5) * cellHeight * 0.25;
+        const randomOffsetX = (Math.random() - 0.5) * cellWidth * 0.25;
+        
+        photo.style.top = (baseTop + randomOffsetY) + '%';
+        photo.style.left = (baseLeft + randomOffsetX) + '%';
+        
+        // Añadir pequeño delay para efecto de aparición escalonado
+        photo.style.animation = `galleryZoomIn 0.5s ease ${index * 0.05}s forwards`;
+        photo.style.opacity = '0';
         
         photo.onclick = function(e){
             e.stopPropagation();
