@@ -769,9 +769,7 @@ function openGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    document.body.classList.remove('gallery-closed');
-    document.body.classList.add('gallery-open');
-    
+    // PRIMERO: Desaparecer pelota + halo
     ball.style.transition = 'all 0.3s ease';
     ball.style.transform = 'scale(0)';
     ball.style.opacity = '0';
@@ -781,18 +779,23 @@ function openGallery() {
     
     scene.classList.add('hidden');
     
-    // Si la galería no existe, crearla
-    if(!document.getElementById('gallery')){
-        createGallery();
-    }
-    
+    // LUEGO: Efecto de zoom (después de 300ms)
     setTimeout(() => {
+        document.body.classList.remove('gallery-closed');
+        document.body.classList.add('gallery-open');
+    }, 300);
+    
+    // Finalmente: Mostrar galería (después de 600ms)
+    setTimeout(() => {
+        if(!document.getElementById('gallery')){
+            createGallery();
+        }
         const gallery = document.getElementById('gallery');
         gallery.style.display = 'block';
         gallery.classList.add('visible');
-    }, 400);
+    }, 600);
     
-    galleryOpen = true;  // <-- AGREGAR ESTA LÍNEA
+    galleryOpen = true;
 }
 
 function closeGallery() {
@@ -802,18 +805,21 @@ function closeGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
+    // PRIMERO: Ocultar galería
     gallery.classList.remove('visible');
     
-    // Mismo efecto que openGallery
-    document.body.classList.remove('gallery-open');
-    document.body.classList.add('gallery-closed');
+    // LUEGO: Quitar zoom (después de 300ms)
+    setTimeout(() => {
+        document.body.classList.remove('gallery-open');
+        document.body.classList.add('gallery-closed');
+    }, 300);
     
+    // Finalmente: Mostrar pelota + halo (después de 600ms)
     setTimeout(() => {
         gallery.style.display = 'none';
         
         scene.classList.remove('hidden');
         
-        // Mismo efecto que al abrir
         ball.style.transition = 'all 0.3s ease';
         ball.style.transform = 'scale(1)';
         ball.style.opacity = '1';
@@ -827,7 +833,6 @@ function closeGallery() {
 
     galleryOpen = false;
 }
-
 
 </script>
 
