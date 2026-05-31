@@ -6,7 +6,7 @@
 
 <link rel="icon" href="img/Soccer_ball.ico">
 
-<title>Para Adrian</title>
+<title>Para Adrian...</title>
 
 <style>
 
@@ -401,6 +401,7 @@ body{
 }
 
 /* GALERÍA DE FOTOS */
+
 #gallery{
     position: fixed;
     inset: 0;
@@ -436,7 +437,8 @@ body{
     z-index: 60;
 }
 
-/* FOTO ACTIVA (estilo PREZI) */
+/* FOTO ACTIVA */
+
 .photo.active{
     position: fixed;
     top: 50% !important;
@@ -452,7 +454,6 @@ body{
     z-index: 100;
 }
 
-/* Animación de entrada */
 @keyframes galleryZoomIn{
     0%{ transform: scale(0); opacity: 0; }
     70%{ transform: scale(1.1); opacity: 1; }
@@ -460,7 +461,7 @@ body{
 }
 
 /* ZOOM DE REBOTE */
-/* Animación de entrada弹起 natural */
+
 @keyframes galleryZoomIn{
     0%{
         transform: scale(0);
@@ -479,7 +480,8 @@ body{
     }
 }
 
-/* ZOOM WRAPPER - Contenedor que recibe el zoom y ocupa toda la pantalla */
+/* ZOOM WRAPPER */
+
 #zoom-wrapper{
     position: fixed;
     inset: 0;
@@ -492,7 +494,6 @@ body{
     z-index: 1;
 }
 
-/* ZOOM DE CONTENEDOR WRAPPER (estrellas + scene) */
 #zoom-wrapper.gallery-open{
     animation: screenZoomOut 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
@@ -501,7 +502,6 @@ body{
     animation: screenZoomIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-/* Zoom OUT (alejar) - al ABRIR galería */
 @keyframes screenZoomOut{
     0%{
         transform: scale(1);
@@ -513,7 +513,6 @@ body{
     }
 }
 
-/* Zoom IN (acercar) - al CERRAR galería */
 @keyframes screenZoomIn{
     0%{
         transform: scale(0.85);
@@ -525,7 +524,6 @@ body{
     }
 }
 
-/* Ocultar scene durante galería */
 .scene{
     transition: all 0.4s ease;
 }
@@ -536,6 +534,7 @@ body{
     pointer-events: none;
 }
 </style>
+
 </head>
 
 <body>
@@ -668,7 +667,6 @@ let intervalId = setInterval(() => {
         const ballWrap = document.querySelector('.ball-wrap');
         ballWrap.classList.add('ball-wrap-stopped');
 
-        // CREAR BOTONES
         const btn1 = document.createElement('div');
         btn1.className = 'menu-btn';
         btn1.id = 'btn-carta';
@@ -688,7 +686,6 @@ let intervalId = setInterval(() => {
             btn2.classList.add('visible');
         }, 1200);
         
-        // ASIGNAR EVENTO AL BOTÓN DE FOTOS (toggle)
 btn2.onclick = function(){
     if(galleryOpen){
         closeGallery();
@@ -696,7 +693,6 @@ btn2.onclick = function(){
         openGallery();
     }
 };
-
 
     }
 
@@ -727,43 +723,33 @@ for(let i = 0; i < 120; i++){
     stars.appendChild(star);
 }
 
-
-
-
 let galleryOpen = false;
 
-// ==================== GALERÍA ====================
-
 const photos = [
-    // Primeras 6 fotos originales
     'img/gallery/image1.jpg',
     'img/gallery/image2.jpg',
     'img/gallery/image3.jpg',
     'img/gallery/image4.jpg',
     'img/gallery/image5.jpg',
     'img/gallery/image6.jpg',
-    // Duplicado para llegar a 26
     'img/gallery/image1.jpg',
     'img/gallery/image2.jpg',
     'img/gallery/image3.jpg',
     'img/gallery/image4.jpg',
     'img/gallery/image5.jpg',
     'img/gallery/image6.jpg',
-    // Más duplicados
     'img/gallery/image1.jpg',
     'img/gallery/image2.jpg',
     'img/gallery/image3.jpg',
     'img/gallery/image4.jpg',
     'img/gallery/image5.jpg',
     'img/gallery/image6.jpg',
-    // Llegando a 26
     'img/gallery/image1.jpg',
     'img/gallery/image2.jpg',
     'img/gallery/image3.jpg',
     'img/gallery/image4.jpg',
     'img/gallery/image5.jpg',
     'img/gallery/image6.jpg',
-    // Últimos 2
     'img/gallery/image1.jpg',
     'img/gallery/image2.jpg'
 ];
@@ -776,7 +762,6 @@ function createGallery(){
     gallery.id = 'gallery';
     gallery.style.display = 'none';
     
-    // Posiciones exactas del patrón (%) - convertidas de 1920x1080
     const positions = [
         // Grandes
         {top: 18.5, left: 21.9, size: 48},
@@ -809,7 +794,6 @@ function createGallery(){
         {top: 84.7, left: 59.9, size: 15}
     ];
     
-    // Barajar las fotos para que no siempre aparezcan en mismo orden
     const shuffled = [...photos].sort(() => Math.random() - 0.5);
     
     positions.forEach((pos, index) => {
@@ -823,7 +807,6 @@ function createGallery(){
         photo.style.top = pos.top + '%';
         photo.style.left = pos.left + '%';
         
-        // Animación con delay escalonado
         photo.style.animation = `galleryZoomIn 0.5s ease ${index * 0.08}s forwards`;
         photo.style.opacity = '0';
         
@@ -844,23 +827,18 @@ function openGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // Aplicar animación de zoom-out al body (alejar)
     document.getElementById('zoom-wrapper').classList.remove('gallery-closed');
     document.getElementById('zoom-wrapper').classList.add('gallery-open');
     
-    // Transición suave para la pelota (shrink)
     ball.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease';
     ball.style.transform = 'scale(0)';
     ball.style.opacity = '0';
     
-    // Ocultar halo suavemente
     glow.style.transition = 'opacity 0.4s ease';
     glow.style.opacity = '0';
     
-    // Ocultar scene
     scene.classList.add('hidden');
     
-    // Si la galería no existe, crearla
     if(!document.getElementById('gallery')){
         createGallery();
     }
@@ -881,29 +859,23 @@ function closeGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // OCULTAR GALERÍA primero
     gallery.classList.remove('visible');
     
-    // Animación de zoom-in al body (acercar de vuelta)
     document.getElementById('zoom-wrapper').classList.remove('gallery-open');
     document.getElementById('zoom-wrapper').classList.add('gallery-closed');
     
     setTimeout(() => {
         gallery.style.display = 'none';
         
-        // MOSTRAR PELOTA + HALO + SCENE
         scene.classList.remove('hidden');
         
-        // Animación de entrada suave para la pelota (grow back)
         ball.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease';
         ball.style.transform = 'scale(1)';
         ball.style.opacity = '1';
         
-        // Halo vuelve con opacidad
         glow.style.transition = 'opacity 0.5s ease';
         glow.style.opacity = '0.7';
         
-        // Restaurar animación de spin de la pelota después de que termine el zoom
         setTimeout(() => {
             ball.style.transition = 'transform 12s linear infinite';
         }, 700);
@@ -913,9 +885,7 @@ function closeGallery() {
     galleryOpen = false;
 }
 
-
 </script>
-
 
 </body>
 </html>
