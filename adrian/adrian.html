@@ -761,61 +761,17 @@ function createGallery(){
     gallery.id = 'gallery';
     gallery.style.display = 'none';
     
-    // Configuración de separación
-    const minDistance = 12; // Porcentaje mínimo de distancia entre fotos
-    const margin = 8; // Margen desde los bordes (8%)
-    const maxAttempts = 50; // Intentos máximos por foto antes de aceptar cualquier posición
-    
-    // Array para guardar posiciones ocupadas
-    const positions = [];
-    
     photos.forEach((url) => {
         const photo = document.createElement('div');
         photo.classList.add('photo');
         photo.style.backgroundImage = `url(${url})`;
         
-        // Tamaño fijo (entre 40-55px como antes)
-        const size = 40 + Math.random() * 15;
+        const size = Math.random() * 20 + 25;
         photo.style.width = size + 'px';
         photo.style.height = size + 'px';
         
-        // Generar posición con separación mínima
-        let top, left;
-        let attempts = 0;
-        let valid = false;
-        
-        while(!valid && attempts < maxAttempts){
-            // Generar posición aleatoria dentro de los márgenes
-            top = margin + Math.random() * (100 - size - margin * 2);
-            left = margin + Math.random() * (100 - size - margin * 2);
-            
-            // Verificar distancia con todas las posiciones existentes
-            valid = true;
-            for(const pos of positions){
-                const distance = Math.sqrt(
-                    Math.pow(top - pos.top, 2) + 
-                    Math.pow(left - pos.left, 2)
-                );
-                // Convertir distancia en porcentaje aproximado
-                const distancePercent = distance; // Simplificación
-                if(distance < minDistance + size/4){
-                    valid = false;
-                    break;
-                }
-            }
-            attempts++;
-        }
-        
-        // Guardar posición
-        positions.push({top, left});
-        
-        // Aplicar posición
-        photo.style.top = top + '%';
-        photo.style.left = left + '%';
-        
-        // Animación de entrada escalonada
-        photo.style.animation = `galleryZoomIn 0.4s ease ${Math.random() * 0.3}s forwards`;
-        photo.style.opacity = '0';
+        photo.style.top = (Math.random() * 85 + 5) + '%';
+        photo.style.left = (Math.random() * 85 + 5) + '%';
         
         photo.onclick = function(e){
             e.stopPropagation();
