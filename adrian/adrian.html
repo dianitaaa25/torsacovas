@@ -481,7 +481,7 @@ body.gallery-open{
 }
 
 body.gallery-closed{
-    animation: screenZoomIn 0.6s ease;
+    animation: screenZoomIn 0.6s ease forwards;
 }
 
 @keyframes screenZoomOut{
@@ -769,7 +769,9 @@ function openGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // PRIMERO: Desaparecer pelota + halo
+    document.body.classList.remove('gallery-closed');
+    document.body.classList.add('gallery-open');
+    
     ball.style.transition = 'all 0.3s ease';
     ball.style.transform = 'scale(0)';
     ball.style.opacity = '0';
@@ -779,23 +781,18 @@ function openGallery() {
     
     scene.classList.add('hidden');
     
-    // LUEGO: Efecto de zoom (después de 300ms)
-    setTimeout(() => {
-        document.body.classList.remove('gallery-closed');
-        document.body.classList.add('gallery-open');
-    }, 300);
+    // Si la galería no existe, crearla
+    if(!document.getElementById('gallery')){
+        createGallery();
+    }
     
-    // Finalmente: Mostrar galería (después de 600ms)
     setTimeout(() => {
-        if(!document.getElementById('gallery')){
-            createGallery();
-        }
         const gallery = document.getElementById('gallery');
         gallery.style.display = 'block';
         gallery.classList.add('visible');
-    }, 600);
+    }, 400);
     
-    galleryOpen = true;
+    galleryOpen = true;  // <-- AGREGAR ESTA LÍNEA
 }
 
 function closeGallery() {
@@ -805,22 +802,20 @@ function closeGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // PRIMERO: Ocultar galería
+    // OCULTAR GALERÍA
     gallery.classList.remove('visible');
     
-    // LUEGO: Quitar zoom (después de 300ms)
-    setTimeout(() => {
-        document.body.classList.remove('gallery-open');
-        document.body.classList.add('gallery-closed');
-    }, 300);
+    // QUITAR ZOOM
+    document.body.classList.remove('gallery-open');
+    document.body.classList.add('gallery-closed');
     
-    // Finalmente: Mostrar pelota + halo (después de 600ms)
     setTimeout(() => {
         gallery.style.display = 'none';
         
+        // MOSTRAR PELOTA + HALO + SCENE
         scene.classList.remove('hidden');
         
-        ball.style.transition = 'all 0.3s ease';
+        ball.style.transition = 'none';
         ball.style.transform = 'scale(1)';
         ball.style.opacity = '1';
         
@@ -833,6 +828,7 @@ function closeGallery() {
 
     galleryOpen = false;
 }
+
 
 </script>
 
