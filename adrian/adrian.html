@@ -477,26 +477,30 @@ body{
 
 /* ZOOM DE PANTALLA COMPLETA */
 body.gallery-open{
-    animation: screenZoomOut 0.6s ease;
+    animation: screenZoomOut 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 body.gallery-closed{
-    animation: screenZoomIn 0.6s ease;
+    animation: screenZoomIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
+/* Zoom OUT (alejar) - al ABRIR galería */
 @keyframes screenZoomOut{
     0%{
-        transform: scale(1.2);
+        transform: scale(1);
+        opacity: 1;
     }
     100%{
-        transform: scale(1);
+        transform: scale(0.85);
         opacity: 1;
     }
 }
 
+/* Zoom IN (acercar) - al CERRAR galería */
 @keyframes screenZoomIn{
     0%{
-        transform: scale(1.2);
+        transform: scale(0.85);
+        opacity: 1;
     }
     100%{
         transform: scale(1);
@@ -769,16 +773,20 @@ function openGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
+    // Aplicar animación de zoom-out al body (alejar)
     document.body.classList.remove('gallery-closed');
     document.body.classList.add('gallery-open');
     
-    ball.style.transition = 'all 0.3s ease';
+    // Transición suave para la pelota (shrink)
+    ball.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease';
     ball.style.transform = 'scale(0)';
     ball.style.opacity = '0';
     
-    glow.style.transition = 'all 0.3s ease';
+    // Ocultar halo suavemente
+    glow.style.transition = 'opacity 0.4s ease';
     glow.style.opacity = '0';
     
+    // Ocultar scene
     scene.classList.add('hidden');
     
     // Si la galería no existe, crearla
@@ -792,7 +800,7 @@ function openGallery() {
         gallery.classList.add('visible');
     }, 400);
     
-    galleryOpen = true;  // <-- AGREGAR ESTA LÍNEA
+    galleryOpen = true;
 }
 
 function closeGallery() {
@@ -802,10 +810,10 @@ function closeGallery() {
     const glow = document.querySelector('.glow');
     const scene = document.querySelector('.scene');
     
-    // OCULTAR GALERÍA
+    // OCULTAR GALERÍA primero
     gallery.classList.remove('visible');
     
-    // QUITAR ZOOM
+    // Animación de zoom-in al body (acercar de vuelta)
     document.body.classList.remove('gallery-open');
     document.body.classList.add('gallery-closed');
     
@@ -815,16 +823,21 @@ function closeGallery() {
         // MOSTRAR PELOTA + HALO + SCENE
         scene.classList.remove('hidden');
         
-        ball.style.transition = 'none';
+        // Animación de entrada suave para la pelota (grow back)
+        ball.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease';
         ball.style.transform = 'scale(1)';
         ball.style.opacity = '1';
         
+        // Halo vuelve con opacidad
+        glow.style.transition = 'opacity 0.5s ease';
         glow.style.opacity = '0.7';
         
+        // Restaurar animación de spin de la pelota después de que termine el zoom
         setTimeout(() => {
             ball.style.transition = 'transform 12s linear infinite';
-        }, 100);
-    }, 600);
+        }, 700);
+        
+    }, 100);
 
     galleryOpen = false;
 }
