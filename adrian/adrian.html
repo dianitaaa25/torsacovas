@@ -462,11 +462,11 @@ body{
 /* ZOOM DE REBOTE */
 @keyframes galleryZoomIn{
     0%{
-        transform: scale(0.3);
+        transform: scale(0);
         opacity: 0;
     }
-    60%{
-        transform: scale(1.1);
+    70%{
+        transform: scale(1.15);
         opacity: 1;
     }
     100%{
@@ -761,38 +761,60 @@ function createGallery(){
     gallery.id = 'gallery';
     gallery.style.display = 'none';
     
-    // Configuración de distribución uniforme
-    const cols = 4; // 4 columnas
-    const rows = 5; // 5 filas
-    const cellWidth = 100 / cols; // Ancho de cada celda
-    const cellHeight = 100 / rows; // Alto de cada celda
+    // Configuración de separación
+    const minDistance = 12; // Porcentaje mínimo de distancia entre fotos
+    const margin = 8; // Margen desde los bordes (8%)
+    const maxAttempts = 50; // Intentos máximos por foto antes de aceptar cualquier posición
     
-    photos.forEach((url, index) => {
+    // Array para guardar posiciones ocupadas
+    const positions = [];
+    
+    photos.forEach((url) => {
         const photo = document.createElement('div');
         photo.classList.add('photo');
         photo.style.backgroundImage = `url(${url})`;
         
-        const size = 40 + Math.random() * 15; // Tamaño entre 40-55px
+        // Tamaño fijo (entre 40-55px como antes)
+        const size = 40 + Math.random() * 15;
         photo.style.width = size + 'px';
         photo.style.height = size + 'px';
         
-        // Calcular posición en cuadrícula
-        const col = index % cols;
-        const row = Math.floor(index / cols);
+        // Generar posición con separación mínima
+        let top, left;
+        let attempts = 0;
+        let valid = false;
         
-        // Posición base en la celda + variación aleatoria pequeña (±15% de la celda)
-        const baseTop = row * cellHeight + (cellHeight - (size/6)); // Centrar verticalmente en la celda
-        const baseLeft = col * cellWidth + (cellWidth - (size/4)); // Centrar horizontalmente
+        while(!valid && attempts < maxAttempts){
+            // Generar posición aleatoria dentro de los márgenes
+            top = margin + Math.random() * (100 - size - margin * 2);
+            left = margin + Math.random() * (100 - size - margin * 2);
+            
+            // Verificar distancia con todas las posiciones existentes
+            valid = true;
+            for(const pos of positions){
+                const distance = Math.sqrt(
+                    Math.pow(top - pos.top, 2) + 
+                    Math.pow(left - pos.left, 2)
+                );
+                // Convertir distancia en porcentaje aproximado
+                const distancePercent = distance; // Simplificación
+                if(distance < minDistance + size/4){
+                    valid = false;
+                    break;
+                }
+            }
+            attempts++;
+        }
         
-        // Variación aleatoria pequeña para efecto natural (solo ±12%)
-        const randomOffsetY = (Math.random() - 0.5) * cellHeight * 0.25;
-        const randomOffsetX = (Math.random() - 0.5) * cellWidth * 0.25;
+        // Guardar posición
+        positions.push({top, left});
         
-        photo.style.top = (baseTop + randomOffsetY) + '%';
-        photo.style.left = (baseLeft + randomOffsetX) + '%';
+        // Aplicar posición
+        photo.style.top = top + '%';
+        photo.style.left = left + '%';
         
-        // Añadir pequeño delay para efecto de aparición escalonado
-        photo.style.animation = `galleryZoomIn 0.5s ease ${index * 0.05}s forwards`;
+        // Animación de entrada escalonada
+        photo.style.animation = `galleryZoomIn 0.4s ease ${Math.random() * 0.3}s forwards`;
         photo.style.opacity = '0';
         
         photo.onclick = function(e){
