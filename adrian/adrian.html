@@ -667,10 +667,16 @@ let intervalId = setInterval(() => {
             btn2.classList.add('visible');
         }, 1200);
         
-        // ASIGNAR EVENTO AL BOTÓN DE FOTOS
-        btn2.onclick = function(){
-            openGallery();
-        };
+        // ASIGNAR EVENTO AL BOTÓN DE FOTOS (toggle)
+btn2.onclick = function(){
+    if(galleryOpen){
+        closeGallery();
+    } else {
+        openGallery();
+    }
+};
+
+
     }
 
 }, 2200);
@@ -703,6 +709,7 @@ for(let i = 0; i < 120; i++){
 
 
 
+let galleryOpen = false;
 
 // ==================== GALERÍA ====================
 
@@ -820,6 +827,8 @@ function closeGallery() {
             ball.style.transition = 'transform 12s linear infinite';
         }, 100);
     }, 600);
+
+    galleryOpen = false;
 }
 
 
