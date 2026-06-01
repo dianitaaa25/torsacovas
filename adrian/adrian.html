@@ -600,7 +600,7 @@ body{
 
 <body>
 
-<audio id="bounceAudio" src="audio/Soccer_ball.mp3" autoplay loop></audio>
+<audio id="bounceAudio" src="audio/Soccer_ball.mp3" autoplay></audio>
 
 <div id="zoom-wrapper">
 
@@ -657,6 +657,12 @@ const messages = [
     "Te amo."
 ];
 
+function playBounceSound(){
+    const audio = document.getElementById('bounceAudio');
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+}
+
 let current = 0;
 let bounceCount = 0;
 
@@ -699,6 +705,11 @@ function loveExplosion(){
 let intervalId = setInterval(() => {
 
     bounceCount++;
+
+    // AQUÍ: reproducir sonido cuando rebota
+    if(bounceCount <= 22){
+        playBounceSound();
+    }
 
     if(bounceCount === 1){
         showMessage();
