@@ -641,24 +641,6 @@ body{
     color:rgba(255,255,255,.92);
 }
 
-#letter-close{
-    margin-top:30px;
-
-    border:none;
-
-    padding:12px 28px;
-
-    border-radius:999px;
-
-    background:white;
-
-    color:black;
-
-    cursor:pointer;
-
-    font-weight:bold;
-}
-
 @keyframes letterAppear{
 
     0%{
@@ -756,10 +738,6 @@ body{
             ✦ Siempre te llevaré conmigo. ✦
 
         </div>
-
-        <button id="letter-close">
-            Volver
-        </button>
 
     </div>
 
@@ -877,15 +855,38 @@ let intervalId = setInterval(() => {
             btn2.classList.add('visible');
         }, 1200);
         
-btn2.onclick = function(){
+btn2.onclick = async function(){
+
     if(galleryOpen){
         closeGallery();
-    } else {
-        openGallery();
+        return;
     }
+
+    if(letterOpen){
+        closeLetter();
+
+        await new Promise(r => setTimeout(r, 700));
+    }
+
+    openGallery();
 };
 
 btn1.onclick = function(){
+
+    if(letterOpen){
+        closeLetter();
+        return;
+    }
+
+    if(galleryOpen){
+
+        closeGallery(() => {
+            openLetter();
+        });
+
+        return;
+    }
+
     openLetter();
 };
 
@@ -919,6 +920,7 @@ for(let i = 0; i < 120; i++){
 }
 
 let galleryOpen = false;
+let letterOpen = false;
 
 const photos = [
     'img/gallery/1.png',
@@ -1062,7 +1064,8 @@ function openGallery() {
     galleryOpen = true;
 }
 
-function closeGallery() {
+function closeGallery(callback = null) {
+    
     const gallery = document.getElementById('gallery');
     const ball = document.querySelector('.ball');
     const ballWrap = document.querySelector('.ball-wrap');
@@ -1075,6 +1078,7 @@ function closeGallery() {
     document.getElementById('zoom-wrapper').classList.add('gallery-closed');
     
     setTimeout(() => {
+
         gallery.style.display = 'none';
         
         scene.classList.remove('hidden');
@@ -1090,9 +1094,13 @@ function closeGallery() {
             ball.style.transition = 'transform 12s linear infinite';
         }, 700);
         
-    }, 100);
+    }, 550);
 
     galleryOpen = false;
+
+    if(callback){
+        setTimeout(callback, 600);
+    }
 }
 
 function openLetter(){
@@ -1127,6 +1135,8 @@ function openLetter(){
             .classList.add('visible');
 
     }, 400);
+
+    letterOpen = true;
 }
 
 function closeLetter(){
@@ -1161,6 +1171,8 @@ function closeLetter(){
         glow.style.opacity = '.7';
 
     },100);
+
+    letterOpen = false;
 }
 
 function expandPhoto(photoElement, index){
@@ -1210,10 +1222,6 @@ function collapseCurrentPhoto(){
         expandedPhoto = null;
     }, 500);
 }
-
-document
-    .getElementById('letter-close')
-    .addEventListener('click', closeLetter);
 
 </script>
 
