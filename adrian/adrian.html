@@ -850,8 +850,9 @@ body{
 
 <script>
 
-const SECRET_CODE = "261107"; //230506
+const SECRET_CODE = "261107";
 let secretAlreadyUnlocked = false;
+let secretOpen = false;
 
 const messages = [
     "¿Te acuerdas?",
@@ -945,8 +946,6 @@ let intervalId = setInterval(() => {
         ballWrap.classList.add('ball-wrap-stopped');
 
         ball.style.cursor = "pointer";
-
-        let secretOpen = false;
 
         ball.addEventListener("click", () => {
 
