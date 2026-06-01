@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenido, mejor amigo.</title>
+  <style>
+    /* RESET Y ESTILOS GENERALES */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #1c1b1b;
+      color: #ffffff;
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .site-wrapper {
+      background-color: transparent;
+      box-shadow: none;
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* BOTÓN BLANCO */
+    .btn-ver {
+      background-color: #ffffff;
+      color: #000000;
+      font-size: 24px;
+      padding: 20px 60px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      letter-spacing: 2px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-ver:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+    }
+
+    /* ANIMACIÓN DE SALIDA */
+    .magic-opening {
+      animation: openMagic 0.9s ease forwards;
+    }
+
+    @keyframes openMagic {
+      to {
+        transform: scale(1.15);
+        opacity: 0;
+        filter: blur(6px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="site-wrapper">
+    <button id="enterBtn" class="btn-ver">Ver</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const enterBtn = document.getElementById("enterBtn");
+
+      if (enterBtn) {
+        enterBtn.addEventListener("click", () => {
+          const siteWrapper = document.querySelector(".site-wrapper");
+
+          if (siteWrapper) siteWrapper.classList.add("magic-opening");
+
+          setTimeout(() => {
+            window.location.href = "/adrian/adrian.html";
+          }, 900);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
