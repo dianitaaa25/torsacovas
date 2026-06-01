@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adrián</title>
+
+<link rel="icon" href="adrian/img/Soccer_ball.ico">
+
+<title>Mi mejor amigo...</title>
 
 <style>
 *{
@@ -25,42 +28,6 @@ body{
     align-items:center;
     background:#000;
     font-family:Georgia, serif;
-}
-
-/* FONDO DE ESTRELLAS */
-
-#stars{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:0;
-}
-
-.star{
-    position:absolute;
-    border-radius:50%;
-    background:white;
-
-    box-shadow:
-        0 0 4px rgba(255,255,255,.8),
-        0 0 10px rgba(255,255,255,.6),
-        0 0 20px rgba(255,255,255,.4);
-
-    animation:twinkle linear infinite;
-}
-
-@keyframes twinkle{
-
-    0%,100%{
-        opacity:.15;
-        transform:scale(.8);
-    }
-
-    50%{
-        opacity:1;
-        transform:scale(1.4);
-    }
 }
 
 /* CONTENIDO */
@@ -140,51 +107,24 @@ body{
 
 <body>
 
-    <div id="stars"></div>
-
     <div class="page-wrapper" id="wrapper">
         <button class="btn-ver" id="verBtn">Ver</button>
     </div>
 
-<script>
-
-const stars = document.getElementById("stars");
-
-for(let i = 0; i < 120; i++){
-
-    const star = document.createElement("div");
-
-    star.classList.add("star");
-
-    const size = Math.random() * 3 + 1;
-
-    star.style.width = size + "px";
-    star.style.height = size + "px";
-
-    star.style.left = Math.random() * 100 + "%";
-    star.style.top = Math.random() * 100 + "%";
-
-    star.style.animationDuration =
-        (Math.random() * 5 + 4) + "s";
-
-    star.style.animationDelay =
-        (Math.random() * 5) + "s";
-
-    stars.appendChild(star);
-}
-
-document.getElementById("verBtn").addEventListener("click", () => {
-
-    const wrapper = document.getElementById("wrapper");
-
-    wrapper.classList.add("magic-opening");
-
-    setTimeout(() => {
-        window.location.href = "/adrian/adrian.html";
-    }, 900);
-
-});
-</script>
+    <script>
+    
+    document.getElementById("verBtn").addEventListener("click", () => {
+    
+        const wrapper = document.getElementById("wrapper");
+    
+        wrapper.classList.add("magic-opening");
+    
+        setTimeout(() => {
+            window.location.href = "/adrian/adrian.html";
+        }, 900);
+    
+    });
+    </script>
 
 </body>
 </html>
