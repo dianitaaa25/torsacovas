@@ -790,39 +790,40 @@ for(let i = 0; i < 120; i++){
 let galleryOpen = false;
 
 // ========== AUDIO DE REBOTE ==========
-const bounceAudio = new Audio('audio/Soccer_ball.mp3');
-bounceAudio.volume = 0.3;
-let isPlaying = true;
+let bounceAudio = new Audio('adrian/audio/Soccer_ball.mp3');
+bounceAudio.volume = 0.4;
+bounceAudio.preload = 'auto';
+
+let isPlaying = false; // Não começa sozinho
 let lastBounceTime = 0;
 
-// Función para detectar rebote
-function checkBounce(){
+// Función para reproducir sonido de rebote
+function playBounceSound(){
     if(!isPlaying) return;
     
-    const ball = document.querySelector('.ball');
-    const ballWrap = document.querySelector('.ball-wrap');
-    
-    // Verificar si la animación de rebote está activa
-    const animation = getComputedStyle(ballWrap).animation;
-    if(animation.includes('none') || ballWrap.classList.contains('ball-wrap-stopped')){
-        return; // No hay rebote
-    }
-    
-    const now = Date.now();
-    const bounceDuration = 2200; //Duración de la animación de rebote
-    
-    // Reproducir sonido cuando toca el suelo (cada 2200ms)
-    if(now - lastBounceTime > bounceDuration - 100){
-        // Clonar el audio para permitir overlapped sounds
-        const sound = bounceAudio.cloneNode();
-        sound.volume = 0.3;
-        sound.play().catch(() => {}); // Ignorar errores si no puede reproducir
-        lastBounceTime = now;
-    }
+    const sound = bounceAudio.cloneNode();
+    sound.volume = 0.4;
+    sound.currentTime = 0;
+    sound.play().catch(() => {});
 }
 
-// Iniciar detector de rebote
-setInterval(checkBounce, 100);
+// Iniciar audio após primeiro click (requerido pelo navegador)
+document.addEventListener('click', function(){
+    if(!isPlaying && !galleryOpen){
+        bounceAudio.play().then(() => {
+            bounceAudio.pause();
+            bounceAudio.currentTime = 0;
+        }).catch(() => {});
+        isPlaying = true;
+        
+        // Sincronizar com la animación (cada 2200ms = un rebote)
+        setInterval(() => {
+            if(isPlaying && !galleryOpen){
+                playBounceSound();
+            }
+        }, 2200);
+    }
+}, {once: true});
 
 const photos = [
     'img/gallery/image1.jpg',
