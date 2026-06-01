@@ -1004,7 +1004,18 @@ function collapseCurrentPhoto(){
     }, 500);
 }
 
+// Audio cuando se hace clic en la pantalla
+document.addEventListener('click', function() {
+    const audio = document.getElementById('audio-click');
+    audio.volume = 1; // 100% del volumen
+    audio.currentTime = 0; // Reiniciar el audio desde el inicio
+    audio.play().catch(e => console.log('Error al reproducir audio:', e));
+});
+
 </script>
+
+<!-- Audio -->
+<audio id="audio-click" src="adrian/audio/Soccer_ball.mp3"></audio>
 
 </body>
 </html>
