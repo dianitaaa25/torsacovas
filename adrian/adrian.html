@@ -722,11 +722,12 @@ let intervalId = setInterval(() => {
     }
 
     if(bounceCount === 22){
+
+        setTimeout(() => {
+            playBounceSound();
+        }, 50);
+
         clearInterval(intervalId);
-        
-        // Detener el audio cuando paran los rebotes
-        const audio = document.getElementById('bounceAudio');
-        audio.pause();
         
         const ball = document.querySelector('.ball');
         ball.style.animationPlayState = 'paused';
