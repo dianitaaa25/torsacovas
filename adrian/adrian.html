@@ -945,19 +945,22 @@ let intervalId = setInterval(() => {
 
         ball.style.cursor = "pointer";
 
-        ball.addEventListener("click", () => {
+                ball.addEventListener("click", (e) => {
+            // Evita que el clic llegue al fondo y cierre el menú inmediatamente
+            e.stopPropagation();
 
-            if(!ballReady) return;
+            // Si ya se desbloqueó, no hace nada
+            if(secretAlreadyUnlocked) return;
 
-            if(galleryOpen || letterOpen)
-                return;
+            // Si hay otros menús abertos, los cierra o ignora
+            if(galleryOpen || letterOpen) return;
 
+            // Lógica para abrir o cerrar el menú secreto
             if(secretOpen){
                 closeSecretMenu();
             }else{
                 openSecretMenu();
             }
-        
         });
 
         const btn1 = document.createElement('div');
@@ -1435,12 +1438,19 @@ document
 
 document.addEventListener("click", (e) => {
     
+    // Si el menú no está abierto, no hace nada
     if(!secretOpen) return;
+    
+    // Si ya está desbloqueado para siempre, no hace nada
     if(secretAlreadyUnlocked) return;
     
     const secretScreen = document.getElementById("secret-screen");
     const secretCard = secretScreen.querySelector(".secret-card");
     
+    // Si el clic fue EN la pelota (la escena), lo ignoramos aquí
+    if(e.target.closest('.scene')) return;
+
+    // Si el clic fue FUERA de la tarjeta del código, cerramos el menú
     if(!secretCard.contains(e.target)) {
         closeSecretMenu();
     }
