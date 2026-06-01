@@ -719,6 +719,8 @@ let intervalId = setInterval(() => {
     if(bounceCount === 22){
         
         clearInterval(intervalId);
+
+        isPlaying = false;
         
         const ball = document.querySelector('.ball');
         ball.style.animationPlayState = 'paused';
@@ -786,6 +788,41 @@ for(let i = 0; i < 120; i++){
 }
 
 let galleryOpen = false;
+
+// ========== AUDIO DE REBOTE ==========
+const bounceAudio = new Audio('audio/Soccer_ball.mp3');
+bounceAudio.volume = 0.3;
+let isPlaying = true;
+let lastBounceTime = 0;
+
+// Función para detectar rebote
+function checkBounce(){
+    if(!isPlaying) return;
+    
+    const ball = document.querySelector('.ball');
+    const ballWrap = document.querySelector('.ball-wrap');
+    
+    // Verificar si la animación de rebote está activa
+    const animation = getComputedStyle(ballWrap).animation;
+    if(animation.includes('none') || ballWrap.classList.contains('ball-wrap-stopped')){
+        return; // No hay rebote
+    }
+    
+    const now = Date.now();
+    const bounceDuration = 2200; //Duración de la animación de rebote
+    
+    // Reproducir sonido cuando toca el suelo (cada 2200ms)
+    if(now - lastBounceTime > bounceDuration - 100){
+        // Clonar el audio para permitir overlapped sounds
+        const sound = bounceAudio.cloneNode();
+        sound.volume = 0.3;
+        sound.play().catch(() => {}); // Ignorar errores si no puede reproducir
+        lastBounceTime = now;
+    }
+}
+
+// Iniciar detector de rebote
+setInterval(checkBounce, 100);
 
 const photos = [
     'img/gallery/image1.jpg',
