@@ -322,31 +322,15 @@ body{
 @keyframes loveGlow{
 
     0%{
-        box-shadow:
-            0 0 4px rgba(255,255,255,.8),
-            0 0 10px rgba(255,255,255,.6),
-            0 0 20px rgba(255,255,255,.4);
-        transform: scale(1);
-        opacity: 0.5;
+        filter: brightness(1);
     }
 
     35%{
-        box-shadow:
-            0 0 6px rgba(255,255,255, 1),
-            0 0 15px rgba(200, 220, 255, 0.9),
-            0 0 35px rgba(200, 220, 255, 0.6);
-        
-        transform: scale(1.6);
-        opacity: 1;
+        filter: brightness(2.5);
     }
 
     100%{
-        box-shadow:
-            0 0 4px rgba(255,255,255,.8),
-            0 0 10px rgba(255,255,255,.6),
-            0 0 20px rgba(255,255,255,.4);
-        transform: scale(1);
-        opacity: 0.5;
+        filter: brightness(1);
     }
 }
 
@@ -594,6 +578,106 @@ body{
     transform: scale(0);
     pointer-events: none;
 }
+
+/* CARTA */
+
+#letter-screen{
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 80;
+}
+
+#letter-screen.visible{
+    display: flex;
+}
+
+.letter-card{
+
+    width: min(700px, 85vw);
+
+    padding: 45px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(18,18,35,.96),
+            rgba(8,8,20,.96)
+        );
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+        0 0 30px rgba(255,255,255,.15),
+        0 0 80px rgba(120,150,255,.15);
+
+    color:white;
+
+    text-align:center;
+
+    animation:
+        letterAppear .6s
+        cubic-bezier(0.34,1.56,0.64,1)
+        forwards;
+
+    backdrop-filter: blur(12px);
+}
+
+.letter-title{
+    font-size:34px;
+    margin-bottom:25px;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.25);
+}
+
+.letter-text{
+    font-size:20px;
+    line-height:1.9;
+    color:rgba(255,255,255,.92);
+}
+
+#letter-close{
+    margin-top:30px;
+
+    border:none;
+
+    padding:12px 28px;
+
+    border-radius:999px;
+
+    background:white;
+
+    color:black;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+@keyframes letterAppear{
+
+    0%{
+        transform:scale(0);
+        opacity:0;
+        filter:blur(10px);
+    }
+
+    60%{
+        transform:scale(1.08);
+        opacity:1;
+        filter:blur(0);
+    }
+
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+}
 </style>
 
 </head>
@@ -643,6 +727,44 @@ body{
 
 </div>
 
+<div id="letter-screen">
+
+    <div class="letter-card">
+
+        <div class="letter-title">
+            ⚽ ✦ Para ti ✦
+        </div>
+
+        <div class="letter-text">
+
+            Hay estrellas que brillan toda una vida y aun así pasan desapercibidas.
+
+            Pero también existen esas pocas que, sin importar cuántos años transcurran, siguen siendo un punto fijo en el cielo.
+
+            Tú eres una de ellas.
+
+            Entre tantos partidos, risas, recuerdos y momentos compartidos, dejaste una huella que el tiempo no ha podido borrar.
+
+            Quizá hoy nuestras órbitas sean distintas, pero cuando miro hacia atrás sigo encontrando tu luz en muchos de mis mejores recuerdos.
+
+            Gracias por haber sido compañero de equipo en una parte tan importante de mi vida.
+
+            Porque algunas amistades son como una pelota en el espacio:
+            pueden recorrer miles de kilómetros,
+            pero siempre conservan la dirección de donde comenzaron.
+
+            ✦ Siempre te llevaré conmigo. ✦
+
+        </div>
+
+        <button id="letter-close">
+            Volver
+        </button>
+
+    </div>
+
+</div>
+
 <script>
 
 const messages = [
@@ -671,7 +793,7 @@ function showMessage(){
 
     box.textContent = messages[current];
 
-    if(messages[current] === "Te amo."){
+    if(messages[current] === "Te amooo."){
         loveExplosion();
     }
 
@@ -763,6 +885,10 @@ btn2.onclick = function(){
     } else {
         openGallery();
     }
+};
+
+btn1.onclick = function(){
+    openLetter();
 };
 
     }
@@ -971,6 +1097,74 @@ function closeGallery() {
     galleryOpen = false;
 }
 
+function openLetter(){
+
+    const ball = document.querySelector('.ball');
+    const glow = document.querySelector('.glow');
+    const scene = document.querySelector('.scene');
+
+    document
+        .getElementById('zoom-wrapper')
+        .classList.remove('gallery-closed');
+
+    document
+        .getElementById('zoom-wrapper')
+        .classList.add('gallery-open');
+
+    ball.style.transition =
+        'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.4s ease';
+
+    ball.style.transform = 'scale(0)';
+    ball.style.opacity = '0';
+
+    glow.style.transition = 'opacity 0.4s ease';
+    glow.style.opacity = '0';
+
+    scene.classList.add('hidden');
+
+    setTimeout(() => {
+
+        document
+            .getElementById('letter-screen')
+            .classList.add('visible');
+
+    }, 400);
+}
+
+function closeLetter(){
+
+    const ball = document.querySelector('.ball');
+    const glow = document.querySelector('.glow');
+    const scene = document.querySelector('.scene');
+
+    document
+        .getElementById('letter-screen')
+        .classList.remove('visible');
+
+    document
+        .getElementById('zoom-wrapper')
+        .classList.remove('gallery-open');
+
+    document
+        .getElementById('zoom-wrapper')
+        .classList.add('gallery-closed');
+
+    setTimeout(() => {
+
+        scene.classList.remove('hidden');
+
+        ball.style.transition =
+            'transform .6s cubic-bezier(0.34,1.56,0.64,1), opacity .4s ease';
+
+        ball.style.transform = 'scale(1)';
+        ball.style.opacity = '1';
+
+        glow.style.transition = 'opacity .5s ease';
+        glow.style.opacity = '.7';
+
+    },100);
+}
+
 function expandPhoto(photoElement, index){
     if(expandedPhoto) return;
     
@@ -1018,6 +1212,10 @@ function collapseCurrentPhoto(){
         expandedPhoto = null;
     }, 500);
 }
+
+document
+    .getElementById('letter-close')
+    .addEventListener('click', closeLetter);
 
 </script>
 
