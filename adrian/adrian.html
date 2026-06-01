@@ -600,7 +600,7 @@ body{
 
 <body>
 
-<audio id="bounceAudio" src="adrian/audio/Soccer_ball.mp3" autoplay></audio>
+<audio id="bounceAudio" src="adrian/audio/Soccer_ball.mp3" autoplay loop></audio>
 
 <div id="zoom-wrapper">
 
@@ -645,17 +645,8 @@ body{
 
 <script>
 
-const bounceSound = new Audio("adrian/audio/Soccer_ball.mp3");
-bounceSound.volume = 0.7;
-
-function playBounceSound(){
-    const audio = document.getElementById('bounceAudio');
-    
-    // Resetear el audio para que pueda reproducirse múltiples veces
-    audio.currentTime = 0;
-    
-    audio.play().catch(() => {});
-}
+// El audio ya está en el HTML con autoplay y loop - no necesitas JavaScript para reproducirlo
+// Solo necesitas sincronizar los rebotes con el tiempo del audio
 
 const messages = [
     "¿Te acuerdas?",
@@ -672,7 +663,6 @@ let bounceCount = 0;
 const box = document.getElementById("message");
 
 function showMessage(){
-
     if(current >= messages.length) return;
 
     box.textContent = messages[current];
@@ -682,16 +672,13 @@ function showMessage(){
     }
 
     box.classList.remove("show-message");
-
     void box.offsetWidth;
-
     box.classList.add("show-message");
 
     current++;
 }
 
 function loveExplosion(){
-
     document
         .querySelectorAll(".star")
         .forEach(star => {
@@ -699,28 +686,19 @@ function loveExplosion(){
         });
 
     setTimeout(() => {
-
-    document
-        .querySelectorAll(".star")
-        .forEach(star => {
-            star.classList.remove("star-love");
-        });
-
+        document
+            .querySelectorAll(".star")
+            .forEach(star => {
+                star.classList.remove("star-love");
+            });
     }, 3500);
-
 }
 
+// El intervalo控制 los mensajes, NO el audio
+// El audio corre en loop automáticamente gracias al atributo loop en la etiqueta <audio>
 let intervalId = setInterval(() => {
 
     bounceCount++;
-
-    setTimeout(() => {
-
-        if(bounceCount <= 22){
-            playBounceSound();
-        }
-
-    }, 1980);
 
     if(bounceCount === 1){
         showMessage();
@@ -738,8 +716,11 @@ let intervalId = setInterval(() => {
     }
 
     if(bounceCount === 22){
-        
         clearInterval(intervalId);
+        
+        // Detener el audio cuando paran los rebotes
+        const audio = document.getElementById('bounceAudio');
+        audio.pause();
         
         const ball = document.querySelector('.ball');
         ball.style.animationPlayState = 'paused';
