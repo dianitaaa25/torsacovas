@@ -600,6 +600,8 @@ body{
 
 <body>
 
+<audio id="bounceAudio" src="audio/Soccer_ball.mp3" autoplay></audio>
+
 <div id="zoom-wrapper">
 
     <div id="stars"></div>
@@ -647,13 +649,12 @@ const bounceSound = new Audio("audio/Soccer_ball.mp3");
 bounceSound.volume = 0.7;
 
 function playBounceSound(){
-
-    const sound = bounceSound.cloneNode();
-
-    sound.volume = 0.7;
-
-    sound.play().catch(() => {});
-
+    const audio = document.getElementById('bounceAudio');
+    
+    // Resetear el audio para que pueda reproducirse múltiples veces
+    audio.currentTime = 0;
+    
+    audio.play().catch(() => {});
 }
 
 const messages = [
@@ -714,11 +715,11 @@ let intervalId = setInterval(() => {
     bounceCount++;
 
     setTimeout(() => {
-        
+
         if(bounceCount <= 22){
             playBounceSound();
         }
-    
+
     }, 1980);
 
     if(bounceCount === 1){
