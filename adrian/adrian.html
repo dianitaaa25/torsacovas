@@ -600,7 +600,7 @@ body{
 
 <body>
 
-<audio id="bounceAudio" src="audio/Soccer_ball.mp3" autoplay loop></audio>
+<audio id="bounceAudio" src="audio/Soccer_ball.mp3"></audio>
 
 <div id="zoom-wrapper">
 
@@ -645,21 +645,6 @@ body{
 
 <script>
 
-// ===== CONTROL DEL AUDIO =====
-// Duración: 22 rebotes × 2.2s = 48.4 segundos
-const duracionAudio = 22 * 2200; // 48400ms
-
-setTimeout(() => {
-    const audio = document.getElementById('bounceAudio');
-    if(audio) {
-        audio.pause();
-        audio.currentTime = 0;
-    }
-}, duracionAudio);
-// ===== FIN CONTROL AUDIO =====
-
-// Aquí sigue el resto de tu código...
-
 const messages = [
     "¿Te acuerdas?",
     "Extraño como éramos antes.",
@@ -673,6 +658,13 @@ let current = 0;
 let bounceCount = 0;
 
 const box = document.getElementById("message");
+
+const bounceAudio = document.getElementById("bounceAudio");
+
+function playBounceSound(){
+    bounceAudio.currentTime = 0;
+    bounceAudio.play();
+}
 
 function showMessage(){
     if(current >= messages.length) return;
@@ -709,6 +701,8 @@ function loveExplosion(){
 // El intervalo控制 los mensajes, NO el audio
 // El audio corre en loop automáticamente gracias al atributo loop en la etiqueta <audio>
 let intervalId = setInterval(() => {
+
+    playBounceSound();
 
     bounceCount++;
 
