@@ -600,7 +600,7 @@ body{
 
 <body>
 
-<audio id="bounceAudio" src="audio/Soccer_ball.mp3" autoplay></audio>
+<audio id="bounceAudio" src="audio/Soccer_ball.mp3" autoplay loop></audio>
 
 <div id="zoom-wrapper">
 
@@ -645,8 +645,20 @@ body{
 
 <script>
 
-// El audio ya está en el HTML con autoplay y loop - no necesitas JavaScript para reproducirlo
-// Solo necesitas sincronizar los rebotes con el tiempo del audio
+// ===== CONTROL DEL AUDIO =====
+// Duración: 22 rebotes × 2.2s = 48.4 segundos
+const duracionAudio = 22 * 2200; // 48400ms
+
+setTimeout(() => {
+    const audio = document.getElementById('bounceAudio');
+    if(audio) {
+        audio.pause();
+        audio.currentTime = 0;
+    }
+}, duracionAudio);
+// ===== FIN CONTROL AUDIO =====
+
+// Aquí sigue el resto de tu código...
 
 const messages = [
     "¿Te acuerdas?",
@@ -656,12 +668,6 @@ const messages = [
     "Sigues siendo importante para mí.",
     "Te amo."
 ];
-
-function playBounceSound(){
-    const audio = document.getElementById('bounceAudio');
-    audio.currentTime = 0;
-    audio.play().catch(() => {});
-}
 
 let current = 0;
 let bounceCount = 0;
@@ -705,11 +711,6 @@ function loveExplosion(){
 let intervalId = setInterval(() => {
 
     bounceCount++;
-
-    // AQUÍ: reproducir sonido cuando rebota
-    if(bounceCount <= 22){
-        playBounceSound();
-    }
 
     if(bounceCount === 1){
         showMessage();
