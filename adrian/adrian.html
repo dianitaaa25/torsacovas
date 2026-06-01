@@ -1388,18 +1388,20 @@ document
     if(e.target.value === SECRET_CODE){
 
         secretAlreadyUnlocked = true;
+        secretOpen = false;
 
         const content = document.getElementById("secret-content");
         
         content.innerHTML = `
             <div class="secret-message">
-                Me gustas.<br><br>
-                Mucho más de lo que alguna vez<br>
-                fui capaz de decir.<br><br>
-                Tal vez nunca encuentre<br>
-                el momento perfecto para hacerlo,<br>
-                pero quería que al menos<br>
-                este pequeño secreto lo supieras.<br><br>
+                Me gustas, Adrian.<br><br>
+                Te quiero mucho más que como<br>
+                a un simple mejor amigo.<br><br>
+                Pero mucho menos que como<br>
+                a un "brother". Me gustas<br>
+                desde cuando me decías "estúpida"<br>
+                y yo fingía que no me gustaba.<br>
+                Yo fingía que no me gustabas.<br><br>
                 ⚽❤️
             </div>
         `;
@@ -1414,7 +1416,7 @@ document
             .classList
             .remove("visible");
             secretOpen = false;
-        }, 10000);
+        }, 7000);
 
     }else{
 
@@ -1431,6 +1433,19 @@ document
     }
 });
 
+document.addEventListener("click", (e) => {
+    
+    if(!secretOpen) return;
+    if(secretAlreadyUnlocked) return;
+    
+    const secretScreen = document.getElementById("secret-screen");
+    const secretCard = secretScreen.querySelector(".secret-card");
+    
+    if(!secretCard.contains(e.target)) {
+        closeSecretMenu();
+    }
+    
+});
 </script>
 
 </body>
