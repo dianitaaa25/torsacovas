@@ -748,6 +748,27 @@ body{
     opacity:1;
     transform:translateY(0);
 }
+
+.secret-card.closing{
+    animation: letterDisappear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+}
+
+@keyframes letterDisappear{
+    0%{
+        transform:scale(1);
+        opacity:1;
+    }
+    40%{
+        transform:scale(1.08);
+        opacity:1;
+        filter:blur(0);
+    }
+    100%{
+        transform:scale(0);
+        opacity:0;
+        filter:blur(10px);
+    }
+}
 </style>
 
 </head>
@@ -945,17 +966,13 @@ let intervalId = setInterval(() => {
 
         ball.style.cursor = "pointer";
 
-                ball.addEventListener("click", (e) => {
-            // Evita que el clic llegue al fondo y cierre el menú inmediatamente
+        ball.addEventListener("click", (e) => {
             e.stopPropagation();
 
-            // Si ya se desbloqueó, no hace nada
             if(secretAlreadyUnlocked) return;
 
-            // Si hay otros menús abertos, los cierra o ignora
             if(galleryOpen || letterOpen) return;
 
-            // Lógica para abrir o cerrar el menú secreto
             if(secretOpen){
                 closeSecretMenu();
             }else{
@@ -1373,10 +1390,20 @@ function closeSecretMenu(){
     
     if(secretAlreadyUnlocked) return;
     
-    document
-        .getElementById("secret-screen")
-        .classList
-        .remove("visible");
+    const secretCard = document.querySelector(".secret-card");
+    
+    secretCard.classList.add("closing");
+    
+    setTimeout(() => {
+        
+        document
+            .getElementById("secret-screen")
+            .classList
+            .remove("visible");
+        
+        secretCard.classList.remove("closing");
+        
+    }, 500);
     
     secretOpen = false;
 }
@@ -1399,12 +1426,12 @@ document
             <div class="secret-message">
                 Me gustas, Adrian.<br><br>
                 Te quiero mucho más que como<br>
-                a un simple mejor amigo.<br><br>
+                a un simple mejor amigo.<br>
                 Pero mucho menos que como<br>
                 a un "brother". Me gustas<br>
                 desde cuando me decías "estúpida"<br>
                 y yo fingía que no me gustaba.<br>
-                Yo fingía que no me gustabas.<br><br>
+                Yo fingía que no me gustabas.<br>
                 ⚽❤️
             </div>
         `;
@@ -1438,19 +1465,15 @@ document
 
 document.addEventListener("click", (e) => {
     
-    // Si el menú no está abierto, no hace nada
     if(!secretOpen) return;
     
-    // Si ya está desbloqueado para siempre, no hace nada
     if(secretAlreadyUnlocked) return;
     
     const secretScreen = document.getElementById("secret-screen");
     const secretCard = secretScreen.querySelector(".secret-card");
     
-    // Si el clic fue EN la pelota (la escena), lo ignoramos aquí
     if(e.target.closest('.scene')) return;
 
-    // Si el clic fue FUERA de la tarjeta del código, cerramos el menú
     if(!secretCard.contains(e.target)) {
         closeSecretMenu();
     }
