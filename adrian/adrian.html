@@ -643,6 +643,19 @@ body{
 
 <script>
 
+const bounceSound = new Audio("audio/Soccer_ball.mp3");
+bounceSound.volume = 0.7;
+
+function playBounceSound(){
+
+    const sound = bounceSound.cloneNode();
+
+    sound.volume = 0.7;
+
+    sound.play().catch(() => {});
+
+}
+
 const messages = [
     "¿Te acuerdas?",
     "Extraño como éramos antes.",
@@ -699,6 +712,14 @@ function loveExplosion(){
 let intervalId = setInterval(() => {
 
     bounceCount++;
+
+    setTimeout(() => {
+        
+        if(bounceCount <= 22){
+            playBounceSound();
+        }
+    
+    }, 1980);
 
     if(bounceCount === 1){
         showMessage();
