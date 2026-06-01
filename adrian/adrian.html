@@ -455,7 +455,6 @@ body{
 }
 
 /* FOTO EXPANDIDA */
-
 .photo.expanded{
     position: fixed !important;
     top: 50% !important;
@@ -701,11 +700,6 @@ let intervalId = setInterval(() => {
 
     bounceCount++;
 
-    // Reproducir sonido de rebote al mismo tiempo que la animación
-    if(bounceCount >= 1 && bounceCount <= 21){
-        playBounceSound();
-    }
-
     if(bounceCount === 1){
         showMessage();
         return;
@@ -724,8 +718,6 @@ let intervalId = setInterval(() => {
     if(bounceCount === 22){
         
         clearInterval(intervalId);
-
-        isPlaying = false;
         
         const ball = document.querySelector('.ball');
         ball.style.animationPlayState = 'paused';
@@ -793,38 +785,6 @@ for(let i = 0; i < 120; i++){
 }
 
 let galleryOpen = false;
-
-// ========== AUDIO DE REBOTE ==========
-let bounceAudio = new Audio('adrian/audio/Soccer_ball.mp3');
-bounceAudio.volume = 0.4;
-bounceAudio.preload = 'auto';
-
-let isPlaying = false; // No comienza solo
-let audioStarted = false;
-
-// Reproducir sonido de rebote - se llama desde el intervalo principal
-function playBounceSound(){
-    if(!isPlaying || !audioStarted) return;
-    
-    const sound = bounceAudio.cloneNode();
-    sound.volume = 0.4;
-    sound.currentTime = 0;
-    sound.play().catch(e => console.log('Error audio:', e));
-}
-
-// Iniciar audio después del primer click (requerido por el navegador)
-document.addEventListener('click', function startAudio() {
-    if(!isPlaying && !galleryOpen){
-        bounceAudio.play()
-            .then(() => {
-                bounceAudio.pause();
-                bounceAudio.currentTime = 0;
-                isPlaying = true;
-                audioStarted = true;
-            })
-            .catch(e => console.log('Error al iniciar audio:', e));
-    }
-}, {once: true});
 
 const photos = [
     'img/gallery/image1.jpg',
