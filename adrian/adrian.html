@@ -595,36 +595,48 @@ body{
 }
 
 .letter-card{
-
-    width: min(700px, 85vw);
-
+    width: min(700px, calc(100vw - 40px));
+    max-height: calc(100vh - 40px);
     padding: 45px;
-
     border-radius: 30px;
-
     background:
         linear-gradient(
             180deg,
             rgba(18,18,35,.96),
             rgba(8,8,20,.96)
         );
-
     border: 1px solid rgba(255,255,255,.15);
-
     box-shadow:
         0 0 30px rgba(255,255,255,.15),
         0 0 80px rgba(120,150,255,.15);
-
     color:white;
-
     text-align:center;
-
+    overflow-y:auto;
     animation:
         letterAppear .6s
         cubic-bezier(0.34,1.56,0.64,1)
         forwards;
 
     backdrop-filter: blur(12px);
+}
+
+@media (max-width: 768px){
+
+    .letter-card{
+        width: calc(100vw - 30px);
+        max-height: calc(100vh - 30px);
+        padding: 28px 22px;
+    }
+
+    .letter-title{
+        font-size: 28px;
+        margin-bottom: 18px;
+    }
+
+    .letter-text{
+        font-size: 17px;
+        line-height: 1.8;
+    }
 }
 
 .letter-title{
