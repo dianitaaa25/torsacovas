@@ -866,17 +866,7 @@ body{
 
 <script>
 
-function makeHash(str){
-    let h = 0;
-    for(let i=0;i<str.length;i++){
-        h = ((h<<5)-h)+str.charCodeAt(i);
-        h = h & h;
-    }
-    return h;
-}
-
-const secretHash = 2013260327;
-
+const SECRET_CODE = "261107";
 let secretAlreadyUnlocked = false;
 let secretOpen = false;
 
@@ -1425,7 +1415,7 @@ document
     if(e.target.value.length !== 6)
         return;
 
-    if(makeHash(e.target.value) === secretHash){
+    if(e.target.value === SECRET_CODE){
 
         secretAlreadyUnlocked = true;
         secretOpen = false;
