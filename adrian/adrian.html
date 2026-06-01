@@ -672,6 +672,80 @@ body{
         opacity:1;
     }
 }
+
+/* MENÚ SECRETO */
+
+#secret-screen{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:90;
+}
+
+#secret-screen.visible{
+    display:flex;
+}
+
+.secret-card{
+    width:min(500px, calc(100vw - 40px));
+    padding:40px;
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(18,18,35,.96),
+            rgba(8,8,20,.96)
+        );
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+        0 0 30px rgba(255,255,255,.15),
+        0 0 80px rgba(120,150,255,.15);
+
+    text-align:center;
+    color:white;
+
+    animation:
+        letterAppear .6s
+        cubic-bezier(0.34,1.56,0.64,1)
+        forwards;
+
+    backdrop-filter:blur(12px);
+}
+
+.secret-input{
+    width:180px;
+    padding:12px;
+
+    font-size:26px;
+    text-align:center;
+
+    border:none;
+    outline:none;
+
+    border-radius:15px;
+
+    margin-top:20px;
+
+    background:rgba(255,255,255,.08);
+    color:white;
+}
+
+.secret-error{
+    margin-top:15px;
+    color:#ff8080;
+    opacity:0;
+    transition:.3s;
+}
+
+.secret-message{
+    font-size:20px;
+    line-height:1.8;
+}
 </style>
 
 </head>
@@ -747,7 +821,41 @@ body{
 
 </div>
 
+<div id="secret-screen">
+
+    <div class="secret-card">
+
+        <div id="secret-content">
+
+            <h2>⚽</h2>
+
+            <p>
+                Introduce el código secreto
+            </p>
+
+            <input
+                id="secret-input"
+                class="secret-input"
+                maxlength="6"
+                type="password"
+                inputmode="numeric">
+
+            <div
+                id="secret-error"
+                class="secret-error">
+                Código incorrecto
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 <script>
+
+const SECRET_CODE = "230506";
+let secretAlreadyUnlocked = false;
 
 const messages = [
     "¿Te acuerdas?",
@@ -839,6 +947,17 @@ let intervalId = setInterval(() => {
         
         const ballWrap = document.querySelector('.ball-wrap');
         ballWrap.classList.add('ball-wrap-stopped');
+
+        ball.style.cursor = "pointer";
+
+        ball.addEventListener("click", () => {
+        
+            if(galleryOpen || letterOpen)
+                return;
+        
+            openSecretMenu();
+        
+        });
 
         const btn1 = document.createElement('div');
         btn1.className = 'menu-btn';
@@ -1226,6 +1345,73 @@ function collapseCurrentPhoto(){
         expandedPhoto = null;
     }, 500);
 }
+
+function openSecretMenu(){
+
+    if(secretAlreadyUnlocked) return;
+
+    document
+        .getElementById("secret-screen")
+        .classList
+        .add("visible");
+
+    document
+        .getElementById("secret-input")
+        .focus();
+}
+
+document
+.getElementById("secret-input")
+.addEventListener("keyup", e => {
+
+    if(e.target.value.length !== 6)
+        return;
+
+    if(e.target.value === SECRET_CODE){
+
+        secretAlreadyUnlocked = true;
+
+        document.getElementById("secret-content").innerHTML = `
+            <div class="secret-message">
+
+                Me gustas.
+
+                Mucho más de lo que alguna vez
+                fui capaz de decir.
+
+                Tal vez nunca encuentre
+                el momento perfecto para hacerlo,
+                pero quería que al menos
+                este pequeño secreto lo supieras.
+
+                ⚽❤️
+
+            </div>
+        `;
+
+        setTimeout(() => {
+
+            document
+            .getElementById("secret-screen")
+            .classList
+            .remove("visible");
+
+        }, 8000);
+
+    }else{
+
+        const error =
+            document.getElementById("secret-error");
+
+        error.style.opacity = "1";
+
+        setTimeout(() => {
+            error.style.opacity = "0";
+        }, 1500);
+
+        e.target.value = "";
+    }
+});
 
 </script>
 
