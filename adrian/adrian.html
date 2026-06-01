@@ -673,7 +673,7 @@ body{
     }
 }
 
-/* MENÚ SECRETO */
+/* MENSAJE SECRETO */
 
 #secret-screen{
     position:fixed;
@@ -718,33 +718,40 @@ body{
 }
 
 .secret-input{
-    width:180px;
-    padding:12px;
-
-    font-size:26px;
+    width:220px;
+    padding:15px 20px;
+    font-size:36px;
+    letter-spacing:20px;
     text-align:center;
-
     border:none;
     outline:none;
-
-    border-radius:15px;
-
-    margin-top:20px;
-
+    border-radius:20px;
     background:rgba(255,255,255,.08);
     color:white;
+    font-family:Georgia, serif;
+    margin-top:15px;
 }
 
 .secret-error{
-    margin-top:15px;
+    margin-top:18px;
     color:#ff8080;
     opacity:0;
     transition:.3s;
+    font-size:16px;
 }
 
 .secret-message{
-    font-size:20px;
+    font-size:22px;
     line-height:1.8;
+    color:rgba(255,255,255,.95);
+    opacity:0;
+    transform:translateY(20px);
+    transition:all 0.8s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.secret-message.show{
+    opacity:1;
+    transform:translateY(0);
 }
 </style>
 
@@ -822,39 +829,28 @@ body{
 </div>
 
 <div id="secret-screen">
-
     <div class="secret-card">
-
         <div id="secret-content">
-
             <h2>⚽</h2>
-
-            <p>
-                Introduce el código secreto
-            </p>
-
             <input
                 id="secret-input"
                 class="secret-input"
                 maxlength="6"
                 type="password"
-                inputmode="numeric">
-
+                inputmode="numeric"
+                placeholder="------">
             <div
                 id="secret-error"
                 class="secret-error">
                 Código incorrecto
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 <script>
 
-const SECRET_CODE = "230506";
+const SECRET_CODE = "261107"; //230506
 let secretAlreadyUnlocked = false;
 
 const messages = [
@@ -950,13 +946,19 @@ let intervalId = setInterval(() => {
 
         ball.style.cursor = "pointer";
 
+        let secretOpen = false;
+
         ball.addEventListener("click", () => {
-        
+
             if(galleryOpen || letterOpen)
                 return;
-        
-            openSecretMenu();
-        
+
+            if(secretOpen){
+                closeSecretMenu();
+            }else{
+                openSecretMenu();
+            }
+
         });
 
         const btn1 = document.createElement('div');
@@ -1355,9 +1357,25 @@ function openSecretMenu(){
         .classList
         .add("visible");
 
+    secretOpen = true;
+    
+    setTimeout(() => {
+        document
+            .getElementById("secret-input")
+            .focus();
+    }, 400);
+}
+
+function closeSecretMenu(){
+    
+    if(secretAlreadyUnlocked) return;
+    
     document
-        .getElementById("secret-input")
-        .focus();
+        .getElementById("secret-screen")
+        .classList
+        .remove("visible");
+    
+    secretOpen = false;
 }
 
 document
@@ -1371,32 +1389,32 @@ document
 
         secretAlreadyUnlocked = true;
 
-        document.getElementById("secret-content").innerHTML = `
+        const content = document.getElementById("secret-content");
+        
+        content.innerHTML = `
             <div class="secret-message">
-
-                Me gustas.
-
-                Mucho más de lo que alguna vez
-                fui capaz de decir.
-
-                Tal vez nunca encuentre
-                el momento perfecto para hacerlo,
-                pero quería que al menos
-                este pequeño secreto lo supieras.
-
+                Me gustas.<br><br>
+                Mucho más de lo que alguna vez<br>
+                fui capaz de decir.<br><br>
+                Tal vez nunca encuentre<br>
+                el momento perfecto para hacerlo,<br>
+                pero quería que al menos<br>
+                este pequeño secreto lo supieras.<br><br>
                 ⚽❤️
-
             </div>
         `;
+        
+        setTimeout(() => {
+            document.querySelector(".secret-message").classList.add("show");
+        }, 100);
 
         setTimeout(() => {
-
             document
             .getElementById("secret-screen")
             .classList
             .remove("visible");
-
-        }, 8000);
+            secretOpen = false;
+        }, 10000);
 
     }else{
 
