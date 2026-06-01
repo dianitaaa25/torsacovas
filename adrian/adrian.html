@@ -825,6 +825,11 @@ const photos = [
     'img/gallery/26.png'
 ];
 
+photos.forEach(src => {
+    const img = new Image();
+    img.src = src;
+});
+
 let expandedPhoto = null;
 let originalPositions = {};
 
