@@ -27,34 +27,141 @@
 
     <h3>Poemas</h3>
 
-    <div class="poema">
-      <a href="/poemas/una-flor">Una flor de abril a junio</a>
-      <a href="/poemas/alheli">Alhelí</a>
-      <a href="/poemas/inercia-heredada">Inercia heredada</a>
-      <a href="/poemas/me-quiero-enamorar">Me quiero enamorar</a>
-      <a href="/poemas/cada-verso">Cada verso es para ti</a>
-      <a href="/poemas/elegia">Elegía de un tonto enamorado</a>
-      <a href="/poemas/mi-amor">Mi amor, tu jardín de rosas</a>
-      <a href="/poemas/eres-mi-sueno">Eres mi sueño</a>
-      <a href="/poemas/nefelibata-aturdido">Nefelibata aturdido</a>
-      <a href="/poemas/panchita">Panchita, sigue comiendo</a>
-      <a href="/poemas/hasta-la-muerte">Hasta que la muerte los separe</a>
-      <a href="/poemas/estrellas-azules">Estrellas azules</a>
-      <a href="/poemas/versos-desesperanza">Versos de desesperanza</a>
-      <a href="/poemas/lluvia-apartamento">Lluvia en mi apartamento</a>
-      <a href="/poemas/apologia">Apología de un crimen mnemónico</a>
-      <a href="/poemas/sujecion">Sujeción a un insomnio nefasto</a>
-      <a href="/poemas/deriva">Deriva de un recuerdo utópico</a>
-      <a href="/poemas/solo-queria-verte">Solo quería verte</a>
-      <a href="/poemas/adios-amor">Adiós, amor</a>
-      <a href="/poemas/luna-roja">Luna roja</a>
-      <a href="/poemas/esencial">Esencial</a>
-      <a href="/poemas/mentiroso">Mentiroso</a>
-      <a href="/poemas/corazon-timido">Corazón tímido</a>
-      <a href="/poemas/un-ser">Un ser de tono olvidado</a>
-      <a href="/poemas/victima">Teatro de una víctima perfecta</a>
-      <!--<a href="/poemas/paraguas-para-huracan">Llevar un paraguas para el huracán</a>-->
+    <button id="btn-filtros" class="btn-filtros">
+      Buscar y filtrar poemas
+    </button>
+
+    <div class="contenedor-poemas">
+
+      <div id="lista-poemas" class="poema"></div>
+      <div id="preview-global" class="poema-preview"></div>
+
+      <aside id="panel-filtros" class="panel-filtros">
+
+        <h4>Buscar poemas</h4>
+
+        <input 
+          id="buscador-poemas"
+          type="search"
+          placeholder="Buscar por título, contenido o palabras clave..."
+        >
+
+        <h4>Temática</h4>
+
+        <select id="filtro-tema">
+          <option value="">Todas</option>
+        </select>
+
+        <h4>Año</h4>
+
+        <select id="filtro-anio">
+          <option value="">Todos</option>
+        </select>
+
+        <h4>Mes</h4>
+
+        <select id="filtro-mes">
+        
+          <option value="">
+          Todos
+          </option>
+
+          <option value="01">
+          Enero
+          </option>
+
+          <option value="02">
+          Febrero
+          </option>
+
+          <option value="03">
+          Marzo
+          </option>
+
+          <option value="04">
+          Abril
+          </option>
+
+          <option value="05">
+          Mayo
+          </option>
+
+          <option value="06">
+          Junio
+          </option>
+
+          <option value="07">
+          Julio
+          </option>
+
+          <option value="08">
+          Agosto
+          </option>
+
+          <option value="09">
+          Septiembre
+          </option>
+
+          <option value="10">
+          Octubre
+          </option>
+
+          <option value="11">
+          Noviembre
+          </option>
+
+          <option value="12">
+          Diciembre
+          </option>
+
+        </select>
+
+        <h4>Ordenar</h4>
+
+        <select id="orden-poemas">
+
+          <option value="aleatorio">
+            Aleatorio
+          </option>
+
+          <option value="reciente">
+            Más recientes
+          </option>
+
+          <option value="antiguo">
+            Más antiguos
+          </option>
+
+          <option value="likes">
+            Más gustados
+          </option>
+
+          <option value="comentarios">
+            Más comentados
+          </option>
+
+          <option value="az">
+            A - Z
+          </option>
+
+          <option value="za">
+            Z - A
+          </option>
+
+        </select>
+
+        <div id="contador-poemas">
+          0 poemas
+        </div>
+
+        <button id="limpiar-filtros" class="btn-limpiar-filtros">
+            Quitar filtros
+        </button>
+
+      </aside>
+
     </div>
+
   </div>
 
   <div id="footer"></div>
@@ -65,6 +172,13 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script type="module" src="assets/js/load-partials.js"></script>
 <script src="assets/js/contact-form.js"></script>
+
+<script type="module" src="/assets/js/pages/poemas/listado-poemas.js"></script>
+<script type="module" src="/assets/js/pages/poemas/filtros-ui.js"></script>
+<script type="module" src="/assets/js/pages/poemas/buscador-poemas.js"></script>
+<script type="module" src="/assets/js/pages/poemas/filtros-poemas.js"></script>
+<script type="module" src="/assets/js/pages/poemas/orden-poemas.js"></script>
+<script type="module" src="/assets/js/pages/poemas/url-poemas.js"></script>
 
 </body>
 </html>

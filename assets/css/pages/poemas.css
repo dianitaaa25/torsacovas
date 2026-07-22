@@ -37,21 +37,17 @@
   content: "";
   display: block;
   margin-left: auto;
-
   width: 160px;
   height: 3px;
   margin-top: 0.8rem;
-
   background: linear-gradient(
     to right,
     #8f6b09 0%,
     #e5dc7d 50%,
     #8f6b09 100%
   );
-
   background-size: 200% auto;
   background-position: left center;
-
   transition: background-position 0.9s ease;
 }
 
@@ -65,6 +61,296 @@
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
   }
+}
+
+.contenedor-poemas{
+    display:flex;
+    align-items:flex-start;
+    gap:32px;
+}
+
+#lista-poemas{
+    flex:1;
+    min-width:0;
+}
+
+.panel-filtros{
+    flex:0 0 280px;
+    position:sticky;
+    top:20px;
+    height:fit-content;
+    z-index:1;
+}
+
+.panel-filtros{
+    padding:22px;
+    border-radius:14px;
+    background:linear-gradient(
+        180deg,
+        #fffdf3,
+        #fff3be
+    );
+
+    border:2px solid #d2a00c;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.6),
+        0 12px 28px rgba(0,0,0,.15);
+}
+
+.panel-filtros h4{
+    margin:
+        0 0 8px;
+    font-size:.95rem;
+    color:#8f6b09;
+    letter-spacing:.4px;
+}
+
+#contador-poemas{
+    margin-top:18px;
+    padding-top:18px;
+    border-top:
+        1px solid rgba(143,107,9,.2);
+    text-align:center;
+    font-weight:bold;
+}
+
+.btn-filtros{
+    display:none;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    color:#2E2E2E;
+    background-image:linear-gradient(
+        to right,
+        #ffe28a,
+        #ffc908,
+        #ffe28a
+    );
+    background-size:200% auto;
+    transition:
+        .35s;
+    box-shadow:
+        0 8px 18px rgba(0,0,0,.15);
+}
+
+.btn-filtros:hover{
+    color:white;
+    background-position:right center;
+}
+
+input[type="search"]::-webkit-search-cancel-button{
+    cursor: pointer;
+    /*-webkit-appearance:none;*/
+}
+
+.panel-filtros input,
+.panel-filtros select{
+
+    width:100%;
+    height:46px;
+    padding:
+        0 16px;
+    margin-bottom:18px;
+    border-radius:12px;
+    border:
+        1px solid rgba(143,107,9,.25);
+    background:#fff;
+    font-size:.95rem;
+    font-family: "Times New Roman", Times, serif;
+    color:#2E2E2E;
+    outline:none;
+    transition:
+        .25s;
+    appearance:none;
+}
+
+.panel-filtros select{
+    background-image:
+    linear-gradient(
+        transparent,
+        transparent
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='%238f6b09'%3E%3Cpath d='M4 7l5 5 5-5'/%3E%3C/svg%3E");
+    cursor: pointer;
+    background-repeat:
+        no-repeat,
+        no-repeat;
+    background-position:
+        center,
+        right 14px center;
+}
+
+.panel-filtros input:focus,
+.panel-filtros select:focus{
+
+    border-color:#d2a00c;
+
+    box-shadow:
+
+        0 0 0 4px
+        rgba(255,201,8,.18);
+
+    transform:translateY(-1px);
+}
+
+.panel-filtros input::placeholder{
+    color:#888;
+}
+
+.btn-limpiar-filtros{
+    width:100%;
+    margin-top:16px;
+    padding:12px 16px;
+    border:1px solid #8f6b09;
+    border-radius:12px;
+    background-image: linear-gradient(
+      to right,
+      #ffc908 0%,
+      #ffe28a 51%,
+      #ffe28a 100%
+    );
+    color:#3f3f3f;
+    font-size:.85rem;
+    font-weight:bold;
+    cursor:pointer;
+    transition:
+        background .3s,
+        color .3s,
+        transform .2s,
+        box-shadow .3s;
+    box-shadow:
+        0 6px 14px rgba(0,0,0,.12);
+}
+
+.btn-limpiar-filtros:hover{
+    background-image: linear-gradient(
+      to right,
+      #ffe28a 0%,
+      #ffe28a 51%,
+      #ffc908 100% 
+    );
+    color: #fff;
+    transform:translateY(-2px);
+    box-shadow:
+        0 10px 22px rgba(0,0,0,.18);
+}
+
+.btn-limpiar-filtros:active{
+    transform:translateY(0);
+}
+
+.poema-item {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.poema-preview{
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
+    padding:16px 18px;
+    border-radius:14px;
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf2,
+            #ffe28a,
+            #ffc908
+        );
+    border:2px solid #d2a00c;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.45),
+        0 18px 40px rgba(0,0,0,.30);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px);
+    transition:.25s;
+    z-index:400;
+}
+
+.poema-preview.visible{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+
+}
+
+.poema-preview h4{
+    margin:0;
+    font-size:1.6rem;
+}
+
+.preview-fecha{
+    margin-top:4px;
+    font-style:italic;
+    opacity:.75;
+}
+
+.preview-texto{
+    margin-top:4px;
+    line-height:1.55;
+}
+
+.preview-temas {
+  margin-top:4px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+
+.preview-temas span {
+  padding:
+  5px 12px;
+  margin-top:4px;
+  border-radius:20px;
+  background:
+  rgba(143,107,9,.25);
+  border:
+  1px solid #8f6b09;
+  font-size:.8rem;
+}
+
+.preview-estadisticas{
+    margin-top:20px;
+    display:flex;
+    gap:18px;
+    font-weight:bold;
+    opacity:.9;
+}
+
+@media (max-width: 900px) {
+    .contenedor-poemas {
+        display:flex;
+        flex-direction:column;
+    }
+    .panel-filtros {
+        order:1;
+        position:static;
+        width: 100%;
+    }
+    #lista-poemas {
+        order:2;
+    }
+
+    #preview-global {
+        order:3;
+    }
+    .btn-filtros {
+        display: block;
+        margin-bottom: 20px;
+    }
+    .panel-filtros {
+        display: none;
+        width: 100%;
+    }
+    .panel-filtros.activo {
+        display: block;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -81,5 +367,67 @@
   .crp .poema a:visited {
   color: #9b7a05;
   }
+  .poema-preview {
+    background:
+    linear-gradient(
+      135deg,
+      #3a3a3a,
+      #2b2b2b,
+      #111
+    );
+    color:#fefda2;
+    border-color:#8f6b09;
+    box-shadow:
+      inset 0 0 10px rgba(255,215,100,.15),
+      0 15px 35px rgba(0,0,0,.65);
+  }
+  .preview-temas span {
+   background:
+   rgba(210,160,12,.2);
+   border-color:#d2a00c;
+  }
+  .panel-filtros{
+      background:
+          linear-gradient(
+              180deg,
+              #3d3d3d,
+              #232323
+          );
+      border-color:#8f6b09;
+  }
 
+  .panel-filtros h4{
+      color:#ffc908;
+  }
+
+  .panel-filtros input,
+  .panel-filtros select{
+      background:#2d2d2d;
+      color:#fefda2;
+      border-color:#555;
+  }
+
+  .panel-filtros input::placeholder{
+      color:#bfbfbf;
+  }
+
+  .panel-filtros input:focus,
+  .panel-filtros select:focus{
+      box-shadow:
+          0 0 0 4px
+          rgba(255,201,8,.15);
+  }
+
+  .poema-preview{
+      background:
+          linear-gradient(
+              180deg,
+              #3a3a3a,
+              #222,
+              #111
+          );
+      border-color:#8f6b09;
+      color:#fefda2;
+  }
 }
+
