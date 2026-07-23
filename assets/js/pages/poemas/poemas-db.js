@@ -20,7 +20,10 @@ export async function cargarCatalogo() {
 export async function obtenerPoemas() {
 
     const datos = await cargarCatalogo();
-    return datos.poemas;
+
+    return datos.poemas.filter(
+        poema => poema.publicado !== false
+    );
 
 }
 

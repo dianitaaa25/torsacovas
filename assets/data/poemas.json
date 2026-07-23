@@ -5,7 +5,8 @@
     {
       "id": 1,
       "slug": "apologia",
-      "titulo": "Apología de un crimen mnemónico",
+      "publicado": true,
+      "titulo":  "Apología de un crimen mnemónico",
       "fecha": "2026-02-11",
       "descripcion": "Apología de un crimen mnemónico, poema de Héctor Samil Acosta. Una obra que explora la obsesión, la memoria y la melancolía tras el rechazo amoroso, con imágenes de catábasis mental y lucha interna.",
       "preview": "Busqué en el cielo una respuesta para liberarme del peso abrumador que el recuerdo de su ausencia presta a la memoria de este triste servidor.",
@@ -31,7 +32,8 @@
     {
       "id": 2,
       "slug": "alheli",
-      "titulo": "Alhelí",
+      "publicado": true,
+      "titulo":  "Alhelí",
       "fecha": "2026-05-25",
       "descripcion": "Alhelí, poema de Héctor Samil Acosta. Una obra que explora la ausencia amorosa, la nostalgia y la soledad mediante la imagen del alhelí como símbolo de un recuerdo persistente que sobrevive al paso del tiempo.",
       "preview": "Otra tarde de lunes, mis memorias, al sosiego inmunes, pretendían claudicar ante el asedio de una ausencia que se afianzó en mi pesar y las hundió en su dolencia.",
@@ -59,7 +61,8 @@
     {
       "id": 3,
       "slug": "inercia-heredada",
-      "titulo": "Inercia heredada",
+      "publicado": true,
+      "titulo":  "Inercia heredada",
       "fecha": "2026-07-04",
       "descripcion": "Inercia heredada, poema de Héctor Samil Acosta. Una obra que examina la transmisión de prejuicios, roles impuestos y heridas emocionales entre generaciones mediante el diálogo entre un padre y un hijo atrapados en una herencia de comportamientos aprendidos.",
       "preview": "Escucha, atento, su dulce melodía, con tierno aroma, el amor de mi razón. Su esencia sentirás desde el primer día, aunque en su interior no entiendas todavía que en el linaje pondrás el siguiente eslabón.",
@@ -88,7 +91,8 @@
     {
       "id": 4,
       "slug": "una-flor",
-      "titulo": "Una flor de abril a junio",
+      "publicado": true,
+      "titulo":  "Una flor de abril a junio",
       "fecha": "2025-06-20",
       "descripcion": "Una flor de abril a junio, poema de Héctor Samil Acosta. Una historia simbólica sobre la amistad, la espera y el amor que florece alrededor de una flor como representación de los vínculos que sobreviven al paso de las estaciones.",
       "preview": "Cierta primavera, en un pequeño pueblo, los pájaros fueron fieles testigos del nacimiento del retoño de una flor que, al ritmo del viento, danzaba entre trigos, emanando un néctar de su interior.",
@@ -117,7 +121,8 @@
     {
       "id": 5,
       "slug": "me-quiero-enamorar",
-      "titulo": "Me quiero enamorar",
+      "publicado": true,
+      "titulo":  "Me quiero enamorar",
       "fecha": "2024-10-10",
       "descripcion": "Me quiero enamorar, poema de Héctor Samil Acosta. Una obra sobre la idealización del amor perfecto, el deseo de entregar afecto sincero y la ilusión de encontrar a una persona especial con quien compartir una conexión profunda.",
       "preview": "Quisiera descubrir lo que es el amor para entregar mi vida a alguien especial. Pintaría sus días más grises de color; siempre de flores le haría un festival.",
@@ -145,7 +150,8 @@
     {
       "id": 6,
       "slug": "cada-verso",
-      "titulo": "Cada verso es para ti",
+      "publicado": true,
+      "titulo":  "Cada verso es para ti",
       "fecha": "2024-10-26",
       "descripcion": "Cada verso es para ti, poema de Héctor Samil Acosta. Una obra sobre el amor persistente, la ausencia y la memoria de una persona amada que permanece presente a través de la escritura y los versos nacidos del dolor.",
       "preview": "En cada verso expreso que te extraño como prueba de mi amor inquebrantable, buscando en un poema sofocar el daño que me causa tu recuerdo imborrable.",
@@ -173,7 +179,8 @@
     {
       "id": 7,
       "slug": "elegia",
-      "titulo": "Elegía de un tonto enamorado",
+      "publicado": true,
+      "titulo":  "Elegía de un tonto enamorado",
       "fecha": "2025-11-10",
       "descripcion": "Elegía de un tonto enamorado, poema de Héctor Samil Acosta. Una confesión de amor, dolor y autoengaño donde un corazón persiste en entregarse pese al rechazo, la indiferencia y la dificultad de abandonar una ilusión.",
       "preview": "Miénteme para creerte una verdad, disfraza de un falso interés tu apatía. Hazme creer que fue una realidad el amor que tu corazón fingía.",
@@ -201,7 +208,8 @@
     {
       "id": 8,
       "slug": "mi-amor",
-      "titulo": "Mi amor, tu jardín de rosas",
+      "publicado": true,
+      "titulo":  "Mi amor, tu jardín de rosas",
       "fecha": "2024-12-28",
       "descripcion": "Mi amor, tu jardín de rosas, poema de Héctor Samil Acosta. Una obra romántica que utiliza el jardín y las rosas como metáforas del amor, la admiración y la entrega eterna hacia la persona amada.",
       "preview": "Tu jardín de rosas, mi amor, con una especie de cada flor, nacerá de lo que siento, del más puro y tierno sentimiento.",
@@ -229,7 +237,8 @@
     {
       "id": 9,
       "slug": "eres-mi-sueno",
-      "titulo": "Eres mi sueño",
+      "publicado": true,
+      "titulo":  "Eres mi sueño",
       "fecha": "2023-07-08",
       "descripcion": "Eres mi sueño, poema de Héctor Samil Acosta. Una obra sobre el amor idealizado, la distancia entre ilusión y realidad, y el deseo de convertir un sueño recurrente en una experiencia verdadera junto a la persona amada.",
       "preview": "Un sueño es verte en mi memoria, sin la necesidad de dormir; tenerte presente en la historia que mi mente genera junto a ti.",
@@ -257,7 +266,8 @@
     {
       "id": 10,
       "slug": "nefelibata-aturdido",
-      "titulo": "Nefelibata aturdido",
+      "publicado": true,
+      "titulo":  "Nefelibata aturdido",
       "fecha": "2025-04-08",
       "descripcion": "Nefelibata aturdido, poema de Héctor Samil Acosta. Una exploración de la mente atrapada, los pensamientos caóticos, la lucha interna y la introspección de un espíritu perdido dentro de su propio laberinto mental.",
       "preview": "Un torbellino de pensamientos arrastra consigo una lucha interna, con malas decisiones, fuertes vientos, agravando esta pesadilla eterna.",
@@ -285,7 +295,8 @@
     {
       "id": 11,
       "slug": "panchita",
-      "titulo": "Panchita, sigue comiendo",
+      "publicado": true,
+      "titulo":  "Panchita, sigue comiendo",
       "fecha": "2024-04-28",
       "descripcion": "Panchita, sigue comiendo, poema de Héctor Samil Acosta. Un poema narrativo con tono satírico sobre los estándares de belleza, la presión social, las contradicciones de las opiniones ajenas y las consecuencias de imponer expectativas sobre el cuerpo de una persona.",
       "preview": "Mamá le decía desde siempre a Panchita que comer poco no le servirá de nada. —Te estoy viendo exageradamente flaquita; los hombres no buscan una mujer delgada.",
@@ -313,7 +324,8 @@
     {
       "id": 12,
       "slug": "hasta-la-muerte",
-      "titulo": "Hasta que la muerte los separe",
+      "publicado": true,
+      "titulo":  "Hasta que la muerte los separe",
       "fecha": "2025-09-14",
       "descripcion": "Hasta que la muerte los separe, poema de Héctor Samil Acosta. Una reflexión sobre la fugacidad del amor, el compromiso, las promesas matrimoniales y la realidad cambiante de las relaciones humanas.",
       "preview": "«Hasta que la muerte los separe» pronunció un viejo párroco en algún templo con la intención de sellar un pacto que, de amor eterno, sirviera de ejemplo.",
@@ -341,7 +353,8 @@
     {
       "id": 13,
       "slug": "estrellas-azules",
-      "titulo": "Estrellas azules",
+      "publicado": false,
+      "titulo":  "Estrellas azules",
       "fecha": "2025-06-21",
       "descripcion": "Estrellas azules, poema de Héctor Samil Acosta. Un poema inspirador sobre la esperanza, la fortaleza interior y la luz que guía incluso en los momentos más difíciles.",
       "preview": "Si te llegas a sentir vencida, busca en el cielo esas estrellas que pintarán de azul tu vida y te harán brillar con ellas.",
@@ -369,7 +382,8 @@
     {
       "id": 14,
       "slug": "versos-desesperanza",
-      "titulo": "Versos de desesperanza",
+      "publicado": true,
+      "titulo":  "Versos de desesperanza",
       "fecha": "2024-07-21",
       "descripcion": "Versos de desesperanza, poema de Héctor Samil Acosta en Torsacovas. Un poema melancólico sobre la ausencia, la soledad, la espera y el dolor provocado por un amor que parece no tener respuesta.",
       "preview": "Una por una cuento las gotas de lluvia que caen como lágrimas a ninguna parte. Con la sensación de que en mi cara diluvia, solo quieren ahogar mi deseo de amarte.",
@@ -397,7 +411,8 @@
     {
       "id": 15,
       "slug": "lluvia-apartamento",
-      "titulo": "Lluvia en mi apartamento",
+      "publicado": true,
+      "titulo":  "Lluvia en mi apartamento",
       "fecha": "2026-02-12",
       "descripcion": "Lluvia en mi apartamento, poema de Héctor Samil Acosta. Una obra sobre la melancolía, el encierro emocional y la nostalgia representadas mediante imágenes de lluvia, humedad y recuerdos que invaden un espacio íntimo.",
       "preview": "Una humedad rara inunda el cuarto; siento que me ahoga en el momento. No hay control cuando me aparto, no hay ganas de otro intento.",
@@ -427,7 +442,8 @@
     {
       "id": 16,
       "slug": "sujecion",
-      "titulo": "Sujeción a un insomnio nefasto",
+      "publicado": true,
+      "titulo":  "Sujeción a un insomnio nefasto",
       "fecha": "2026-04-26",
       "descripcion": "Sujeción a un insomnio nefasto, poema de Héctor Samil Acosta. Una obra sobre la vigilia, la ansiedad y la soledad, donde recuerdos, pesadillas y pensamientos atrapantes convierten el insomnio en una prisión mental.",
       "preview": "La ausencia de luz, vacío de esperanza, retazos de recuerdos que asfixian la razón, traen unos grilletes que imponen semejanza a la prisión onírica que es su habitación.",
@@ -457,7 +473,8 @@
     {
       "id": 17,
       "slug": "deriva",
-      "titulo": "Deriva de un recuerdo utópico",
+      "publicado": true,
+      "titulo":  "Deriva de un recuerdo utópico",
       "fecha": "2026-05-09",
       "descripcion": "Deriva de un recuerdo utópico, poema de Héctor Samil Acosta. Una obra de atmósfera onírica donde paisajes del Caribe, recuerdos idealizados y símbolos surrealistas exploran el amor, la nostalgia y la pérdida.",
       "preview": "Vagando en una playa del Caribe, construiste con cocos tu indumentaria. Encontré en tu oreja la rosa de Bayahíbe y en tus labios una melodía imaginaria.",
@@ -487,7 +504,8 @@
     {
       "id": 18,
       "slug": "solo-queria-verte",
-      "titulo": "Solo quería verte",
+      "publicado": true,
+      "titulo":  "Solo quería verte",
       "fecha": "2024-07-25",
       "descripcion": "Solo quería verte, poema de Héctor Samil Acosta. Una obra sobre la despedida, la distancia y el anhelo de reencontrarse con alguien amado antes de una separación definitiva.",
       "preview": "La primera vez, al campo me llevaste; cual cohete, se dispararon mis sentidos, sin prever la decepción que me causaste al decir que te ibas a Estados Unidos.",
@@ -517,7 +535,8 @@
     {
       "id": 19,
       "slug": "adios-amor",
-      "titulo": "Adiós, amor",
+      "publicado": true,
+      "titulo":  "Adiós, amor",
       "fecha": "2023-06-20",
       "descripcion": "Adiós, amor, poema de Héctor Samil Acosta en Torsacovas. Un poema sobre la despedida, la distancia y el dolor de amar a alguien que se marcha.",
       "preview": "Convertiste un “te amo” en sinónimo del adiós, y las horas solo aceleran esta despedida. No quiero pensar en que tenemos el tiempo contado; solo quisiera detener esta cuenta regresiva.",
@@ -547,7 +566,8 @@
     {
       "id": 20,
       "slug": "luna-roja",
-      "titulo": "Luna roja",
+      "publicado": true,
+      "titulo":  "Luna roja",
       "fecha": "2023-06-19",
       "descripcion": "Luna roja, poema de Héctor Samil Acosta en Torsacovas. Un poema sobre el desamor, la desilusión y las memorias que regresan bajo la luz de una luna roja.",
       "preview": "Otra noche oscura de abril pasan las horas del reloj y, sin compañía en mi habitación, espero que algo muera en mí esta noche. Luna roja, espero por ti.",
@@ -577,7 +597,8 @@
     {
       "id": 21,
       "slug": "esencial",
-      "titulo": "Esencial",
+      "publicado": true,
+      "titulo":  "Esencial",
       "fecha": "2023-07-06",
       "descripcion": "Esencial, poema de Héctor Samil Acosta en Torsacovas. Una obra sobre el orgullo, la distancia emocional y el deseo de reconciliar un amor que aún se siente indispensable.",
       "preview": "Mi arrogancia busca olvidarte, y tu orgullo tomó la misma decisión. Pero me gustaría volver a unir las partes que formaban un mismo corazón.",
@@ -607,7 +628,8 @@
     {
       "id": 22,
       "slug": "mentiroso",
-      "titulo": "Mentiroso",
+      "publicado": true,
+      "titulo":  "Mentiroso",
       "fecha": "2023-07-06",
       "descripcion": "Mentiroso, poema de Héctor Samil Acosta en Torsacovas. Un poema sobre el amor oculto, las mentiras que se dicen para esconder los sentimientos y la lucha entre la verdad del corazón y el miedo a confesarla.",
       "preview": "Me enamoré y ni siquiera me di cuenta, perdí el control de lo que siento por ti. Ahora de mi corazón eres tú la dueña, y si alguna vez dije que no te quiero, te mentí.",
@@ -637,7 +659,8 @@
     {
       "id": 23,
       "slug": "corazon-timido",
-      "titulo": "Corazón tímido",
+      "publicado": true,
+      "titulo":  "Corazón tímido",
       "fecha": "2023-06-20",
       "descripcion": "Corazón tímido, poema de Héctor Samil Acosta en Torsacovas. Un poema sobre el amor que nace con timidez, el miedo a confesar los sentimientos y la esperanza de ser correspondido.",
       "preview": "Siento el verdadero amor cuando te acercas, mis ojos estremecen y mis labios inquietan. Por segundos pierdo la razón, los latidos de mi corazón se aceleran.",
@@ -667,7 +690,8 @@
     {
       "id": 24,
       "slug": "un-ser",
-      "titulo": "Un ser de tono olvidado",
+      "publicado": true,
+      "titulo":  "Un ser de tono olvidado",
       "fecha": "2025-01-16",
       "descripcion": "Un ser de tono olvidado, poema de Héctor Samil Acosta. Una reflexión sobre exclusión, injusticia y la lucha por la justicia y el respeto de la propia valía.",
       "preview": "Por el mundo viaja solo un ser de tono olvidado, de un color muy señalado, que es perseguido por dolo y de todo es acusado.",
@@ -697,7 +721,8 @@
     {
       "id": 25,
       "slug": "victima",
-      "titulo": "Teatro de una víctima perfecta",
+      "publicado": true,
+      "titulo":  "Teatro de una víctima perfecta",
       "fecha": "2023-07-06",
       "descripcion": "Teatro de una víctima perfecta, poema de Héctor Samil Acosta en Torsacovas. Un poema sobre las acusaciones en el amor, el papel del villano y la manipulación emocional en una relación.",
       "preview": "De nuevo soy el tramposo que no sigue las reglas de tus partidas, el único culpable de tenerte atrapada en callejones sin salida.",
