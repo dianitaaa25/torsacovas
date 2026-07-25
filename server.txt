@@ -20,3 +20,6 @@ git add .
 git commit -m "cambio"
 git push
 
+
+
+npm run build

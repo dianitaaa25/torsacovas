@@ -1,9 +1,22 @@
-import { supabaseClient } from "../../api/supabase/client.js";
-import { estadisticas } from "./estado-poemas.js";
+import {
+    supabaseClient
+} from "../../api/supabase/client.js";
 
-export async function cargarEstadisticas() {
 
-    const { data } = await supabaseClient
+import {
+    estadisticas
+} from "./estado-poemas.js";
+
+
+
+export async function cargarEstadisticas(){
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
         .from("posts")
         .select(`
             slug,
@@ -11,23 +24,88 @@ export async function cargarEstadisticas() {
             comentarios(count)
         `);
 
-    Object.keys(estadisticas).forEach(k => delete estadisticas[k]);
 
-        data.forEach(post => {
 
-        let slug = post.slug;
+    if(error){
 
-        if (slug.startsWith("poema-")) {
-            slug = slug.substring(6);
+        console.error(
+            "Error cargando estadísticas:",
+            error
+        );
+
+        return;
+
+    }
+
+
+
+    Object.keys(estadisticas)
+    .forEach(
+        key =>
+        delete estadisticas[key]
+    );
+
+
+
+    data.forEach(post=>{
+
+
+        let slug =
+        post.slug;
+
+
+
+        if(
+            slug.startsWith("poema-")
+        ){
+
+            slug =
+            slug.substring(6);
+
         }
 
-        estadisticas[slug] = {
 
-            likes: post.likes?.[0]?.count ?? 0,
-            comentarios: post.comentarios?.[0]?.count ?? 0
+
+        estadisticas[slug]={
+
+            likes:
+            post.likes?.[0]?.count ?? 0,
+
+
+            comentarios:
+            post.comentarios?.[0]?.count ?? 0
 
         };
 
+
     });
+
+
+}
+
+export function aplicarEstadisticas(poemas){
+
+
+    return poemas.map(poema=>{
+
+
+        return {
+
+            ...poema,
+
+
+            stats:
+            estadisticas[poema.slug]
+            ||
+            {
+                likes:0,
+                comentarios:0
+            }
+
+        };
+
+
+    });
+
 
 }

@@ -2,37 +2,61 @@ import {
     obtenerPoemas
 } from "./poemas-db.js";
 
+
 export let todosLosPoemas = [];
+
+export let poemasFiltrados = [];
 
 export let estadisticas = {};
 
+export let mapaEstadisticas = {};
+
 export let estadoFiltros = {
+
     busqueda: "",
     tema: "",
     anio: "",
     mes: "",
     orden: "aleatorio"
+
 };
 
-export async function iniciarEstado() {
 
-    todosLosPoemas = await obtenerPoemas();
+export async function iniciarEstado(){
+
+    todosLosPoemas =
+        await obtenerPoemas();
+
+
+    poemasFiltrados =
+        [...todosLosPoemas];
+
 
     return todosLosPoemas;
 
 }
 
-export function actualizarFiltro(nombre, valor) {
+
+
+export function actualizarFiltro(
+    nombre,
+    valor
+){
 
     estadoFiltros[nombre] = valor;
 
 }
 
-export function normalizar(texto) {
 
-    return texto
+
+export function normalizar(texto){
+
+    return (texto || "")
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        );
 
 }

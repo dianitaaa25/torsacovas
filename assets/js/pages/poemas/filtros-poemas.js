@@ -84,7 +84,7 @@ async function iniciar() {
     const anios = [
         ...new Set(
             todosLosPoemas.map(
-                poema => poema.fecha.substring(0,4)
+                poema => poema.año
             )
         )
     ];

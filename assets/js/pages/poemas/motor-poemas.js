@@ -16,6 +16,9 @@ import {
     guardarURL
 } from "./url-poemas.js";
 
+import {
+    aplicarEstadisticas
+} from "./estadisticas-poemas.js";
 
 export async function actualizarListado() {
 
@@ -46,50 +49,57 @@ export async function actualizarListado() {
     }
 
     if (estadoFiltros.tema) {
-
-        resultados = resultados.filter(poema =>
-            poema.temas.includes(
+    
+        resultados =
+        resultados.filter(poema =>
+            (poema.temas || [])
+            .includes(
                 estadoFiltros.tema
             )
         );
-
+    
     }
 
     if (estadoFiltros.anio) {
 
-        resultados = resultados.filter(poema =>
-            poema.fecha.startsWith(
-                estadoFiltros.anio
-            )
+        resultados =
+        resultados.filter(poema =>
+            String(poema.año) ===
+            String(estadoFiltros.anio)
         );
 
     }
 
     if (estadoFiltros.mes) {
 
-        resultados = resultados.filter(poema =>
-            poema.fecha.substring(5,7) === estadoFiltros.mes
+        resultados =
+        resultados.filter(poema =>
+            String(poema.mes).padStart(2,"0")
+            ===
+            estadoFiltros.mes
         );
 
     }
 
-        if (estadoFiltros.orden === "reciente") {
+    if (estadoFiltros.orden === "reciente") {
 
-        resultados.sort((a, b) =>
-            new Date(b.fecha) - new Date(a.fecha)
+        resultados.sort((a,b)=>
+            b.fecha.localeCompare(
+                a.fecha
+            )
         );
 
     }
-
 
     if (estadoFiltros.orden === "antiguo") {
 
-        resultados.sort((a, b) =>
-            new Date(a.fecha) - new Date(b.fecha)
+        resultados.sort((a,b)=>
+            a.fecha.localeCompare(
+                b.fecha
+            )
         );
 
     }
-
 
     if (estadoFiltros.orden === "az") {
 
@@ -117,9 +127,13 @@ export async function actualizarListado() {
 
     if (estadoFiltros.orden === "aleatorio") {
 
+
         resultados.sort(
-            () => Math.random() - 0.5
+            () =>
+            Math.random() -
+            0.5
         );
+
 
     }
 
@@ -148,7 +162,12 @@ export async function actualizarListado() {
     }
 
     guardarURL();
-    mostrarPoemas(resultados);
+
+    mostrarPoemas(
+        aplicarEstadisticas(
+            resultados
+        )
+    );
 
     document.getElementById("contador-poemas")
     .textContent = `${resultados.length} poemas`;
