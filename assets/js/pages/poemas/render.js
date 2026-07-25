@@ -47,7 +47,7 @@ No se encontró ningún poema
 
 
         enlace.href =
-            `/pages/poemas/${poema.archivo}`;
+            `/poemas/${poema.slug}`;
 
 
         enlace.innerHTML =
