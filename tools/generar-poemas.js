@@ -107,6 +107,17 @@ archivos
         .attr("content")
         ?.trim() || "";
 
+    const temas = extraerMetaLista(
+        $,
+        "poema-temas"
+    );
+
+
+    const palabrasClave = extraerMetaLista(
+        $,
+        "poema-palabras-clave"
+    );
+
 
 
     const slug = obtenerSlug(
@@ -156,9 +167,9 @@ archivos
         textoBusqueda:
             limpiarTexto(texto),
 
-        temas:[],
+        temas,
 
-        palabrasClave:[],
+        palabrasClave,
 
         stats:{
 
@@ -269,8 +280,27 @@ function generarPreview(texto){
 
 }
 
+function extraerMetaLista($, nombre){
 
 
+    const contenido = $(`meta[name="${nombre}"]`)
+        .attr("content")
+        ?.trim();
+
+
+    if(!contenido){
+
+        return [];
+
+    }
+
+
+    return contenido
+        .split(",")
+        .map(item => item.trim())
+        .filter(Boolean);
+
+}
 
 function convertirFecha(fecha){
 
