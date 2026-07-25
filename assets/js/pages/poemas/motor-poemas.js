@@ -20,31 +20,94 @@ import {
     aplicarEstadisticas
 } from "./estadisticas-poemas.js";
 
+function obtenerBase(){
+
+    return [
+        ...todosLosPoemas
+    ];
+
+}
+
 export async function actualizarListado() {
 
-    let resultados = [...todosLosPoemas];
+    let resultados = obtenerBase();
 
     if (estadoFiltros.busqueda) {
 
-        const texto = normalizar(
+
+        const palabras =
+        normalizar(
             estadoFiltros.busqueda
-        );
-
-        resultados = resultados.filter(poema => {
-
-            const contenido = normalizar([
-                poema.titulo,
-                poema.descripcion,
-                poema.preview,
-                poema.textoBusqueda,
-                ...(poema.temas || []),
-                ...(poema.palabrasClave || [])
-            ].join(" "));
+        )
+        .split(" ")
+        .filter(Boolean);
 
 
-            return contenido.includes(texto);
+
+        resultados =
+        resultados.filter(poema=>{
+
+
+            const campos = {
+
+
+                titulo:
+                normalizar(
+                    poema.titulo
+                ),
+
+
+                descripcion:
+                normalizar(
+                    poema.descripcion
+                ),
+
+
+                contenido:
+                normalizar(
+                    poema.textoBusqueda
+                ),
+
+
+                preview:
+                normalizar(
+                    poema.preview
+                ),
+
+
+                temas:
+                normalizar(
+                    (poema.temas || [])
+                    .join(" ")
+                ),
+
+
+                claves:
+                normalizar(
+                    (poema.palabrasClave || [])
+                    .join(" ")
+                )
+
+            };
+
+
+
+            const textoTotal =
+            Object.values(campos)
+            .join(" ");
+
+
+
+            return palabras.every(
+                palabra =>
+                textoTotal.includes(
+                    palabra
+                )
+            );
+
 
         });
+
 
     }
 
@@ -169,7 +232,21 @@ export async function actualizarListado() {
         )
     );
 
-    document.getElementById("contador-poemas")
-    .textContent = `${resultados.length} poemas`;
+    const contador =
+    document.getElementById(
+        "contador-poemas"
+    );
+    
+    
+    if(contador){
+    
+        contador.textContent =
+        resultados.length === 1
+        ?
+        "1 poema encontrado"
+        :
+        `${resultados.length} poemas encontrados`;
+    
+    }
 
 }

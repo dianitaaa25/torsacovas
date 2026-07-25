@@ -248,8 +248,8 @@ input[type="search"]::-webkit-search-cancel-button{
 
 .poema-preview{
     position:absolute;
-    left:0;
-    right:0;
+    left:1.5rem;
+    right:1.5rem;
     top:100%;
     padding:16px 18px;
     border-radius:14px;
@@ -319,6 +319,45 @@ input[type="search"]::-webkit-search-cancel-button{
     gap:18px;
     font-weight:bold;
     opacity:.9;
+}
+
+#lista-poemas mark,
+.poema-preview mark {
+    background: rgba(212,175,55,.35);
+    color: inherit;
+    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+
+}
+
+#buscador-poemas {
+    transition:
+    box-shadow .3s ease,
+    border-color .3s ease;
+}
+
+
+#buscador-poemas:focus {
+    outline:none;
+    border-color:#d4af37;
+    box-shadow:
+    0 0 0 3px rgba(212,175,55,.2);
+
+}
+
+#buscador-poemas.buscando {
+    background:
+    rgba(212,175,55,.08);
+}
+
+.sin-resultados {
+    text-align:center;
+    padding:3rem 1rem;
+    opacity:.75;
+}
+
+.sin-resultados h4 {
+    margin-bottom:.8rem;
 }
 
 @media (max-width: 900px) {

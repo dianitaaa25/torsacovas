@@ -1,6 +1,9 @@
 const preview =
     document.getElementById("preview-global");
 
+import {
+    estadoFiltros
+} from "./estado-poemas.js";
 
 export function renderizarPoemas(
     poemas,
@@ -10,6 +13,23 @@ export function renderizarPoemas(
 
     contenedor.innerHTML = "";
 
+
+    if(!poemas.length){
+
+        contenedor.innerHTML = `
+        
+            <div class="sin-resultados">
+                <h4>
+No se encontró ningún poema
+                </h4>
+
+            </div>
+        
+        `;
+        
+        return;
+        
+    }
 
     poemas.forEach(poema => {
 
@@ -30,8 +50,11 @@ export function renderizarPoemas(
             `/pages/poemas/${poema.archivo}`;
 
 
-        enlace.textContent =
-            poema.titulo;
+        enlace.innerHTML =
+        resaltarTexto(
+            poema.titulo,
+            estadoFiltros.busqueda
+        );
 
 
 
@@ -46,7 +69,10 @@ export function renderizarPoemas(
                 preview.innerHTML = `
 
                     <h4>
-                        ${poema.titulo}
+                        ${resaltarTexto(
+                            poema.titulo,
+                            estadoFiltros.busqueda
+                        )}
                     </h4>
 
 
@@ -162,5 +188,39 @@ function formatearFecha(fecha){
                 year:"numeric"
             }
         );
+
+}
+
+function resaltarTexto(
+    texto,
+    busqueda
+){
+
+    if(!busqueda || !texto){
+
+        return texto || "";
+
+    }
+
+
+    const escape =
+    busqueda
+    .replace(
+        /[.*+?^${}()|[\]\\]/g,
+        "\\$&"
+    );
+
+
+    const expresion =
+    new RegExp(
+        `(${escape})`,
+        "gi"
+    );
+
+
+    return texto.replace(
+        expresion,
+        "<mark>$1</mark>"
+    );
 
 }

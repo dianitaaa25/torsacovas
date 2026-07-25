@@ -33,5 +33,10 @@ input.addEventListener(
 
         actualizarListado();
 
+        input.classList.toggle(
+            "buscando",
+            input.value.trim() !== ""
+        );
+
     }
 );
