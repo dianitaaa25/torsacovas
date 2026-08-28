@@ -1,8 +1,43 @@
 {
   "version": 1,
-  "ultimaActualizacion": "2026-07-25",
-  "total": 24,
+  "ultimaActualizacion": "2026-08-28",
+  "total": 25,
   "poemas": [
+    {
+      "slug": "dalia",
+      "publicado": true,
+      "titulo": "Dalia",
+      "fecha": "2026-08-26",
+      "año": 2026,
+      "mes": 8,
+      "archivo": "2026/dalia.html",
+      "descripcion": "Dalia, poema de Héctor Samil Acosta. Una alegoría botánica sobre la violencia, el trauma, la vulnerabilidad y sus profundas secuelas, donde la flor se convierte en símbolo de una inocencia quebrantada.",
+      "preview": "Las lágrimas inundaron el vergel,\nmientras la ternura daba a luz en otoño;\na destiempo observaba el agresor aquel\nque de una dalia brotó un nuevo retoño.\n\nDiminuta simiente, danzaba con vaivén\nen el refugio de su cándida germinación.\nIgnoraba brotar...",
+      "textoBusqueda": "Las lágrimas inundaron el vergel, mientras la ternura daba a luz en otoño; a destiempo observaba el agresor aquel que de una dalia brotó un nuevo retoño. Diminuta simiente, danzaba con vaivén en el refugio de su cándida germinación. Ignoraba brotar como vástago sin sostén al gestarse la orfandad en su fecundación. Su tallo aprendió del tronco la dureza, y espigó su figura en curvas codiciables. Despertó su néctar, único entre la maleza, en el zángano, intenciones despreciables. En su inflorescencia fugaz, Dalia florecía con la soledad enraizada en el parterre, y unas gotas de rocío en su fisonomía empapaban de pena una fisura sin cierre. En la oscuridad del pensil, entre las dalias, no precisó de fruto para mostrar su polen; la polinización fue un asalto sin represalias, el estigma sentencia a quienes su pureza violen. Con su fragilidad, cada pétalo intacto cayó vulnerado en una desfloración prematura, donde el rechazo fue violentado por el tacto y sus sépalos oyeron lo que el miedo murmura. Dalia reaccionó con tigmonastia huidiza, y el ultraje, como un parásito en el pistilo, sembró por el viento resquicios de una ceniza que la dejó decumbente, con espinas sin filo. Tras el quebranto, inerme sobre sus raíces, intentó aferrarse a un pedúnculo sin soporte; el agravio se arraigó perenne en sus cicatrices, y no hubo consuelo pratense que la reconforte. Con sus secuelas, la depravación penetró su piel, y el zángano se desvaneció ufano en la pradera; el silencio, como cómplice de un haustorio cruel, invadió su testa mucho antes de que él partiera. Unas gotas de savia, en un triste tono escarlata, embadurnaron su lecho con lo que pasó ese día. Su herida, más allá de la epidermis, retrata la abulia foliácea que de amor la despojaría. Aquel acto furtivo marchitó más que a una flor, podó cualquier estolón que tendiera al horizonte; mientras, en la absición, Dalia ocultó su dolor, pensando en su fin como escape de aquel monte.",
+      "temas": [
+        "Sociedad",
+        "Naturaleza",
+        "Existencia"
+      ],
+      "palabrasClave": [
+        "dalia",
+        "violencia",
+        "trauma",
+        "orfandad",
+        "agresión",
+        "vulnerabilidad",
+        "ultraje",
+        "cicatrices",
+        "silencio",
+        "dolor",
+        "secuelas",
+        "inocencia"
+      ],
+      "stats": {
+        "likes": 0,
+        "comentarios": 0
+      }
+    },
     {
       "slug": "inercia-heredada",
       "publicado": true,
